@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     currentUser: {}
   }
-  
+
   componentDidMount() {
     const token = localStorage.getItem('token')
     if (token) {

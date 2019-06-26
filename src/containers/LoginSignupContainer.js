@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Signup from '../components/Signup'
 import Login from '../components/Login'
+import {connect} from 'react-redux';
 
 class LoginSignupContainer extends Component {
 

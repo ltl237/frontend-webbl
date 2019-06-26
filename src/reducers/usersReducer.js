@@ -1,14 +1,16 @@
 const initialState = {
-  currentUser: {}
+  currentUserLoggedIn: {}
 }
 
 
 
-export default function usersReducer(state = initialState, action) {
+export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'LOGIN_USER':
-        return {...state, currentUser: action.payload}
+        return {...state, currentUserLoggedIn: action.payload}
       default:
         return state;
     }
   }
+
+export default usersReducer

@@ -78,6 +78,11 @@ export const userLoginFetch = user => {
   }
 }
 
+export const viewSingleEntry = entryObj => ({
+  type: 'VIEW_SINGLE_ENTRY',
+  payload: entryObj
+})
+
 export const fetchAllTheEntries = allEntriesArr => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/entries")

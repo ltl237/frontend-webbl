@@ -9,12 +9,14 @@ import Login from './components/Login'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome} from './redux/actions';
+import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries} from './redux/actions';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.getProfileFetch()
+
+    this.props.fetchAllTheEntries()
 
   }
 
@@ -25,6 +27,7 @@ class App extends Component {
     localStorage.removeItem("token")
     // Remove the user object from the Redux store
     this.props.logoutUser()
+
   }
 
   viewMyProfileClick = event => {
@@ -76,15 +79,14 @@ class App extends Component {
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
   profileToView: state.usersReducer.profileToView,
-  viewOwnProfile: state.usersReducer.viewOwnProfile,
-  viewHome: state.usersReducer.viewHome
 })
 
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
   logoutUser: () => dispatch(logoutUser()),
   viewOwnProfile: (userObj) => dispatch(viewOwnProfile(userObj)),
-  viewHome: (e) => dispatch(viewHome(e))
+  viewHome: (e) => dispatch(viewHome(e)),
+  fetchAllTheEntries: () => dispatch(fetchAllTheEntries())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

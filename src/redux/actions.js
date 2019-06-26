@@ -78,6 +78,16 @@ export const userLoginFetch = user => {
   }
 }
 
+export const fetchAllTheEntries = allEntriesArr => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/entries")
+            .then(res => res.json())
+            .then(entryData => {
+              dispatch({type: 'FETCH_ALL_ENTRIES', payload: entryData})
+            })
+  }
+}
+
 export const setCurrentUserLoggedIn = userObj => ({
   type: 'SET_CURRENT_USER_LOGGED_IN',
   payload: userObj

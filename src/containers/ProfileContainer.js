@@ -38,9 +38,9 @@ class ProfileContainer extends Component {
 
                 <tbody>
                 {this.props.profileToView.comments.map(comment => {
-                  return <Fragment>
+                  return <Fragment key={comment.id}>
                           <tr>
-                            <td><strong>{comment.entry.title}</strong><br></br>
+                            <td><strong>{comment.entry.title} </strong><br></br>
                             -{comment.content}
                             </td>
                           </tr>

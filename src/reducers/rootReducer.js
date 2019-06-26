@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
 import usersReducer from './usersReducer'
-const initialState = {
-  currentUserLoggedIn: {}
-}
+import entriesReducer from './entriesReducer'
 
 const rootReducer = combineReducers({
-  usersReducer: usersReducer
+  usersReducer: usersReducer,
+  entriesReducer: entriesReducer
 });
 
 export default rootReducer;

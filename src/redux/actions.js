@@ -83,6 +83,14 @@ export const setCurrentUserLoggedIn = userObj => ({
   payload: userObj
 })
 
+export const viewOwnProfile = userObj => ({
+  type: 'VIEW_OWN_PROFILE',
+  payload: userObj
+})
+
+export const viewHome = event => ({
+  type: 'VIEW_HOME'
+})
 
 export const loginUser = userObj => ({
     type: 'LOGIN_USER',

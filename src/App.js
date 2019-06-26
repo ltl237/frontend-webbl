@@ -7,19 +7,15 @@ import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'
 import Login from './components/Login'
 import EntriesContainer from './containers/EntriesContainer'
+import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, setCurrentUserLoggedIn} from './redux/actions';
+import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome} from './redux/actions';
 
 class App extends Component {
-  state = {
-    currentUserLoggedIn: {}
-  }
 
   componentDidMount() {
     this.props.getProfileFetch()
-    this.setState({
-      currentUserLoggedIn: this.props.currentUserLoggedIn
-    })
+
   }
 
 
@@ -31,20 +27,42 @@ class App extends Component {
     this.props.logoutUser()
   }
 
-  render(){
+  viewMyProfileClick = event => {
+    event.preventDefault()
+    this.props.viewOwnProfile()
+  }
 
-    console.log(this.props.currentUserLoggedIn);
-    console.log(this.props.currentUserLoggedIn === {});
-    // debugger
+  viewHomePageClick = event => {
+    event.preventDefault()
+    this.props.viewHome()
+  }
+
+  render(){
+    console.log(this.props.profileToView);
     return (
       <div className="App">
-
 
             {this.props.currentUserLoggedIn.username
             ?
             <Fragment>
-              <EntriesContainer/>
-              <button onClick={this.handleClickLogout}>Log Out</button>
+              <Fragment>
+                <div className="navsl">
+                    <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
+                    <p>Welcome to BookFace, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
+                    <div>
+                      <p><a onClick={this.creatingNewPost} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
+                    </div>
+                    <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
+                    <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
+                </div>
+              </Fragment>
+              {this.props.profileToView.username ?
+                <ProfileContainer/>
+                :
+                <EntriesContainer/>
+              }
+
+
             </Fragment>
             :
             <LoginSignupContainer />
@@ -56,13 +74,17 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
+  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+  profileToView: state.usersReducer.profileToView,
+  viewOwnProfile: state.usersReducer.viewOwnProfile,
+  viewHome: state.usersReducer.viewHome
 })
 
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
-  setCurrentUserLoggedIn: (userObj) => dispatch(setCurrentUserLoggedIn(userObj)),
-  logoutUser: () => dispatch(logoutUser())
+  logoutUser: () => dispatch(logoutUser()),
+  viewOwnProfile: (userObj) => dispatch(viewOwnProfile(userObj)),
+  viewHome: (e) => dispatch(viewHome(e))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

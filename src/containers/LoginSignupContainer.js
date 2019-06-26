@@ -5,16 +5,6 @@ import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, loginUser} from '../redux/actions';
 
 class LoginSignupContainer extends Component {
-  state = {
-    currentUserLoggedIn: {}
-  }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     currentUserLoggedIn: this.props.currentUserLoggedIn
-  //   })
-  // }
-
   render() {
     // console.log(this.state);
     // console.log(this.props);

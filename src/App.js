@@ -34,17 +34,19 @@ class App extends Component {
   render(){
 
     // debugger
+
     return (
       <div className="App">
 
 
-            {this.props.currentUserLoggedIn
+            {this.props.currentUserLoggedIn === {}
             ?
             <Fragment>
               <EntriesContainer/>
-              <button onClick={this.handleClick}>Log Out</button>
+              <button onClick={this.handleClickLogout}>Log Out</button>
             </Fragment>
-            : <LoginSignupContainer />
+            :
+            <LoginSignupContainer />
           }
 
       </div>

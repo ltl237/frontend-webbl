@@ -33,13 +33,14 @@ class App extends Component {
 
   render(){
 
+    console.log(this.props.currentUserLoggedIn);
+    console.log(this.props.currentUserLoggedIn === {});
     // debugger
-
     return (
       <div className="App">
 
 
-            {this.props.currentUserLoggedIn === {}
+            {this.props.currentUserLoggedIn.username
             ?
             <Fragment>
               <EntriesContainer/>

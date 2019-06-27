@@ -9,13 +9,13 @@ class Entry extends Component {
 
 
     handleModalClick = event => {
-      event.preventDefault()
 
       const entryObj = this.props.allEntries.find(entry =>{
         return entry.id === this.props.entry.id
       })
       // debugger
       this.props.viewSingleEntry(entryObj)
+      // debugger
     }
 
     handleUserClick = (event, clickedUserObj) => {
@@ -28,9 +28,10 @@ class Entry extends Component {
     }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
-      <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
+      <Fragment>
+      <div onClick={this.handleModalClick} data-toggle="modal" data-target={"#bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
 
       {
         this.props.entry.user_id ?
@@ -71,16 +72,15 @@ class Entry extends Component {
         :
         null
       }
-
-        <EntryModal/>
+          <EntryModal entry={this.props.entry}/>
       </div>
+      </Fragment>
     )
   }
 }
 
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
-  viewSingleEntry: state.entriesReducer.viewSingleEntry,
   allUsers: state.usersReducer.allUsers
 })
 

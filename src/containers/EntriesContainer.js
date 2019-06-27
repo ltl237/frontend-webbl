@@ -31,11 +31,9 @@ class EntriesContainer extends Component {
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
   allEntries: state.entriesReducer.allEntries,
-  viewSingleEntry: state.entriesReducer.viewSingleEntry
 })
 const mapDispatchToProps = dispatch => ({
   // userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-  viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj))
 })
 
 // export default EntriesContainer;

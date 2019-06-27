@@ -373,3 +373,8 @@
   border-radius: 5px;
   background-color: #fafafa;
 }
+
+
+.modal-content {
+  /* z-index: -100; */
+}

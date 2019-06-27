@@ -2,6 +2,7 @@ import React, {Component,Fragment} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
+import Test from './components/Test'
 import LoginSignupContainer from "./containers/LoginSignupContainer"
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'
@@ -53,35 +54,32 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-
-            {this.props.currentUserLoggedIn.username
-            ?
-            <Fragment>
-              <Fragment>
-                <div className="navsl">
-                    <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
-                    <p>Welcome to Webbl, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
-                    <div>
-                      <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
-                    </div>
-                    <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
-                    <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
+        {this.props.currentUserLoggedIn.username
+        ?
+        <Fragment>
+          <Fragment>
+            <div className="navsl">
+                <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
+                <p>Welcome to Webbl, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
+                <div>
+                  <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
                 </div>
-              </Fragment>
-              {this.props.profileToView.username ?
-                <ProfileContainer/>
-                :
-                <Fragment>
-                {this.props.isCreatingNewEntryBool ?  <EntryForm/> : <EntriesContainer/>}
-
-                </Fragment>
-              }
-
+                <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
+                <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
+            </div>
+          </Fragment>
+          {this.props.profileToView.username ?
+            <ProfileContainer/>
+            :
+            <Fragment>
+            {this.props.isCreatingNewEntryBool ?  <EntryForm/> : <EntriesContainer/>}
 
             </Fragment>
-            :
-            <LoginSignupContainer />
           }
+        </Fragment>
+        :
+        <LoginSignupContainer />
+      }
 
       </div>
     );
@@ -105,3 +103,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
+//

@@ -31,8 +31,7 @@ class Entry extends Component {
     // console.log(this.props);
     return (
       <Fragment>
-      <div onClick={this.handleModalClick} data-toggle="modal" data-target={"#bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
-
+      <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
       {
         this.props.entry.user_id ?
         <Fragment key={this.props.entry.id}>
@@ -72,8 +71,8 @@ class Entry extends Component {
         :
         null
       }
-          <EntryModal entry={this.props.entry}/>
       </div>
+      <EntryModal entry={this.props.entry}/>
       </Fragment>
     )
   }

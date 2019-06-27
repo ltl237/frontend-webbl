@@ -6,10 +6,11 @@ import LoginSignupContainer from "./containers/LoginSignupContainer"
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'
 import Login from './components/Login'
+import EntryForm from './components/EntryForm'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers} from './redux/actions';
+import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -38,10 +39,19 @@ class App extends Component {
   viewHomePageClick = event => {
     event.preventDefault()
     this.props.viewHome()
+    if (this.props.isCreatingNewEntryBool) {
+      this.props.isCreatingNewEntry()
+    }
+
+  }
+
+  handleNewEntryClick = event => {
+    event.preventDefault()
+    this.props.isCreatingNewEntry()
   }
 
   render(){
-    console.log(this.props.profileToView);
+    console.log(this.props.isCreatingNewEntryBool);
     return (
       <div className="App">
 
@@ -51,9 +61,9 @@ class App extends Component {
               <Fragment>
                 <div className="navsl">
                     <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
-                    <p>Welcome to BookFace, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
+                    <p>Welcome to Webbl, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
                     <div>
-                      <p><a onClick={this.creatingNewPost} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
+                      <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
                     </div>
                     <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
                     <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
@@ -62,7 +72,10 @@ class App extends Component {
               {this.props.profileToView.username ?
                 <ProfileContainer/>
                 :
-                <EntriesContainer/>
+                <Fragment>
+                {this.props.isCreatingNewEntryBool ?  <EntryForm/> : <EntriesContainer/>}
+
+                </Fragment>
               }
 
 
@@ -79,6 +92,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
   profileToView: state.usersReducer.profileToView,
+  isCreatingNewEntryBool: state.entriesReducer.isCreatingNewEntryBool
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -87,7 +101,8 @@ const mapDispatchToProps = dispatch => ({
   viewOwnProfile: (userObj) => dispatch(viewOwnProfile(userObj)),
   viewHome: (e) => dispatch(viewHome(e)),
   fetchAllTheEntries: () => dispatch(fetchAllTheEntries()),
-  fetchAllUsers: () => dispatch(fetchAllUsers())
+  fetchAllUsers: () => dispatch(fetchAllUsers()),
+  isCreatingNewEntry: () => dispatch(isCreatingNewEntry())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

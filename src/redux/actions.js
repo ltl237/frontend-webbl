@@ -88,7 +88,29 @@ export const userLoginFetch = user => {
   }
 }
 
+export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 
+export const createNewEntry = newEntryObj => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/entries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ entry: newEntryObj})
+    })
+    .then(res => res.json())
+    .then(newEntryObj => {
+      if (newEntryObj.errors) {
+        console.log(newEntryObj.errors);
+      } else {
+        dispatch({type: 'CREATE_NEW_ENTRY', payload: newEntryObj})
+      }
+
+    })
+  }
+}
 
 export const viewSingleEntry = (entryObj) => ({
   type: 'VIEW_SINGLE_ENTRY',

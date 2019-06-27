@@ -34,6 +34,7 @@
   border-radius: 5px;
   width: 77%;
   margin: 0 auto;
+  overflow: scroll;
 }
 
 .profile {

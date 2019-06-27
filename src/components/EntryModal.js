@@ -2,11 +2,23 @@ import React, {Component, Fragment} from 'react';
 import Faker from 'faker'
 import {connect} from 'react-redux';
 import TimeAgo from 'timeago-react'
-import {userLoginFetch} from '../redux/actions';
+import {userLoginFetch, viewSomeonesProfile} from '../redux/actions';
 
 class EntryModal extends Component {
+
+  handleUserClick = (event, clickedUserObj) => {
+    event.preventDefault()
+    console.log(clickedUserObj);
+
+    const userObj = this.props.allUsers.find(user => {
+      return clickedUserObj.id === user.id
+    })
+    this.props.viewSomeonesProfile(userObj)
+    document.querySelector(".modal-backdrop").remove()
+  }
+
   render() {
-    console.log(this.props);
+    console.log(this.props.singleEntryToView);
     return (
       <div id="viewing-modal" className={"modal fade bd-example-modal-lg-" + this.props.singleEntryToView.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
@@ -35,7 +47,7 @@ class EntryModal extends Component {
 
                     </div>
                     <div className="comment-like-wrapper">
-                    
+
                     </div>
                   </div>
                   <hr></hr>
@@ -44,7 +56,9 @@ class EntryModal extends Component {
                   <div className="comments-div">
                     <ul>
                     {
-                      this.state.commentsOnPost.map(comment => this.renderSingleComment(comment))
+                      this.props.singleEntryToView.comments.map(comment =>  {
+                        return <div>{comment.content}</div>
+                      })
                     }
                     </ul>
                   </div>
@@ -62,11 +76,12 @@ class EntryModal extends Component {
 
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
-  singleEntryToView: state.entriesReducer.singleEntryToView
+  singleEntryToView: state.entriesReducer.singleEntryToView,
+  allUsers: state.usersReducer.allUsers
 })
 
 const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+  viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryModal);

@@ -13,6 +13,10 @@ export const usersReducer = (state = initialState, action) => {
         return {...state, profileToView: state.currentUserLoggedIn}
       case 'VIEW_HOME':
         return {...state, profileToView: {}}
+      case 'VIEW_SOME_USER_PROFILE':
+        return {...state, profileToView: action.payload}
+      case 'FETCH_ALL_USERS':
+        return {...state, allUsers: action.payload}
       default:
         return state;
     }

@@ -23,6 +23,16 @@ export const userPostFetch = user => {
   }
 }
 
+export const fetchAllUsers = users => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/users")
+            .then(res => res.json())
+            .then(userData => {
+              dispatch({type:'FETCH_ALL_USERS', payload: userData})
+            })
+  }
+}
+
 export const getProfileFetch = () => {
   // console.log("in getProfileFetch");
   return dispatch => {
@@ -78,7 +88,9 @@ export const userLoginFetch = user => {
   }
 }
 
-export const viewSingleEntry = entryObj => ({
+
+
+export const viewSingleEntry = (entryObj) => ({
   type: 'VIEW_SINGLE_ENTRY',
   payload: entryObj
 })
@@ -100,6 +112,11 @@ export const setCurrentUserLoggedIn = userObj => ({
 
 export const viewOwnProfile = userObj => ({
   type: 'VIEW_OWN_PROFILE',
+  payload: userObj
+})
+
+export const viewSomeonesProfile = userObj => ({
+  type: 'VIEW_SOME_USER_PROFILE',
   payload: userObj
 })
 

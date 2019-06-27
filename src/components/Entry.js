@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
+import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewSomeonesProfile} from '../redux/actions';
 
 class Entry extends Component {
 
@@ -18,12 +19,20 @@ class Entry extends Component {
       this.props.viewSingleEntry(entryObj)
     }
 
+    handleUserClick = (event, clickedUserObj) => {
+      event.preventDefault()
+      const userObj = this.props.allUsers.find(user => {
+        return clickedUserObj.id === user.id
+      })
+      this.props.viewSomeonesProfile(userObj)
 
+    }
 
   render() {
     console.log(this.props);
     return (
-      <div onClick={this.handleModalClick} className="single-entry" id={this.props.entry.id}>
+      <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
+
       {
         this.props.entry.user ?
         <Fragment key={this.props.entry.id}>
@@ -46,7 +55,7 @@ class Entry extends Component {
                         </a>
                       </div>
                       <div className="media-body">
-                        <h4 className="media-heading"><a onClick={this.handleUserClick} href="">{this.props.entry.user? this.props.entry.user.username : null}</a></h4>
+                        <h4 className="media-heading"><a onClick={(event) => this.handleUserClick(event, this.props.entry.user)} href="">{this.props.entry.user? this.props.entry.user.username : null}</a></h4>
                       </div>
                     </div>
                   </div>
@@ -61,6 +70,8 @@ class Entry extends Component {
         :
         null
       }
+
+        <EntryModal/>
       </div>
     )
   }
@@ -68,11 +79,13 @@ class Entry extends Component {
 
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
-  viewSingleEntry: state.entriesReducer.viewSingleEntry
+  viewSingleEntry: state.entriesReducer.viewSingleEntry,
+  allUsers: state.usersReducer.allUsers
 })
 
 const mapDispatchToProps = dispatch => ({
-  viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj))
+  viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
+  viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entry);

@@ -9,7 +9,7 @@ import Login from './components/Login'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries} from './redux/actions';
+import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers} from './redux/actions';
 
 class App extends Component {
 
@@ -17,7 +17,7 @@ class App extends Component {
     this.props.getProfileFetch()
 
     this.props.fetchAllTheEntries()
-
+    this.props.fetchAllUsers()
   }
 
 
@@ -86,7 +86,8 @@ const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(logoutUser()),
   viewOwnProfile: (userObj) => dispatch(viewOwnProfile(userObj)),
   viewHome: (e) => dispatch(viewHome(e)),
-  fetchAllTheEntries: () => dispatch(fetchAllTheEntries())
+  fetchAllTheEntries: () => dispatch(fetchAllTheEntries()),
+  fetchAllUsers: () => dispatch(fetchAllUsers())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

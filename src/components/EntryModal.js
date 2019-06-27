@@ -18,7 +18,6 @@ class EntryModal extends Component {
   }
 
   render() {
-    console.log(this.props.singleEntryToView);
     return (
       <div id="viewing-modal" className={"modal fade bd-example-modal-lg-" + this.props.singleEntryToView.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
@@ -57,7 +56,7 @@ class EntryModal extends Component {
                     <ul>
                     {
                       this.props.singleEntryToView.comments.map(comment =>  {
-                        return <div>{comment.content}</div>
+                        return <div key={comment.id}>{comment.content}</div>
                       })
                     }
                     </ul>

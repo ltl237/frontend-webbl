@@ -51,7 +51,6 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.props.isCreatingNewEntryBool);
     return (
       <div className="App">
 

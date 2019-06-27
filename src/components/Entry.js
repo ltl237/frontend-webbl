@@ -15,7 +15,6 @@ class Entry extends Component {
         return entry.id === this.props.entry.id
       })
       // debugger
-      console.log("entryobj", entryObj);
       this.props.viewSingleEntry(entryObj)
     }
 
@@ -34,8 +33,9 @@ class Entry extends Component {
       <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
 
       {
-        this.props.entry.user ?
+        this.props.entry.user_id ?
         <Fragment key={this.props.entry.id}>
+        <div className="entry">
           <strong><p>{this.props.entry.title}</p></strong>
           <p className="entry-content">{this.props.entry.content.substring(0,110)}...</p>
           <section className="entry-footer">
@@ -66,6 +66,7 @@ class Entry extends Component {
               </section>
             </div>
           </section>
+          </div>
         </Fragment>
         :
         null

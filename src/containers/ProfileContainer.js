@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Signup from '../components/Signup'
 import Login from '../components/Login'
+import Entry from '../components/Entry'
 import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, loginUser} from '../redux/actions';
 
@@ -19,23 +20,19 @@ class ProfileContainer extends Component {
               <span><p>{this.props.profileToView.age} years old</p></span><br></br>
               <span><p className="bio">{this.props.profileToView.bio}</p></span>
 
+              {this.props.profileToView.entries.map(entry => {
+                return <Fragment key={entry.id}>
+                  <Entry entry={entry}/>
+                  </Fragment>
+                })
+              }
 
-                {this.props.profileToView.entries.map(entry => {
-                  return <Fragment key={entry.id}>
-                    <div key={entry.id} className="entry-card">
-                      <h1 className="entry-title">{entry.title}</h1>
-                      <p className="entry-content">{entry.content}</p>
-                    </div>
-                    </Fragment>
-                  })
-                }
             </div>
 
             <div className="col-4 comments-container">
               {this.props.profileToView.username}'s comments:
 
               <table className="table table-striped">
-
                 <tbody>
                 {this.props.profileToView.comments.map(comment => {
                   return <Fragment key={comment.id}>
@@ -46,14 +43,13 @@ class ProfileContainer extends Component {
                           </tr>
                         </Fragment>
                 })}
-
-
                 </tbody>
-            </table>
+              </table>
 
             </div>
           </div>
         </div>
+
       </div>
     );
   }

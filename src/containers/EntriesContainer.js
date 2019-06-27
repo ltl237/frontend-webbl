@@ -12,11 +12,11 @@ class EntriesContainer extends Component {
 
 
   render() {
-    console.log(this.props);
+
     return (
       <Fragment>
       <div className="entries-container">
-        {this.props.allEntries.map(entry => {
+        {this.props.allEntries.reverse().map(entry => {
             return <Entry key={entry.id} entry={entry}/>
           })
         }

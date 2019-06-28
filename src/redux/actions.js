@@ -88,6 +88,43 @@ export const userLoginFetch = user => {
   }
 }
 
+export const createNewComment = commentObj => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({comment: commentObj})
+    })
+    .then(res => res.json())
+    .then(commentData => {
+      if (commentData.errors){
+        console.log(commentData.errors);
+      } else {
+        console.log(commentObj);
+        dispatch({type:'CREATE_NEW_COMMENT', payload:commentObj})
+      }
+    })
+  }
+}
+
+export const getCommentsOnEntry = (entryObj) => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/comments")
+            .then(res => res.json())
+            .then(commentData => {
+              // console.log(entryObj);
+              const commentsOnThisEntry = commentData.filter(comment => comment.entry.id === entryObj.id)
+
+              // debugger
+              dispatch({type: 'GET_COMMENTS_ON_ENTRY', payload:commentsOnThisEntry})
+            })
+  }
+}
+
+
 export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 
 export const createNewEntry = newEntryObj => {

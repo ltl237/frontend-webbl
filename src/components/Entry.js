@@ -3,18 +3,27 @@ import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewSomeonesProfile} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry} from '../redux/actions';
 
 class Entry extends Component {
 
+  state = {
+    isViewingModal: false
+  }
+
 
     handleModalClick = event => {
-
       const entryObj = this.props.allEntries.find(entry =>{
         return entry.id === this.props.entry.id
       })
       // debugger
+      console.log(entryObj);
+      // document.querySelector("#viewing-modal").remove()
+      this.setState({
+        isViewingModal: !this.state.isViewingModal
+      })
       this.props.viewSingleEntry(entryObj)
+      this.props.getCommentsOnEntry(entryObj)
       // debugger
     }
 
@@ -72,7 +81,12 @@ class Entry extends Component {
         null
       }
       </div>
-      <EntryModal entry={this.props.entry}/>
+        {this.state.isViewingModal ?
+          <EntryModal entry={this.props.entry}/>
+        :
+          null
+        }
+
       </Fragment>
     )
   }
@@ -80,12 +94,14 @@ class Entry extends Component {
 
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
-  allUsers: state.usersReducer.allUsers
+  allUsers: state.usersReducer.allUsers,
+  getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry
 })
 
 const mapDispatchToProps = dispatch => ({
   viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
-  viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj))
+  viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
+  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entry);

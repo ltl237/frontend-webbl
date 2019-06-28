@@ -2,7 +2,6 @@ import React, {Component,Fragment} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Test from './components/Test'
 import LoginSignupContainer from "./containers/LoginSignupContainer"
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'

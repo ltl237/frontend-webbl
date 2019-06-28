@@ -2,10 +2,13 @@ import { combineReducers } from "redux";
 import usersReducer from './usersReducer'
 import entriesReducer from './entriesReducer'
 import commentsReducer from './commentsReducer'
+import likingsReducer from './likingsReducer'
+
 const rootReducer = combineReducers({
   usersReducer: usersReducer,
   entriesReducer: entriesReducer,
-  commentsReducer: commentsReducer
+  commentsReducer: commentsReducer,
+  likingsReducer: likingsReducer
 });
 
 export default rootReducer;

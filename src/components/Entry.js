@@ -3,12 +3,16 @@ import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry, getLikingsOnEntry} from '../redux/actions';
 
 class Entry extends Component {
 
   state = {
     isViewingModal: false
+  }
+
+  componentDidMount() {
+    this.props.getLikingsOnEntry(this.props.entry)
   }
 
 
@@ -49,6 +53,16 @@ class Entry extends Component {
 
     }
 
+    renderLikings = () => {
+      // debugger
+      console.log(this.props.allLikings);
+      const likingsArray = this.props.allLikings.filter(liking =>  liking.entry.id === this.props.entry.id)
+
+      // console.log(likingsArray);
+      // debugger
+      return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+    }
+
   render() {
     // console.log(this.props);
     return (
@@ -63,7 +77,8 @@ class Entry extends Component {
           <section className="entry-footer">
             <hr></hr>
             <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
-              <div>
+              <div className="like-comment-outer">
+                {this.renderLikings()}
                 <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-comment"></i> Comments</button>
                 <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-share-alt"></i> Share</button>
               </div>
@@ -104,13 +119,18 @@ class Entry extends Component {
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
   allUsers: state.usersReducer.allUsers,
-  getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry
+  singleEntryToView: state.entriesReducer.singleEntryToView,
+  allLikings: state.likingsReducer.allLikings,
+  getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry,
+  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry
 })
 
 const mapDispatchToProps = dispatch => ({
   viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
-  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj))
+  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
+  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entry);

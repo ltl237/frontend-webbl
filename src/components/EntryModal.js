@@ -2,8 +2,9 @@ import React, {Component, Fragment} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import CommentForm from './CommentForm'
+import LikeButton from './LikeButton'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry} from '../redux/actions';
+import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry} from '../redux/actions';
 
 class EntryModal extends Component {
 
@@ -11,6 +12,10 @@ class EntryModal extends Component {
   componentDidMount() {
     // console.log(this.props.singleEntryToView);
     this.props.getCommentsOnEntry(this.props.singleEntryToView)
+    this.props.getAllLikings()
+    console.log("before",this.props.likingsOnThisEntry);
+    this.props.getLikingsOnEntry(this.props.singleEntryToView)
+    console.log("After",this.props.likingsOnThisEntry);
 
   }
 
@@ -35,16 +40,20 @@ class EntryModal extends Component {
     } else if (comment.user.username) {
       return comment.user.username
     }
-    console.log(myUser);
+    // console.log(myUser);
 
   }
 
+  renderLikings = (singleEntryToView) => {
+    // debugger
+    const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === this.props.entry.id)
+
+    return <Fragment><p>{this.props.likingsOnThisEntry.length} Likes</p></Fragment>
+  }
 
 
   render() {
-    // console.log(this.props.singleEntryToView, this.props.commentsOnThisEntry);
-    console.log(this.props.commentsOnThisEntry)
-    // debugger
+
     return (
 
       <div id="viewing-modal"  className={"modal fade bd-example-modal-lg-" + this.props.entry.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
@@ -71,11 +80,12 @@ class EntryModal extends Component {
                   <hr></hr>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
                     <div className="category-likes">
-
+                      <p>{this.props.singleEntryToView.category}</p>
+                      {this.renderLikings(this.props.singleEntryToView)}
                     </div>
                     <div className="comment-like-wrapper">
+                      <LikeButton entry={this.props.singleEntryToView}/>
                       <CommentForm />
-
                     </div>
                   </div>
                   <hr></hr>
@@ -84,7 +94,7 @@ class EntryModal extends Component {
                   <div className="comments-div">
                     <ul>
                     {
-                      this.props.commentsOnThisEntry.length > 1 ?
+                      this.props.commentsOnThisEntry.length > 0 ?
                       this.props.commentsOnThisEntry.map(comment =>  {
                         return <Fragment>
                           <div key={comment.id}>
@@ -119,12 +129,17 @@ const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
   singleEntryToView: state.entriesReducer.singleEntryToView,
   allUsers: state.usersReducer.allUsers,
-  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry
+  allLikings: state.likingsReducer.allLikings,
+  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry,
+  likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
+  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry
 })
 
 const mapDispatchToProps = dispatch => ({
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
-  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj))
+  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
+  getAllLikings: () => dispatch(getAllLikings()),
+  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryModal);

@@ -13,14 +13,17 @@ class LoginSignupContainer extends Component {
     console.log("clicked")
   }
 
-  changeSignup = () => {
+  handleSignupClick = (event) => {
+    event.preventDefault()
     this.setState({
       signupIsClicked: !this.state.signupIsClicked
     })
   }
+
+
   render() {
     // console.log(this.state);
-    // console.log(this.props);
+    console.log(this.state.signupIsClicked);
     return (
       <Fragment>
 
@@ -32,14 +35,18 @@ class LoginSignupContainer extends Component {
         </div>
 
         <div className="credentials-div">
+
+
           {
             this.state.signupIsClicked ?
               <Fragment>
-                <Signup changeSignup={this.changeSignup} />
+                <Signup />
+                <button onClick={this.handleSignupClick} value="Back to Login">Back to Login</button>
               </Fragment>
               :
               <Fragment>
-                <Login changeSignup={this.changeSignup} />
+                <Login />
+                <button onClick={this.handleSignupClick} value="Sign Up">Sign Up</button>
               </Fragment>
           }
         </div>

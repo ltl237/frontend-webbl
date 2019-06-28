@@ -12,12 +12,16 @@ class CommentForm extends Component {
 
 
     let commentObj = {
-      content: event.target.parentElement.firstElementChild.value,
+      content: event.target.parentElement.firstElementChild.nextElementSibling.value,
       user_id: this.props.currentUserLoggedIn.id,
       entry_id: this.props.singleEntryToView.id
     }
-    event.target.parentElement.firstElementChild.value = ""
+    console.log(event.target);
+    // debugger
+    console.log(document.querySelector('#comment-textarea-' + this.props.singleEntryToView.id));
+    event.target.parentElement.firstElementChild.nextElementSibling.value = ""
     console.log(commentObj);
+
     this.props.createNewComment(commentObj)
     // this.props.handleAddComment(commentObj)
     // debugger
@@ -26,7 +30,7 @@ class CommentForm extends Component {
   render() {
     return (
       <Fragment>
-            <textarea id="comment-textarea" type="text" name="comment" style={{width:"500px", marginLeft:"39px"}} placeholder="comment here"></textarea>
+            <textarea id={"comment-textarea-" + this.props.singleEntryToView.id} type="text" name="comment" style={{width:"500px", marginLeft:"39px"}} placeholder="comment here"></textarea>
             <input id="comment-button" onClick={this.handleClick}  type="button" value="Comment !"></input>
       </Fragment>
     );

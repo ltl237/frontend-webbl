@@ -54,7 +54,7 @@ export const getProfileFetch = () => {
             // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")
           } else {
-            // console.log(data);
+            console.log(data);
             dispatch(loginUser(data.user))
           }
         })
@@ -88,6 +88,80 @@ export const userLoginFetch = user => {
   }
 }
 
+export const getLikingsOnEntry = (entryObj) => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/likings")
+            .then(res => res.json())
+            .then(likingData => {
+              if (likingData.errors) {
+                console.log(likingData.errors);
+              } else {
+                console.log("likingData", likingData);
+                dispatch({type:'GET_LIKINGS_ON_ENTRY', payload: likingData})
+              }
+            })
+  }
+}
+
+export const getAllLikings = () => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/likings")
+            .then(res => res.json())
+            .then(likingData => {
+              if (likingData.errors) {
+                console.log(likingData.errors);
+              } else {
+                console.log("likingData", likingData);
+                dispatch({type:'GET_ALL_LIKINGS', payload: likingData})
+              }
+            })
+  }
+}
+
+export const createNewLiking = (userAndEntry) => {
+  console.log(userAndEntry);
+  // debugger
+  let newLikingObj = { user_id: userAndEntry.user.id, entry_id: userAndEntry.entry.id}
+  console.log(newLikingObj);
+  // debugger
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/likings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({liking:newLikingObj})
+    })
+    .then(res => res.json())
+    .then(likingData => {
+      if (likingData.errors){
+        console.log(likingData.errors);
+      } else {
+        console.log(newLikingObj, userAndEntry);
+        dispatch({type:'CREATE_NEW_LIKING', payload:userAndEntry})
+      }
+    })
+  }
+}
+
+export const removeLiking = likingObj => {
+  console.log("remove this", likingObj);
+  return dispatch => {
+    return fetch(`http://localhost:3000/api/v1/likings/${likingObj.id}`, {
+      method: "DELETE"
+    })
+    .then(likingData => {
+      if (likingData.errors){
+        console.log(likingData.errors);
+      } else {
+        console.log(likingData);
+        dispatch({type:'REMOVE_LIKING', payload:likingObj})
+      }
+    })
+  }
+}
+
 export const createNewComment = (commentObj) => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/comments", {
@@ -115,10 +189,7 @@ export const getCommentsOnEntry = (entryObj) => {
     return fetch("http://localhost:3000/api/v1/comments")
             .then(res => res.json())
             .then(commentData => {
-              // console.log(entryObj);
               const commentsOnThisEntry = commentData.filter(comment => comment.entry.id === entryObj.id)
-
-              // debugger
               dispatch({type: 'GET_COMMENTS_ON_ENTRY', payload:commentsOnThisEntry})
             })
   }

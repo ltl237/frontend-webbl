@@ -1,20 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
+import {createNewComment} from '../redux/actions';
+
+
 class CommentForm extends Component {
 
-  // handleClick = (event) => {
-  //   event.preventDefault()
-  //
-  //
-  //   let commentObj = {
-  //     content: event.target.parentElement.firstElementChild.value,
-  //     user: this.props.currentUser,
-  //     post: this.props.post
-  //   }
-  //
-  //   this.props.addNewComment(commentObj)
-  //   this.props.handleAddComment(commentObj)
-  // }
+
+
+  handleClick = (event) => {
+    event.preventDefault()
+
+
+    let commentObj = {
+      content: event.target.parentElement.firstElementChild.value,
+      user_id: this.props.currentUserLoggedIn.id,
+      entry_id: this.props.singleEntryToView.id
+    }
+    event.target.parentElement.firstElementChild.value = ""
+    console.log(commentObj);
+    this.props.createNewComment(commentObj)
+    // this.props.handleAddComment(commentObj)
+    // debugger
+  }
 
   render() {
     return (
@@ -31,11 +38,13 @@ class CommentForm extends Component {
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
   allUsers: state.usersReducer.allUsers,
-  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
+  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+  singleEntryToView: state.entriesReducer.singleEntryToView,
+  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  createNewComment: (commentObj) => dispatch(createNewComment(commentObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

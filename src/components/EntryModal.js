@@ -29,7 +29,7 @@ class EntryModal extends Component {
 
 
   render() {
-    console.log(this.props.singleEntryToView, this.props.commentsOnThisEntry);
+    // console.log(this.props.singleEntryToView, this.props.commentsOnThisEntry);
     // console.log(this.props.commentsOnThisEntry)
     // debugger
     return (

@@ -22,6 +22,7 @@ class Entry extends Component {
       this.setState({
         isViewingModal: !this.state.isViewingModal
       })
+      this.renderModal(entryObj)
       this.props.viewSingleEntry(entryObj)
       this.props.getCommentsOnEntry(entryObj)
       // debugger
@@ -33,6 +34,18 @@ class Entry extends Component {
         return clickedUserObj.id === user.id
       })
       this.props.viewSomeonesProfile(userObj)
+
+    }
+
+    renderModal = entryObj => {
+      // {this.state.isViewingModal ?
+      // return <EntryModal></>}
+      const existingModal = document.querySelector(`.bd-example-modal-lg-${entryObj.id}`)
+      if (existingModal) {
+        return existingModal.style.display = "block"
+      } else {
+        return <EntryModal entry={entryObj}/>
+      }
 
     }
 
@@ -81,11 +94,7 @@ class Entry extends Component {
         null
       }
       </div>
-        {this.state.isViewingModal ?
           <EntryModal entry={this.props.entry}/>
-        :
-          null
-        }
 
       </Fragment>
     )

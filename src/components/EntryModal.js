@@ -9,7 +9,7 @@ class EntryModal extends Component {
 
 
   componentDidMount() {
-    console.log(this.props.singleEntryToView);
+    // console.log(this.props.singleEntryToView);
     this.props.getCommentsOnEntry(this.props.singleEntryToView)
 
   }
@@ -26,11 +26,24 @@ class EntryModal extends Component {
 
   }
 
+  renderUsername = comment => {
+    let myUser = {}
+    if (comment.user_id) {
+      myUser = this.props.allUsers.filter(user => {
+        return user.id === comment.user_id
+      })
+    } else if (comment.user.username) {
+      return comment.user.username
+    }
+    console.log(myUser);
+
+  }
+
 
 
   render() {
     // console.log(this.props.singleEntryToView, this.props.commentsOnThisEntry);
-    // console.log(this.props.commentsOnThisEntry)
+    console.log(this.props.commentsOnThisEntry)
     // debugger
     return (
 
@@ -61,7 +74,7 @@ class EntryModal extends Component {
 
                     </div>
                     <div className="comment-like-wrapper">
-                      <CommentForm/>
+                      <CommentForm />
 
                     </div>
                   </div>
@@ -71,9 +84,17 @@ class EntryModal extends Component {
                   <div className="comments-div">
                     <ul>
                     {
-                      this.props.singleEntryToView.comments.length > 1 ?
-                      this.props.singleEntryToView.comments.map(comment =>  {
-                        return <div key={comment.id}>{comment.content} - <a onClick={(event) => this.handleUserClick(event,this.props.singleEntryToView.user)} href="">{comment.user.username}</a></div>
+                      this.props.commentsOnThisEntry.length > 1 ?
+                      this.props.commentsOnThisEntry.map(comment =>  {
+                        return <Fragment>
+                          <div key={comment.id}>
+                            <li>{comment.content}
+                              <a onClick={(event) => this.handleUserClick(event,this.props.singleEntryToView.user)} href="">
+                              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
+                              </a>
+                            </li>
+                            </div>
+                            </Fragment>
                       })
                       :
                       null

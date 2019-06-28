@@ -5,16 +5,46 @@ import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, loginUser} from '../redux/actions';
 
 class LoginSignupContainer extends Component {
+  state = {
+    signupIsClicked: false
+  }
+
+  handleClick = (event) => {
+    console.log("clicked")
+  }
+
+  changeSignup = () => {
+    this.setState({
+      signupIsClicked: !this.state.signupIsClicked
+    })
+  }
   render() {
     // console.log(this.state);
     // console.log(this.props);
     return (
-      <div>
+      <Fragment>
 
-          <Signup/>
-          <Login/>
+      <div className="login-signup-div">
 
+
+        <div className="homepage-div-container">
+
+        </div>
+
+        <div className="credentials-div">
+          {
+            this.state.signupIsClicked ?
+              <Fragment>
+                <Signup changeSignup={this.changeSignup} />
+              </Fragment>
+              :
+              <Fragment>
+                <Login changeSignup={this.changeSignup} />
+              </Fragment>
+          }
+        </div>
       </div>
+      </Fragment>
     );
   }
 

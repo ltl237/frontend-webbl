@@ -328,6 +328,8 @@
 
 .comments-div {
   text-align: left;
+  height: 25em;
+  overflow: scroll;
 }
 
 .row {

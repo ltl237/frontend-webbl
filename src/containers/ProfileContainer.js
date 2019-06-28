@@ -3,11 +3,13 @@ import Signup from '../components/Signup'
 import Login from '../components/Login'
 import Entry from '../components/Entry'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, loginUser} from '../redux/actions';
+import {getProfileFetch, logoutUser, loginUser, getCommentsOnEntry} from '../redux/actions';
 
 class ProfileContainer extends Component {
 
+  renderComments = () => {
 
+  }
 
   render() {
     console.log(this.props.profileToView);
@@ -21,7 +23,9 @@ class ProfileContainer extends Component {
               <span><p className="bio">{this.props.profileToView.bio}</p></span>
 
               {this.props.profileToView.entries.map(entry => {
+                {this.props.getCommentsOnEntry(entry)}
                 return <Fragment key={entry.id}>
+
                   <Entry entry={entry}/>
                   </Fragment>
                 })
@@ -34,15 +38,23 @@ class ProfileContainer extends Component {
 
               <table className="table table-striped">
                 <tbody>
-                {this.props.profileToView.comments.map(comment => {
-                  return <Fragment key={comment.id}>
-                          <tr>
-                            <td><strong>{comment.entry.title} </strong><br></br>
-                            -{comment.content}
-                            </td>
-                          </tr>
-                        </Fragment>
+                {this.props.profileToView.entries.map(entry => {
+                  {this.props.getCommentsOnEntry(entry)}
+                  return <Fragment>
+                          {this.props.commentsOnThisEntry.map(comment => {
+                            return <Fragment>
+                                <tr>
+                                  <td><strong>{comment.entry.title} </strong><br></br>
+                                  -{comment.content}
+                                  </td>
+                                </tr>
+                          </Fragment>
+                          })}
+                   </Fragment>
                 })}
+
+
+
                 </tbody>
               </table>
 
@@ -59,10 +71,14 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
-  profileToView: state.usersReducer.profileToView
+  profileToView: state.usersReducer.profileToView,
+  allUsers: state.usersReducer.allUsers,
+  getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry,
+  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry
+
 })
 const mapDispatchToProps = dispatch => ({
-  // userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+  getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
   loginUser: userObj => dispatch(loginUser(userObj))
 })
 

@@ -88,7 +88,7 @@ export const userLoginFetch = user => {
   }
 }
 
-export const createNewComment = commentObj => {
+export const createNewComment = (commentObj) => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/comments", {
       method: "POST",

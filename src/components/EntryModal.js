@@ -145,7 +145,7 @@ class EntryModal extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('DEEZ',state)
+
   return {
     allEntries: state.entriesReducer.allEntries,
     singleEntryToView: state.entriesReducer.singleEntryToView,

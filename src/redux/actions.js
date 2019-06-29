@@ -197,6 +197,29 @@ export const getCommentsOnEntry = (entryObj) => {
 
 export const isEditingEntryToggle = () => ({type: 'IS_EDITING_ENTRY'})
 
+export const editEntryFetch = entryObj => {
+  console.log(entryObj);
+  return dispatch => {
+    return fetch(`http://localhost:3000/api/v1/entries/${entryObj.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({entry: entryObj})
+    })
+    .then(res => res.json())
+    .then(entryData => {
+      if (entryData.errors) {
+        console.log(entryData.errors);
+      } else {
+        console.log(entryData);
+        dispatch({type: 'EDIT_ENTRY_FETCH', payload:entryData})
+      }
+    })
+  }
+}
+
 export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 
 export const createNewEntry = newEntryObj => {

@@ -23,6 +23,18 @@ export const entriesReducer = (state = initialState, action) => {
         return {...state, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
       case 'IS_EDITING_ENTRY':
         return {...state, isEditingEntry: !state.isEditingEntry, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
+      case 'EDIT_ENTRY_FETCH':
+        const updatedSingleEntry = {...state.singleEntryToView, content: action.payload.content, title: action.payload.title}
+        let newEntriesArr = []
+        state.allEntries.forEach(entry => {
+        	if(entry.id === action.payload.id){
+        		newEntriesArr.push(action.payload)
+          } else {
+        		newEntriesArr.push(entry)
+          }
+        })
+
+        return {...state, singleEntryToView: updatedSingleEntry, allEntries: newEntriesArr}
       default:
         return state;
     }

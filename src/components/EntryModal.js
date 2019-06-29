@@ -13,6 +13,7 @@ class EntryModal extends Component {
 
   componentDidMount() {
     // console.log(this.props.singleEntryToView);
+    console.log('hello')
     this.props.getCommentsOnEntry(this.props.singleEntryToView)
     this.props.getAllLikings()
     // console.log("before",this.props.likingsOnThisEntry);
@@ -117,7 +118,7 @@ class EntryModal extends Component {
                         return <Fragment>
                           <div key={comment.id}>
                             <li>{comment.content}
-                              <a onClick={(event) => this.handleUserClick(event,this.props.singleEntryToView.user)} href="">
+                              <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
                               <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                               </a>
                             </li>

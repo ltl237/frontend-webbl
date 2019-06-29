@@ -6,6 +6,10 @@ import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, isCreatingNewEntry
 
 class EntryForm extends Component {
 
+  componentDidMount() {
+    // this.props.viewSingleEntry()
+  }
+
 
   handleSubmit = event => {
     event.preventDefault()
@@ -15,37 +19,45 @@ class EntryForm extends Component {
       category: document.querySelector("select").value,
       user_id: this.props.currentUserLoggedIn.id
     }
-
+    console.log(entryObj)
     const falseVal = false
     this.props.createNewEntry(entryObj, falseVal)
-    // switch (this.props.isEditingEntry) {
-    //   case true:
-    //     this.props.isEditingEntry()
-    //   case false:
-    // this.props.isCreatingNewEntry()
+    switch (this.props.isEditingEntry) {
+      case true:
+        this.props.isEditingEntryToggle()
+      case false:
+        this.props.isCreatingNewEntry()
+      default:
+        return
+    }
+  }
+
+  handleToggleClick = event => {
+    event.preventDefault()
+
     this.props.isEditingEntryToggle()
   }
 
   render() {
-
+    console.log(this.props);
     return (
       <div>
           <form className="form-style-9" onSubmit={this.handleSubmit}>
             <ul>
               <li>
                 {this.props.isEditingEntry ?
-                  <input type="text" name="title" className="field-style field-split align-left" value={this.props.singleEntryToView.title}/>
+                  <input type="text" name="title" className="field-style field-split align-left" value={this.props.singleEntryToView.title} />
                   :
-                  <input type="text" name="title" className="field-style field-split align-left" placeholder="Entry Title"/>
-                }
+                  null
 
+                }
 
               </li>
               <li>
-              {this.props.isEditingEntry ?
-                  <textarea name="content" className="field-style" placeholder="What would you like to write about ?"></textarea>
-                  :
+                {this.props.isEditingEntry ?
                   <textarea name="content" className="field-style" value={this.props.singleEntryToView.content}></textarea>
+                  :
+                  null
                 }
               </li>
               <li>
@@ -58,6 +70,7 @@ class EntryForm extends Component {
               </li>
               <li>
                 <input type="submit" value="Create Entry" />
+                <button onClick={this.handleToggleClick}>Toggle edit</button>
               </li>
             </ul>
           </form>
@@ -68,6 +81,7 @@ class EntryForm extends Component {
 
 const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
+  viewSingleEntry: state.entriesReducer.viewSingleEntry,
   allUsers: state.usersReducer.allUsers,
   singleEntryToView: state.entriesReducer.singleEntryToView,
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,

@@ -3,6 +3,7 @@ import TimeAgo from 'timeago-react'
 import Signup from '../components/Signup'
 import Login from '../components/Login'
 import Entry from '../components/Entry'
+import EntryForm from '../components/EntryForm'
 import EntryModal from '../components/EntryModal'
 import Faker from 'faker'
 import {connect} from 'react-redux';
@@ -15,12 +16,12 @@ class EntriesContainer extends Component {
 
     return (
       <Fragment>
-      <div className="entries-container">
-        {this.props.allEntries.reverse().map(entry => {
-            return <Entry key={entry.id} entry={entry}/>
-          })
-        }
-      </div>
+          <div className="entries-container">
+            {this.props.allEntries.reverse().map(entry => {
+                return <Entry key={entry.id} entry={entry}/>
+              })
+            }
+          </div>
       </Fragment>
     );
   }
@@ -30,11 +31,9 @@ class EntriesContainer extends Component {
 
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
-  allEntries: state.entriesReducer.allEntries,
+  allEntries: state.entriesReducer.allEntries
 })
-const mapDispatchToProps = dispatch => ({
-  // userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-})
+
 
 // export default EntriesContainer;
 export default connect(mapStateToProps, null)(EntriesContainer);

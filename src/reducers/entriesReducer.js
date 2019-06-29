@@ -22,7 +22,7 @@ export const entriesReducer = (state = initialState, action) => {
       case 'IS_CREATING_NEW_ENTRY':
         return {...state, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
       case 'IS_EDITING_ENTRY':
-        return {...state, isEditingEntry: !state.isEditingEntry}
+        return {...state, isEditingEntry: !state.isEditingEntry, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
       default:
         return state;
     }

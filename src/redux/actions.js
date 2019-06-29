@@ -221,10 +221,13 @@ export const createNewEntry = newEntryObj => {
   }
 }
 
-export const viewSingleEntry = (entryObj) => ({
-  type: 'VIEW_SINGLE_ENTRY',
-  payload: entryObj
-})
+export const viewSingleEntry = (entryObj) => {
+  console.log("VIEWSINGLEENTRY",entryObj)
+  return {
+    type: 'VIEW_SINGLE_ENTRY',
+    payload: entryObj
+  }
+}
 
 export const fetchAllTheEntries = allEntriesArr => {
   return dispatch => {

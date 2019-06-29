@@ -4,6 +4,7 @@ import TimeAgo from 'timeago-react'
 import CommentForm from './CommentForm'
 import EntryForm from './EntryForm'
 import LikeButton from './LikeButton'
+import EditEntryForm from './EditEntryForm'
 import {connect} from 'react-redux';
 import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
 
@@ -59,15 +60,18 @@ class EntryModal extends Component {
 
   handleEditClick = event => {
     event.preventDefault()
+    console.log("event target", event.target);
+
     this.props.viewSingleEntry(this.props.singleEntryToView)
     // console.log(this.props.singleEntryToView);
-    // this.props.isEditingEntryToggle()
-    this.props.isCreatingNewEntry()
+    // this.props.isCreatingNewEntry()
+    this.props.isEditingEntryToggle()
   }
 
   render() {
     // console.log(this.props);
     return (
+      <Fragment>
 
       <div id="viewing-modal"  className={"modal fade bd-example-modal-lg-" + this.props.entry.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
         <div className="modal-dialog modal-lg" data-backdrop="static" >
@@ -135,19 +139,27 @@ class EntryModal extends Component {
       </div>
 
 
+    </Fragment>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  allEntries: state.entriesReducer.allEntries,
-  singleEntryToView: state.entriesReducer.singleEntryToView,
-  allUsers: state.usersReducer.allUsers,
-  allLikings: state.likingsReducer.allLikings,
-  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry,
-  likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
-  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry
-})
+const mapStateToProps = state => {
+  console.log('DEEZ',state)
+  return {
+    allEntries: state.entriesReducer.allEntries,
+    singleEntryToView: state.entriesReducer.singleEntryToView,
+    allUsers: state.usersReducer.allUsers,
+    allLikings: state.likingsReducer.allLikings,
+    commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry,
+    likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
+    getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry,
+    isEditingEntry: state.entriesReducer.isEditingEntry
+  }
+
+}
+
+
 
 const mapDispatchToProps = dispatch => ({
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),

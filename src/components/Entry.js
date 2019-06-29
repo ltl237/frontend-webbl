@@ -7,9 +7,7 @@ import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry
 
 class Entry extends Component {
 
-  state = {
-    isViewingModal: false
-  }
+
 
   componentDidMount() {
     this.props.getLikingsOnEntry(this.props.entry)
@@ -20,13 +18,9 @@ class Entry extends Component {
       const entryObj = this.props.allEntries.find(entry =>{
         return entry.id === this.props.entry.id
       })
-      // debugger
-      // console.log(entryObj);
-      // document.querySelector("#viewing-modal").remove()
-      this.setState({
-        isViewingModal: !this.state.isViewingModal
-      })
-      this.renderModal(entryObj)
+
+      // this.renderModal(entryObj)
+      // console.log('entryObj', entryObj);
       this.props.viewSingleEntry(entryObj)
       this.props.getCommentsOnEntry(entryObj)
       // debugger

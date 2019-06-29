@@ -72,7 +72,7 @@ class App extends Component {
             <ProfileContainer/>
             :
             <Fragment>
-            {this.props.isCreatingNewEntryBool ?  <EntryForm singleEntryToView={this.props.singleEntryToView}/> : <EntriesContainer/>}
+            {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}
 
             </Fragment>
           }

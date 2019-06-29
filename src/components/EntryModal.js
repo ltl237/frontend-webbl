@@ -2,9 +2,10 @@ import React, {Component, Fragment} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import CommentForm from './CommentForm'
+import EntryForm from './EntryForm'
 import LikeButton from './LikeButton'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry} from '../redux/actions';
+import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
 
 class EntryModal extends Component {
 
@@ -13,9 +14,9 @@ class EntryModal extends Component {
     // console.log(this.props.singleEntryToView);
     this.props.getCommentsOnEntry(this.props.singleEntryToView)
     this.props.getAllLikings()
-    console.log("before",this.props.likingsOnThisEntry);
+    // console.log("before",this.props.likingsOnThisEntry);
     this.props.getLikingsOnEntry(this.props.singleEntryToView)
-    console.log("After",this.props.likingsOnThisEntry);
+    // console.log("After",this.props.likingsOnThisEntry);
 
   }
 
@@ -47,20 +48,25 @@ class EntryModal extends Component {
   renderLikings = (singleEntryToView) => {
     // debugger
     const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === singleEntryToView.id)
-    console.log(likingsArray);
-    
+    // console.log(likingsArray);
+
     if (likingsArray.length > 0) {
       return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
     }else {
       return <Fragment><p>0 Likes</p></Fragment>
     }
-
-
   }
 
+  handleEditClick = event => {
+    event.preventDefault()
+    this.props.viewSingleEntry(this.props.singleEntryToView)
+    // console.log(this.props.singleEntryToView);
+    // this.props.isEditingEntryToggle()
+    this.props.isCreatingNewEntry()
+  }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
 
       <div id="viewing-modal"  className={"modal fade bd-example-modal-lg-" + this.props.entry.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
@@ -87,6 +93,7 @@ class EntryModal extends Component {
                   <hr></hr>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
                     <div className="category-likes">
+                      <button onClick={this.handleEditClick} type="button" className="btn btn-light edit-entry-button"><i className="glyphicon glyphicon-share-alt"></i> Edit</button>
                       <p>{this.props.singleEntryToView.category}</p>
                       {this.renderLikings(this.props.singleEntryToView)}
                     </div>
@@ -146,7 +153,10 @@ const mapDispatchToProps = dispatch => ({
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
   getAllLikings: () => dispatch(getAllLikings()),
-  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj))
+  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj)),
+  viewSingleEntry: entryObj => dispatch(viewSingleEntry(entryObj)),
+  isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
+  isEditingEntryToggle: () => dispatch(isEditingEntryToggle())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryModal);

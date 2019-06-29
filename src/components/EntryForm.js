@@ -2,9 +2,14 @@ import React, {Component, Fragment} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, isCreatingNewEntry, createNewEntry} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, isCreatingNewEntry, createNewEntry, isEditingEntryToggle} from '../redux/actions';
 
-class Entry extends Component {
+class EntryForm extends Component {
+
+  componentDidMount() {
+    this.props.viewSingleEntry()
+  }
+
 
   handleSubmit = event => {
     event.preventDefault()
@@ -17,7 +22,14 @@ class Entry extends Component {
     console.log(entryObj)
     const falseVal = false
     this.props.createNewEntry(entryObj, falseVal)
-    this.props.isCreatingNewEntry()
+    switch (this.props.isEditingEntry) {
+      case true:
+        this.props.isEditingEntry()
+      case false:
+        this.props.isCreatingNewEntry()
+      default:
+        return
+    }
   }
 
   render() {
@@ -27,10 +39,20 @@ class Entry extends Component {
           <form className="form-style-9" onSubmit={this.handleSubmit}>
             <ul>
               <li>
-                <input type="text" name="title" className="field-style field-split align-left" placeholder="Post Title" />
+                {this.props.isEditingEntry ?
+                  <input type="text" name="title" className="field-style field-split align-left" value={this.props.singleEntryToView.title} />
+                  :
+                  null
+
+                }
+
               </li>
               <li>
-                <textarea name="content" className="field-style" placeholder="Content"></textarea>
+                {this.props.isEditingEntry ?
+                  <textarea name="content" className="field-style" value={this.props.singleEntryToView.content}></textarea>
+                  :
+                  null
+                }
               </li>
               <li>
                 <select className="select-css">
@@ -54,14 +76,17 @@ const mapStateToProps = state => ({
   allEntries: state.entriesReducer.allEntries,
   viewSingleEntry: state.entriesReducer.viewSingleEntry,
   allUsers: state.usersReducer.allUsers,
-  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
+  singleEntryToView: state.usersReducer.singleEntryToView,
+  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+  isEditingEntry: state.entriesReducer.isEditingEntry
 })
 
 const mapDispatchToProps = dispatch => ({
   viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
-  createNewEntry: (newEntryObj) => dispatch(createNewEntry(newEntryObj))
+  createNewEntry: (newEntryObj) => dispatch(createNewEntry(newEntryObj)),
+  isEditingEntryToggle: () => dispatch(isEditingEntryToggle())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Entry);
+export default connect(mapStateToProps, mapDispatchToProps)(EntryForm);

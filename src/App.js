@@ -51,6 +51,7 @@ class App extends Component {
   }
 
   render(){
+    console.log("APP", this.props);
     return (
       <div className="App">
         {this.props.currentUserLoggedIn.username
@@ -71,7 +72,7 @@ class App extends Component {
             <ProfileContainer/>
             :
             <Fragment>
-            {this.props.isCreatingNewEntryBool ?  <EntryForm/> : <EntriesContainer/>}
+            {this.props.isCreatingNewEntryBool ?  <EntryForm singleEntryToView={this.props.singleEntryToView}/> : <EntriesContainer/>}
 
             </Fragment>
           }
@@ -88,7 +89,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
   profileToView: state.usersReducer.profileToView,
-  isCreatingNewEntryBool: state.entriesReducer.isCreatingNewEntryBool
+  isCreatingNewEntryBool: state.entriesReducer.isCreatingNewEntryBool,
+  singleEntryToView: state.entriesReducer.singleEntryToView
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -96,7 +96,7 @@ export const getLikingsOnEntry = (entryObj) => {
               if (likingData.errors) {
                 console.log(likingData.errors);
               } else {
-                console.log("likingData", likingData);
+                // console.log("likingData", likingData);
                 dispatch({type:'GET_LIKINGS_ON_ENTRY', payload: likingData})
               }
             })
@@ -111,7 +111,7 @@ export const getAllLikings = () => {
               if (likingData.errors) {
                 console.log(likingData.errors);
               } else {
-                console.log("likingData", likingData);
+                // console.log("likingData", likingData);
                 dispatch({type:'GET_ALL_LIKINGS', payload: likingData})
               }
             })
@@ -155,7 +155,7 @@ export const removeLiking = likingObj => {
       if (likingData.errors){
         console.log(likingData.errors);
       } else {
-        console.log(likingData);
+        // console.log(likingData);
         dispatch({type:'REMOVE_LIKING', payload:likingObj})
       }
     })
@@ -177,7 +177,7 @@ export const createNewComment = (commentObj) => {
       if (commentData.errors){
         console.log(commentData.errors);
       } else {
-        console.log(commentObj);
+        // console.log(commentObj);
         dispatch({type:'CREATE_NEW_COMMENT', payload:commentObj})
       }
     })
@@ -195,6 +195,7 @@ export const getCommentsOnEntry = (entryObj) => {
   }
 }
 
+export const isEditingEntryToggle = () => ({type: 'IS_EDITING_ENTRY'})
 
 export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 

@@ -53,15 +53,29 @@ class Entry extends Component {
 
     }
 
-    renderLikings = () => {
+    // renderLikings = () => {
+    //   // debugger
+    //   // console.log(this.props.allLikings);
+    //   const likingsArray = this.props.allLikings.filter(liking =>  liking.entry.id === this.props.entry.id)
+    //
+    //   // console.log(likingsArray);
+    //   // debugger
+    //   return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+    // }
+    renderLikings = (singleEntryToView) => {
       // debugger
-      // console.log(this.props.allLikings);
-      const likingsArray = this.props.allLikings.filter(liking =>  liking.entry.id === this.props.entry.id)
+      const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === singleEntryToView.id)
+      console.log(likingsArray);
 
-      // console.log(likingsArray);
-      // debugger
-      return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+      if (likingsArray.length > 0) {
+        return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+      }else {
+        return <Fragment><p>0 Likes</p></Fragment>
+      }
+
+
     }
+
 
   render() {
     // console.log(this.props);
@@ -78,8 +92,8 @@ class Entry extends Component {
             <hr></hr>
             <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
               <div className="like-comment-outer">
-                {this.renderLikings()}
-                <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-comment"></i> Comments</button>
+                <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-thumbs-up"></i><span style={{marginLeft:"3px"}}>Like</span></button>
+                <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-comment"></i> Comment</button>
                 <button type="button" className="btn btn-light"><i className="glyphicon glyphicon-share-alt"></i> Share</button>
               </div>
               <section className="entry-heading">

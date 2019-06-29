@@ -138,8 +138,8 @@ export const createNewLiking = (userAndEntry) => {
       if (likingData.errors){
         console.log(likingData.errors);
       } else {
-        console.log(newLikingObj, userAndEntry);
-        dispatch({type:'CREATE_NEW_LIKING', payload:userAndEntry})
+        console.log(likingData);
+        dispatch({type:'CREATE_NEW_LIKING', payload:likingData})
       }
     })
   }

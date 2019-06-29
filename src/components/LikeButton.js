@@ -1,11 +1,14 @@
 import React, {Fragment, Component} from 'react';
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, viewSingleEntry, removeLiking, createNewLiking} from '../redux/actions';
+import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, viewSingleEntry, removeLiking, createNewLiking, getLikingsOnEntry} from '../redux/actions';
 
 class LikeButton extends Component {
 
   state = {
     likes: this.props.entry.likings.length
+  }
+  componentDidMount() {
+    this.props.getLikingsOnEntry(this.props.entry)
   }
 
   handleLikeClick = event => {
@@ -45,7 +48,7 @@ class LikeButton extends Component {
 
     if (this.props.likingsOnThisEntry.length > 0) {
       return this.props.likingsOnThisEntry.map(liking => {
-        if (liking.user.id === this.props.currentUserLoggedIn) {
+        if (liking.user.id === this.props.currentUserLoggedIn.id) {
           console.log("remove this", liking)
           return this.props.removeLiking(liking)
         } else {
@@ -67,7 +70,7 @@ class LikeButton extends Component {
   }
 
   render() {
-    console.log(this.props.likingsOnThisEntry);
+    // console.log(this.props.likingsOnThisEntry);
     // console.log(this.state);
     // console.log(this.props.currentUserLoggedIn);
     return(
@@ -95,7 +98,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
   createNewLiking: (userAndEntry) => dispatch(createNewLiking(userAndEntry)),
-  removeLiking: (likingObj) => dispatch(removeLiking(likingObj))
+  removeLiking: (likingObj) => dispatch(removeLiking(likingObj)),
+  getLikingsOnEntry: entryObj => dispatch(getLikingsOnEntry(entryObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButton);

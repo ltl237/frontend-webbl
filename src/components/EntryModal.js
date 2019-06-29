@@ -46,14 +46,21 @@ class EntryModal extends Component {
 
   renderLikings = (singleEntryToView) => {
     // debugger
-    const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === this.props.entry.id)
+    const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === singleEntryToView.id)
+    console.log(likingsArray);
+    
+    if (likingsArray.length > 0) {
+      return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+    }else {
+      return <Fragment><p>0 Likes</p></Fragment>
+    }
 
-    return <Fragment><p>{this.props.likingsOnThisEntry.length} Likes</p></Fragment>
+
   }
 
 
   render() {
-
+    console.log(this.props);
     return (
 
       <div id="viewing-modal"  className={"modal fade bd-example-modal-lg-" + this.props.entry.id} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >

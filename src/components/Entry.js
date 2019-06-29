@@ -21,7 +21,7 @@ class Entry extends Component {
         return entry.id === this.props.entry.id
       })
       // debugger
-      console.log(entryObj);
+      // console.log(entryObj);
       // document.querySelector("#viewing-modal").remove()
       this.setState({
         isViewingModal: !this.state.isViewingModal
@@ -55,7 +55,7 @@ class Entry extends Component {
 
     renderLikings = () => {
       // debugger
-      console.log(this.props.allLikings);
+      // console.log(this.props.allLikings);
       const likingsArray = this.props.allLikings.filter(liking =>  liking.entry.id === this.props.entry.id)
 
       // console.log(likingsArray);

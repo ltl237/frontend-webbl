@@ -242,17 +242,19 @@ export const createNewEntry = newEntryObj => {
   return dispatch => {
     return fetch(`${API_ROOT}/entries`, {
       method: "POST",
-      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
       body: JSON.stringify({entry: newEntryObj})
     })
-    .then(response =>  response.json())
     .then(res =>{
       if (res.errors) {
         console.log(res.errors);
       } else {
-        console.log({res});
-
-        debugger
+        console.log(res);
+        dispatch({type: 'CREATE_NEW_ENTRY', payload: newEntryObj})
+        // debugger
       }
     })
         // .then(newEntryObj => {
@@ -335,3 +337,35 @@ export const logoutUser = () => ({
   type: 'LOGOUT_USER'
 })
 // export default actions;
+
+
+
+
+///
+// export function subscribeConversation(entryId) {
+//   return {
+//     channel: 'entries',
+//     room: `entry_${entryId}`,
+//     received: NEW_MESSAGE,
+//   }
+// }
+
+export function unsubscribeAllEntries() {
+  return {
+    channel: 'entries',
+    room: `all_entries`,
+    leave: true,
+  }
+}
+
+// Action creator with received function:
+export function subscribeAllEntries() {
+  return dispatch => dispatch({
+    channel: 'entries',
+    room: `all_entries`,
+    received: data => dispatch({
+      type: 'FETCH_ALL_ENTRIES',
+      payload: data,
+    }),
+  });
+}

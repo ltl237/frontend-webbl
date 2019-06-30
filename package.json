@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "actioncable": "^5.2.3",
     "faker": "^4.1.0",
     "react": "^16.8.6",
     "react-actioncable-provider": "^2.0.0",
@@ -14,7 +15,8 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "timeago-react": "^2.0.1"
+    "timeago-react": "^2.0.1",
+    "underscore": "^1.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

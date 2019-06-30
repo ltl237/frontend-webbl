@@ -28,10 +28,13 @@ class EntryForm extends Component {
         this.props.isEditingEntryToggle()
         return this.props.editEntryFetch(entryObj)
       case false:
+
         return this.props.createNewEntry(entryObj, falseVal)
       default:
         return
     }
+
+
   }
 
   handleTitleChange = event => {

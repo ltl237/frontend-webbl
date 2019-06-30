@@ -60,7 +60,7 @@ class LikeButton extends Component {
         }
       })
     } else {
-        console.log("Add this");
+
         const userAndEntry = {user: this.props.currentUserLoggedIn, entry: this.props.entry}
         console.log(userAndEntry);
         // this.props.createNewLiking(userAndEntry)

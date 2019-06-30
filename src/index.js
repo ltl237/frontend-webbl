@@ -9,12 +9,13 @@ import { ActionCableProvider } from 'react-actioncable-provider';
 import { API_WS_ROOT } from './constants/index';
 
 import { createStore, applyMiddleware } from 'redux';
+import socketMiddleware from './middleware/socketMiddleware';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 import * as serviceWorker from './serviceWorker';
 const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(thunk))
+  applyMiddleware(thunk, socketMiddleware()))
 )
 
 

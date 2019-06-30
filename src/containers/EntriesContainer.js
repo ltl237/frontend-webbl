@@ -6,6 +6,9 @@ import Entry from '../components/Entry'
 import EntryForm from '../components/EntryForm'
 import EntryModal from '../components/EntryModal'
 import Faker from 'faker'
+import { ActionCable } from 'react-actioncable-provider';
+import { API_ROOT } from '../constants';
+
 import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, loginUser, viewSingleEntry} from '../redux/actions';
 

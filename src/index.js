@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import Faker from 'faker';
 import { Provider } from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import { ActionCableProvider } from 'react-actioncable-provider';
+import { API_WS_ROOT } from './constants/index';
+
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
@@ -17,9 +20,11 @@ const store = createStore(rootReducer, composeWithDevTools(
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>, document.getElementById('root')
+    <Provider store={store}>
+    <ActionCableProvider url={API_WS_ROOT}>
+      <App />
+      </ActionCableProvider>
+    </Provider>, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

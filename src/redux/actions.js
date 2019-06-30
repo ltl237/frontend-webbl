@@ -1,11 +1,11 @@
+import { API_ROOT, HEADERS } from '../constants';
+
+
 export const userPostFetch = user => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/users", {
       method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
+      headers: HEADERS,
       body: JSON.stringify({user})
     })
       .then(resp => resp.json())
@@ -67,10 +67,7 @@ export const userLoginFetch = user => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
+      headers: HEADERS,
       body: JSON.stringify({user})
     })
       .then(resp => resp.json())
@@ -241,28 +238,57 @@ export const editEntryFetch = entryObj => {
 export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 
 export const createNewEntry = newEntryObj => {
-  console.log("createNewEntry", newEntryObj);
+  console.log('createNewEntry', newEntryObj);
   return dispatch => {
-    return fetch("http://localhost:3000/api/v1/entries", {
+    return fetch(`${API_ROOT}/entries`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ entry: newEntryObj})
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({entry: newEntryObj})
     })
-    .then(res => res.json())
-    .then(newEntryObj => {
-      if (newEntryObj.errors) {
-        console.log(newEntryObj.errors);
+    .then(response =>  response.json())
+    .then(res =>{
+      if (res.errors) {
+        console.log(res.errors);
       } else {
-        dispatch({type: 'CREATE_NEW_ENTRY', payload: newEntryObj})
-      }
+        console.log({res});
 
+        debugger
+      }
     })
+        // .then(newEntryObj => {
+        //   if (newEntryObj.errors) {
+        //     console.log(newEntryObj.errors);
+        //   } else {
+        //     dispatch({type: 'CREATE_NEW_ENTRY', payload: newEntryObj})
+        //   }
+        //
+        // })
   }
 }
-
+//  ------WORKING CODE BEFORE A/C------
+// export const createNewEntry = newEntryObj => {
+//   console.log("createNewEntry", newEntryObj);
+//   return dispatch => {
+//     return fetch("http://localhost:3000/api/v1/entries", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Accept": "application/json"
+//       },
+//       body: JSON.stringify({ entry: newEntryObj})
+//     })
+//     .then(res => res.json())
+//     .then(newEntryObj => {
+//       if (newEntryObj.errors) {
+//         console.log(newEntryObj.errors);
+//       } else {
+//         dispatch({type: 'CREATE_NEW_ENTRY', payload: newEntryObj})
+//       }
+//
+//     })
+//   }
+// }
+//  ------WORKING CODE BEFORE A/C------
 export const viewSingleEntry = (entryObj) => {
   console.log("VIEWSINGLEENTRY",entryObj)
   return {

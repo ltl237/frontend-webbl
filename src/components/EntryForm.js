@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, PropTypes} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import {connect} from 'react-redux';

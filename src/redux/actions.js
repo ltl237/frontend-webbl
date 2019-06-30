@@ -286,13 +286,26 @@ export const setCurrentUserLoggedIn = userObj => ({
   payload: userObj
 })
 
+export const viewSomeonesProfile = userObj => {
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/users")
+            .then(res => res.json())
+            .then(userData => {
+              if (userData.errors) {
+                console.log(userData.errors);
+              }else {
+                console.log(userData);
+                const user = userData.filter(user => user.id === userObj.id)
+                console.log(user);
+                dispatch({type:'VIEW_SOME_USER_PROFILE', payload: user[0]})
+              }
+            })
+  }
+}
+
+
 export const viewOwnProfile = userObj => ({
   type: 'VIEW_OWN_PROFILE',
-  payload: userObj
-})
-
-export const viewSomeonesProfile = userObj => ({
-  type: 'VIEW_SOME_USER_PROFILE',
   payload: userObj
 })
 

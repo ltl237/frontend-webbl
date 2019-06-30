@@ -16,15 +16,10 @@ class CommentForm extends Component {
       user_id: this.props.currentUserLoggedIn.id,
       entry_id: this.props.singleEntryToView.id
     }
-    console.log(event.target);
-    // debugger
-    console.log(document.querySelector('#comment-textarea-' + this.props.singleEntryToView.id));
     event.target.parentElement.firstElementChild.nextElementSibling.value = ""
-    console.log(commentObj);
 
     this.props.createNewComment(commentObj)
-    // this.props.handleAddComment(commentObj)
-    // debugger
+    
   }
 
   render() {

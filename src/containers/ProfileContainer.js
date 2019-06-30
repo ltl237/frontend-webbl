@@ -14,10 +14,16 @@ class ProfileContainer extends Component {
 
   }
 
-  renderCommentsOnEntry = () => {
-    return this.props.profileToView.entries.map(entry => {
+  renderMyEntries = () => {
+    // return this.props.profileToView.entries.map(entry => {
+    //   return <Fragment key={entry.id}>
+    //   <Entry entry={entry}/>
+    //   </Fragment>
+    // })
+
+    return this.props.entriesOnScreen.map(entry => {
       return <Fragment key={entry.id}>
-      <Entry entry={entry}/>
+              <Entry entry={entry}/>
       </Fragment>
     })
   }
@@ -45,7 +51,7 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.log(this.props.profileToView);
+    // console.log(this.props.profileToView);
     return (
       <div className="profile">
         <div className="container">
@@ -55,7 +61,7 @@ class ProfileContainer extends Component {
               <span><p>{this.props.profileToView.age} years old</p></span><br></br>
               <span><p className="bio">{this.props.profileToView.bio}</p></span>
 
-              {this.renderCommentsOnEntry()}
+              {this.renderMyEntries()}
 
             </div>
 
@@ -83,7 +89,8 @@ const mapStateToProps = state => ({
   profileToView: state.usersReducer.profileToView,
   allUsers: state.usersReducer.allUsers,
   // getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry,
-  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry
+  commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry,
+  entriesOnScreen: state.entriesReducer.entriesOnScreen
 
 })
 const mapDispatchToProps = dispatch => ({

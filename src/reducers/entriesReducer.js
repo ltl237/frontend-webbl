@@ -35,6 +35,9 @@ export const entriesReducer = (state = initialState, action) => {
         })
 
         return {...state, singleEntryToView: updatedSingleEntry, allEntries: newEntriesArr}
+      case 'VIEW_ENTRIES_ON_PROFILE':
+      
+        return {...state, entriesOnScreen: action.payload}
       default:
         return state;
     }

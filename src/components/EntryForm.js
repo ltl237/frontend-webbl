@@ -19,8 +19,7 @@ class EntryForm extends Component {
       title: document.querySelector(`input[name]`).value,
       content: document.querySelector(`textarea[name]`).value,
       category: document.querySelector("select").value,
-      user_id: this.props.currentUserLoggedIn.id,
-      id: this.props.singleEntryToView.id
+      user_id: this.props.currentUserLoggedIn.id
     }
     const falseVal = false
     switch (this.props.isEditingEntry) {

@@ -10,7 +10,7 @@ import EntryForm from './components/EntryForm'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch, logoutUser, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -33,7 +33,8 @@ class App extends Component {
 
   viewMyProfileClick = event => {
     event.preventDefault()
-    this.props.viewOwnProfile()
+    this.props.viewSomeonesProfile(this.props.currentUserLoggedIn)
+
   }
 
   viewHomePageClick = event => {
@@ -100,7 +101,9 @@ const mapDispatchToProps = dispatch => ({
   viewHome: (e) => dispatch(viewHome(e)),
   fetchAllTheEntries: () => dispatch(fetchAllTheEntries()),
   fetchAllUsers: () => dispatch(fetchAllUsers()),
-  isCreatingNewEntry: () => dispatch(isCreatingNewEntry())
+  isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
+  viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
+  viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

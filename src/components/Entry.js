@@ -3,7 +3,7 @@ import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry, getLikingsOnEntry} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewEntriesOnProfile, viewSomeonesProfile, getCommentsOnEntry, getLikingsOnEntry} from '../redux/actions';
 
 class Entry extends Component {
 
@@ -32,6 +32,7 @@ class Entry extends Component {
         return clickedUserObj.id === user.id
       })
       this.props.viewSomeonesProfile(userObj)
+      this.props.viewEntriesOnProfile(clickedUserObj)
 
     }
 
@@ -137,7 +138,8 @@ const mapDispatchToProps = dispatch => ({
   viewSingleEntry: (entryObj) => dispatch(viewSingleEntry(entryObj)),
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
-  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj))
+  getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj)),
+  viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj))
 
 })
 

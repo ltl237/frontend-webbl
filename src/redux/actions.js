@@ -195,6 +195,24 @@ export const getCommentsOnEntry = (entryObj) => {
   }
 }
 
+
+export const viewEntriesOnProfile = userObj => {
+  console.log(userObj);
+  return dispatch => {
+    return fetch("http://localhost:3000/api/v1/entries")
+            .then(res => res.json())
+            .then( entriesData => {
+              if (entriesData.errors) {
+                console.log(entriesData.errors);
+              } else {
+                const entriesArray = entriesData.filter(entry => entry.user.id === userObj.id)
+
+                dispatch({type: 'VIEW_ENTRIES_ON_PROFILE', payload: entriesArray})
+              }
+            })
+  }
+}
+
 export const isEditingEntryToggle = () => ({type: 'IS_EDITING_ENTRY'})
 
 export const editEntryFetch = entryObj => {
@@ -223,6 +241,7 @@ export const editEntryFetch = entryObj => {
 export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
 
 export const createNewEntry = newEntryObj => {
+  console.log("createNewEntry", newEntryObj);
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/entries", {
       method: "POST",

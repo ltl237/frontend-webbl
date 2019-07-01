@@ -42,7 +42,7 @@ export const getProfileFetch = () => {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          'Accept': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       })
@@ -280,6 +280,7 @@ export const fetchAllTheEntries = allEntriesArr => {
     return fetch("http://localhost:3000/api/v1/entries")
             .then(res => res.json())
             .then(entryData => {
+              console.log('FETCH_ALL_ENTRIES', entryData);
               dispatch({type: 'FETCH_ALL_ENTRIES', payload: entryData})
             })
   }

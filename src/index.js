@@ -4,10 +4,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Faker from 'faker';
 import { Provider } from 'react-redux';
+import { ActionCableProvider } from 'react-actioncable-provider';
+
 import {composeWithDevTools} from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
+import {API_WS_ROOT} from './constants/index'
 
 import * as serviceWorker from './serviceWorker';
 const store = createStore(rootReducer, composeWithDevTools(
@@ -18,7 +21,9 @@ const store = createStore(rootReducer, composeWithDevTools(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ActionCableProvider url={API_WS_ROOT}>
+      <App />
+    </ActionCableProvider>
   </Provider>, document.getElementById('root')
 );
 

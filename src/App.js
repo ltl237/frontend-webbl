@@ -7,12 +7,17 @@ import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'
 import Login from './components/Login'
 import EntryForm from './components/EntryForm'
+import ChatContainer from './containers/ChatContainer'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
+
+  state = {
+    isViewingChat: false
+  }
 
   componentDidMount() {
     this.props.getProfileFetch()
@@ -52,12 +57,33 @@ class App extends Component {
     this.props.isCreatingNewEntry()
   }
 
+  handleChatClick = event => {
+    event.preventDefault()
+    this.setState({
+      isViewingChat: !this.state.isViewingChat
+    })
+  }
+
+  renderPage = () => {
+    console.log(this.state.isViewingChat);
+    if (!this.state.isViewingChat) {
+      if (this.props.profileToView.username) {
+        return <ProfileContainer/>
+      } else {
+        return <Fragment> {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}</Fragment>
+      }
+    } else {
+      return <ChatContainer/>
+    }
+  }
+
   render(){
     console.log("APP", this.props);
     return (
       <div className="App">
         {this.props.currentUserLoggedIn.username
         ?
+
         <Fragment>
           <Fragment>
             <div className="navsl">
@@ -66,18 +92,12 @@ class App extends Component {
                 <div>
                   <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
                 </div>
+                <a className="chat-link" onClick={this.handleChatClick} href="">Messenger</a>
                 <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
                 <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
             </div>
           </Fragment>
-          {this.props.profileToView.username ?
-            <ProfileContainer/>
-            :
-            <Fragment>
-            {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}
-
-            </Fragment>
-          }
+          {this.renderPage()}
         </Fragment>
         :
         <LoginSignupContainer />

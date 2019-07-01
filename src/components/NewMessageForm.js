@@ -28,11 +28,11 @@ class NewMessageForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     })
-    .then(res => res.json())
     .then(messagesData => {
       console.log(messagesData);
     })
     this.setState({ text: '' });
+    // .then(res => res.json())
   };
 
   render = () => {

@@ -12,21 +12,22 @@ class NewConversationForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    console.log(this.state);
     fetch(`${API_ROOT}/conversations`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Credentials" : true 
+        "Access-Control-Allow-Credentials" : true
       },
       body: JSON.stringify(this.state)
     })
-    .then(res => res.json())
     .then(conversationsData => {
       console.log(conversationsData);
     })
     this.setState({ title: '' });
+    // .then(res => res.json())
   };
 
   render = () => {

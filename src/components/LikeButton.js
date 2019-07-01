@@ -48,7 +48,7 @@ class LikeButton extends Component {
 
     if (this.props.likingsOnThisEntry.length > 0) {
       return this.props.likingsOnThisEntry.map(liking => {
-        if (liking.user.id === this.props.currentUserLoggedIn.id) {
+        if (liking.user.id === this.props.currentUserLoggedIn.id && liking.entry.user_id === this.props.currentUserLoggedIn.id) {
           console.log("remove this", liking)
           return this.props.removeLiking(liking)
         } else {

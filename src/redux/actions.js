@@ -96,8 +96,12 @@ export const getLikingsOnEntry = (entryObj) => {
               if (likingData.errors) {
                 console.log(likingData.errors);
               } else {
-                // console.log("likingData", likingData);
-                dispatch({type:'GET_LIKINGS_ON_ENTRY', payload: likingData})
+                console.log(entryObj);
+                const entryLikingsArray = likingData.filter(liking => liking.entry.id === entryObj.id)
+                // console.log(entryLikingsArray);
+                // debugger
+
+                dispatch({type:'GET_LIKINGS_ON_ENTRY', payload: entryLikingsArray})
               }
             })
   }
@@ -206,7 +210,7 @@ export const viewEntriesOnProfile = userObj => {
                 console.log(entriesData.errors);
               } else {
                 const entriesArray = entriesData.filter(entry => entry.user.id === userObj.id)
-
+                console.log(entriesArray);
                 dispatch({type: 'VIEW_ENTRIES_ON_PROFILE', payload: entriesArray})
               }
             })

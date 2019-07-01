@@ -15,6 +15,7 @@ class Entry extends Component {
 
 
     handleModalClick = event => {
+      console.log(this.props.entry);
       this.props.getLikingsOnEntry(this.props.entry)
       this.props.getAllLikings()
       const entryObj = this.props.allEntries.find(entry =>{
@@ -25,6 +26,7 @@ class Entry extends Component {
       // this.renderModal(entryObj)
       // console.log('entryObj', entryObj);
       this.props.viewSingleEntry(entryObj)
+
       // debugger
     }
 

@@ -25,6 +25,7 @@ class EntryModal extends Component {
     //     })
     //   }
     // }
+
     console.log('hello')
     // this.props.getCommentsOnEntry(this.props.singleEntryToView)
     // this.props.getAllLikings()

@@ -33,6 +33,7 @@ class App extends Component {
 
   viewMyProfileClick = event => {
     event.preventDefault()
+    this.props.viewEntriesOnProfile(this.props.currentUserLoggedIn)
     this.props.viewSomeonesProfile(this.props.currentUserLoggedIn)
 
   }

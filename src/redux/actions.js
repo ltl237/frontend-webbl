@@ -216,8 +216,8 @@ export const viewEntriesOnProfile = userObj => {
 export const isEditingEntryToggle = () => ({type: 'IS_EDITING_ENTRY'})
 
 export const editEntryFetch = entryObj => {
-  console.log(entryObj);
   return dispatch => {
+    console.log(entryObj);
     return fetch(`http://localhost:3000/api/v1/entries/${entryObj.id}`, {
       method: "PATCH",
       headers: {

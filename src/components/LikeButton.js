@@ -8,7 +8,7 @@ class LikeButton extends Component {
     likes: this.props.entry.likings.length
   }
   componentDidMount() {
-    this.props.getLikingsOnEntry(this.props.entry)
+    // this.props.getLikingsOnEntry(this.props.entry)
   }
 
   handleLikeClick = event => {

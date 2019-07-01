@@ -9,15 +9,27 @@ import {connect} from 'react-redux';
 import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
 
 class EntryModal extends Component {
-
+  state = {
+    canEditEntry: false
+  }
 
   componentDidMount() {
+    //ADD LOADING SCREEN FOR RENDERING COMMENTS
+
     // console.log(this.props.singleEntryToView);
+    // if (this.props.singleEntryToView) {
+    //
+    //   if (this.props.currentUserLoggedIn.id === this.props.singleEntryToView.user.id) {
+    //     this.setState({
+    //       canEditEntry: true
+    //     })
+    //   }
+    // }
     console.log('hello')
-    this.props.getCommentsOnEntry(this.props.singleEntryToView)
-    this.props.getAllLikings()
+    // this.props.getCommentsOnEntry(this.props.singleEntryToView)
+    // this.props.getAllLikings()
     // console.log("before",this.props.likingsOnThisEntry);
-    this.props.getLikingsOnEntry(this.props.singleEntryToView)
+    // this.props.getLikingsOnEntry(this.props.singleEntryToView)
     // console.log("After",this.props.likingsOnThisEntry);
 
   }
@@ -71,6 +83,7 @@ class EntryModal extends Component {
 
   render() {
     // console.log(this.props);
+
     return (
       <Fragment>
 
@@ -98,7 +111,12 @@ class EntryModal extends Component {
                   <hr></hr>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
                     <div className="category-likes">
-                      <button onClick={this.handleEditClick} type="button" className="btn btn-light edit-entry-button"><i className="glyphicon glyphicon-share-alt"></i> Edit</button>
+                      {this.props.singleEntryToView.user_id === this.props.currentUserLoggedIn.id ?
+                        <button onClick={this.handleEditClick} type="button" className="btn btn-light edit-entry-button"><i className="glyphicon glyphicon-share-alt"></i> Edit</button>
+                        :
+                        null
+                      }
+
                       <p>{this.props.singleEntryToView.category}</p>
                       {this.renderLikings(this.props.singleEntryToView)}
                     </div>
@@ -155,7 +173,8 @@ const mapStateToProps = state => {
     commentsOnThisEntry: state.commentsReducer.commentsOnThisEntry,
     likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
     getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry,
-    isEditingEntry: state.entriesReducer.isEditingEntry
+    isEditingEntry: state.entriesReducer.isEditingEntry,
+    currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
   }
 
 }

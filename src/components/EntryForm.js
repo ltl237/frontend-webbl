@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, PropTypes} from 'react';
 import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import {connect} from 'react-redux';
@@ -6,6 +6,48 @@ import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, isCreatingNewEntry
 
 class EntryForm extends Component {
 
+  // process_message = (received_msg) => {
+  //
+  //   let parsedEntry = JSON.parse(received_msg)
+  //   if (parsedEntry["identifier"]!="_ping") {
+  //     console.log("Entry is received..." +  received_msg);
+  //     if (parsedEntry["entry"]) {
+  //       let entry=parsedEntry["entry"]
+  //       if (entry['action']=='new_ticket') {
+  //         console.log('add entry to store' + entry["ticket"])
+  //         this.props.dispatch(addEntryToStore(entry["ticket"]))
+  //       }
+  //       if (entry['action']=='updated_ticket') {
+  //         console.log('updating entry in store' + entry["ticket"])
+  //         this.props.dispatch(updateEntryInStore(entry["ticket"]))
+  //       }
+  //     }
+  //   }
+  //
+  // }
+
+  componentDidMount() {
+    console.log('component did mount')
+    // let ws= new WebSocket("ws:localhost:3000/cable" )
+    // ws.onopen = function() {
+    //     let identifier = JSON.stringify({channel:'EntriesChannel'})
+    //     let msg = JSON.stringify({command:'subscribe', identifier:identifier})
+    //     ws.send(msg);
+    //  };
+    //
+    //  ws.onmessage = (evt) => {
+    //     var received_msg = evt.data;
+    //     this.process_message(received_msg)
+    //  }
+    //
+    //  ws.onclose = function()
+    //  {
+    //     // websocket is closed.
+    //     console.log("Connection is closed...");
+    //  };
+    //
+    //  this.setState({ws: ws})
+  }
 
   state = {
     title_input: this.props.singleEntryToView.title,
@@ -13,13 +55,16 @@ class EntryForm extends Component {
     category_input: this.props.singleEntryToView.category
   }
 
+
+
   handleSubmit = event => {
     event.preventDefault()
     let entryObj = {
       title: document.querySelector(`input[name]`).value,
       content: document.querySelector(`textarea[name]`).value,
       category: document.querySelector("select").value,
-      user_id: this.props.currentUserLoggedIn.id
+      user_id: this.props.currentUserLoggedIn.id,
+      id: this.props.singleEntryToView.id
     }
     const falseVal = false
     switch (this.props.isEditingEntry) {
@@ -28,10 +73,13 @@ class EntryForm extends Component {
         this.props.isEditingEntryToggle()
         return this.props.editEntryFetch(entryObj)
       case false:
+
         return this.props.createNewEntry(entryObj, falseVal)
       default:
         return
     }
+
+
   }
 
   handleTitleChange = event => {

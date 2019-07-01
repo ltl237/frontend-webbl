@@ -3,26 +3,28 @@ import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewEntriesOnProfile, viewSomeonesProfile, getCommentsOnEntry, getLikingsOnEntry} from '../redux/actions';
+import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry} from '../redux/actions';
 
 class Entry extends Component {
 
 
 
   componentDidMount() {
-    this.props.getLikingsOnEntry(this.props.entry)
+    // this.props.getLikingsOnEntry(this.props.entry)
   }
 
 
     handleModalClick = event => {
+      this.props.getLikingsOnEntry(this.props.entry)
+      this.props.getAllLikings()
       const entryObj = this.props.allEntries.find(entry =>{
         return entry.id === this.props.entry.id
       })
-
+      this.props.getCommentsOnEntry(entryObj)
+      //ADD LOADING SCREEN FOR RENDERING COMMENTS
       // this.renderModal(entryObj)
       // console.log('entryObj', entryObj);
       this.props.viewSingleEntry(entryObj)
-      this.props.getCommentsOnEntry(entryObj)
       // debugger
     }
 
@@ -32,7 +34,6 @@ class Entry extends Component {
         return clickedUserObj.id === user.id
       })
       this.props.viewSomeonesProfile(userObj)
-      this.props.viewEntriesOnProfile(clickedUserObj)
 
     }
 
@@ -139,7 +140,7 @@ const mapDispatchToProps = dispatch => ({
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
   getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj)),
-  viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj))
+  getAllLikings: () => dispatch(getAllLikings())
 
 })
 

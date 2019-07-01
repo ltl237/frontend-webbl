@@ -9,9 +9,9 @@ class ProfileContainer extends Component {
 
   componentDidMount() {
     // this.props.viewSomeonesProfile()
-    this.props.profileToView.entries.map(entry => {
-      {this.props.getCommentsOnEntry(entry)}
-    })
+    // this.props.profileToView.entries.map(entry => {
+    //   {this.props.getCommentsOnEntry(entry)}
+    // })
 
   }
 

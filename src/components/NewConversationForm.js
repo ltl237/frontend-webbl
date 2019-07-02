@@ -13,13 +13,24 @@ class NewConversationForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state);
+    // , {
+    //   method: "GET",
+    //   headers: {
+    //       "Accept": "application/json",
+    //       "Content-Type": "application/json",
+    // // Only, if we are saving JWT token in localStorage
+    //       "Authorization": `Bearer ${localStorage.getItem("token")}`}
+    // }
+
+
     fetch(`${API_ROOT}/conversations`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Credentials" : true
+        "Access-Control-Allow-Credentials" : true,
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(this.state)
     })

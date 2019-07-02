@@ -10,8 +10,9 @@ import EntryForm from './components/EntryForm'
 import ChatContainer from './containers/ChatContainer'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
+import DMContainer from './containers/DMContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -46,8 +47,13 @@ class App extends Component {
   viewHomePageClick = event => {
     event.preventDefault()
     this.props.viewHome()
+    const falseVal = false
+    this.props.isDMing(false)
     if (this.props.isCreatingNewEntryBool) {
       this.props.isCreatingNewEntry()
+      this.setState({
+        isViewingChat: !this.state.isViewingChat
+      })
     }
 
   }
@@ -70,7 +76,17 @@ class App extends Component {
       if (this.props.profileToView.username) {
         return <ProfileContainer/>
       } else {
-        return <Fragment> {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}</Fragment>
+        // return <Fragment> {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}</Fragment>
+        if (this.props.isDMingBool) {
+          return <Fragment><DMContainer/></Fragment>
+        } else {
+          if (this.props.isCreatingNewEntryBool) {
+            return <Fragment><EntryForm/></Fragment>
+          } else {
+            return <Fragment><EntriesContainer/></Fragment>
+          }
+        }
+
       }
     } else {
       return <ChatContainer/>
@@ -103,6 +119,8 @@ class App extends Component {
         <LoginSignupContainer />
       }
 
+
+
       </div>
     );
   }
@@ -112,7 +130,9 @@ const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
   profileToView: state.usersReducer.profileToView,
   isCreatingNewEntryBool: state.entriesReducer.isCreatingNewEntryBool,
-  singleEntryToView: state.entriesReducer.singleEntryToView
+  singleEntryToView: state.entriesReducer.singleEntryToView,
+  isDMingBool: state.conversationsReducer.isDMingBool,
+  userToDM: state.conversationsReducer.userToDM
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -124,7 +144,8 @@ const mapDispatchToProps = dispatch => ({
   fetchAllUsers: () => dispatch(fetchAllUsers()),
   isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
-  viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj))
+  viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj)),
+  isDMing: userObj => dispatch(isDMing(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

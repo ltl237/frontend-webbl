@@ -3,12 +3,16 @@ import usersReducer from './usersReducer'
 import entriesReducer from './entriesReducer'
 import commentsReducer from './commentsReducer'
 import likingsReducer from './likingsReducer'
+import conversationsReducer from './conversationsReducer'
+import userConversationsReducer from './userConversationsReducer'
 
 const rootReducer = combineReducers({
   usersReducer: usersReducer,
   entriesReducer: entriesReducer,
   commentsReducer: commentsReducer,
-  likingsReducer: likingsReducer
+  likingsReducer: likingsReducer,
+  conversationsReducer: conversationsReducer,
+  userConversationsReducer: userConversationsReducer
 });
 
 export default rootReducer;

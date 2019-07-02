@@ -1,3 +1,9 @@
+// export const saveTokenAsCookie = () => {
+//    document.cookie = 'X-Authorization=' + this.getToken() + '; path=/';
+//    // console.log('SACETOKEN',document.cookie);
+// }
+
+
 export const userPostFetch = user => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/users", {
@@ -17,6 +23,10 @@ export const userPostFetch = user => {
           // 'message' if there is an error with creating the user, i.e. invalid username
         } else {
           localStorage.setItem("token", data.jwt)
+          document.cookie = 'X-Authorization=' + localStorage.getItem('token') + '; path=/';
+          // saveTokenAsCookie()
+          // debugger
+          // console.log(document.cookie);
           dispatch(loginUser(data.user))
         }
       })
@@ -63,6 +73,7 @@ export const getProfileFetch = () => {
 }
 
 
+
 export const userLoginFetch = user => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/login", {
@@ -82,11 +93,18 @@ export const userLoginFetch = user => {
           // 'message' if there is an error
         } else {
           localStorage.setItem("token", data.jwt)
+          document.cookie = 'X-Authorization=' + localStorage.getItem('token') + '; path=/';
+          // saveTokenAsCookie()
           dispatch(loginUser(data.user))
         }
       })
   }
 }
+
+export const appendNewConversation = (conversation) => ({type:"APPEND_NEW_CONVERSATION", payload:conversation}) 
+
+export const isDMing = (userObj) => ({type: 'IS_DMING', payload:userObj})
+
 
 export const getLikingsOnEntry = (entryObj) => {
   return dispatch => {

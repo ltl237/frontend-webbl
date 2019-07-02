@@ -17,14 +17,15 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
+    console.log(this.state);
     fetch(`${API_ROOT}/messages`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Credentials" : true
+        "Access-Control-Allow-Credentials" : true,
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(this.state)
     })

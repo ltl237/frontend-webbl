@@ -3,7 +3,9 @@ import Faker from 'faker'
 import TimeAgo from 'timeago-react'
 import EntryModal from './EntryModal'
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry} from '../redux/actions';
+import { API_ROOT, HEADERS } from '../constants';
+
+import {userLoginFetch, isDMing, viewSingleEntry, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry} from '../redux/actions';
 
 class Entry extends Component {
 
@@ -70,7 +72,54 @@ class Entry extends Component {
       }else {
         return <Fragment><p>0 Likes</p></Fragment>
       }
+    }
 
+    fetchToWebsocket = (route, bodyData) => {
+          fetch(`${API_ROOT}/${route}`, {
+              method: 'POST',
+              headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json",
+  // Only, if we are saving JWT token in localStorage
+                  "Authorization": `Bearer ${localStorage.getItem("token")}`},
+              body: JSON.stringify(bodyData)
+          })
+    }
+
+    handleChatClick = (event, clickedUserObj) => {
+      event.preventDefault()
+      this.props.isDMing(clickedUserObj)
+      console.log(clickedUserObj);
+      console.log(this.props.currentUserLoggedIn);
+      // debugger
+      let body = {
+              title: `${this.props.currentUserLoggedIn.id}-${clickedUserObj.id}`,
+              sender_id: this.props.currentUserLoggedIn.id,
+              receiver_id: clickedUserObj.id
+          };
+
+      // If the conversation already exists, execute exit function or do nothing. Otherwise, fetch conversation to WebSockets.
+
+      let conversationThatExists = []
+      // fetch("http://localhost:3000/api/v1/conversations")
+      // .then(res => res.json())
+      // .then(conversationData => {
+      //   console.log(conversationData)
+      //   conversationThatExists = conversationData.filter(conversation => conversation.user.id === clickedUserObj.id)
+      // })
+      console.log("CHAT CLICK", body);
+      this.fetchToWebsocket("conversations", body);
+
+
+      // if (conversationThatExists) {
+      //     // this.props.exit();
+      //     App.cable.disconnect()
+      // }
+      // else {
+      //     this.fetchToWebsocket("conversations", body);
+      //     // this.props.exit();
+      //     App.cable.disconnect()
+      // }
 
     }
 
@@ -105,6 +154,8 @@ class Entry extends Component {
                       </div>
                       <div className="media-body">
                         <h4 className="media-heading"><a onClick={(event) => this.handleUserClick(event, this.props.entry.user)} href="">{this.props.entry.user? this.props.entry.user.username : null}</a></h4>
+                        <div><button className="view-profile-button">profile</button><button className="dm-button" onClick={(event) => this.handleChatClick(event, this.props.entry.user)}>chat</button></div>
+
                       </div>
                     </div>
                   </div>
@@ -134,7 +185,8 @@ const mapStateToProps = state => ({
   singleEntryToView: state.entriesReducer.singleEntryToView,
   allLikings: state.likingsReducer.allLikings,
   getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry,
-  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry
+  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry,
+  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -142,7 +194,8 @@ const mapDispatchToProps = dispatch => ({
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   getCommentsOnEntry: (entryObj) => dispatch(getCommentsOnEntry(entryObj)),
   getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj)),
-  getAllLikings: () => dispatch(getAllLikings())
+  getAllLikings: () => dispatch(getAllLikings()),
+  isDMing: (userObj) => dispatch(isDMing(userObj))
 
 })
 

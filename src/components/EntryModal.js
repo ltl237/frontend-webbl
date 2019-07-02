@@ -5,8 +5,10 @@ import CommentForm from './CommentForm'
 import EntryForm from './EntryForm'
 import LikeButton from './LikeButton'
 import EditEntryForm from './EditEntryForm'
+import { API_ROOT, HEADERS } from '../constants';
+
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSomeonesProfile, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
+import {userLoginFetch, viewSomeonesProfile, isDMing, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
 
 class EntryModal extends Component {
   state = {
@@ -35,6 +37,18 @@ class EntryModal extends Component {
 
   }
 
+  fetchToWebsocket = (route, bodyData) => {
+        fetch(`${API_ROOT}/${route}`, {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+// Only, if we are saving JWT token in localStorage
+                "Authorization": `Bearer ${localStorage.getItem("token")}`},
+            body: JSON.stringify(bodyData)
+        })
+}
+
   handleUserClick = (event, clickedUserObj) => {
     event.preventDefault()
 
@@ -44,6 +58,40 @@ class EntryModal extends Component {
     })
     this.props.viewSomeonesProfile(userObj)
     document.querySelector(".modal-backdrop").remove()
+
+  }
+
+  handleChatClick = (event, clickedUserObj) => {
+    event.preventDefault()
+    this.props.isDMing(clickedUserObj)
+    let body = {
+            title: "PRIVATE",
+            sender_id: this.props.currentUserLoggedIn,
+            receiver_id: clickedUserObj.id
+        };
+
+    // If the conversation already exists, execute exit function or do nothing. Otherwise, fetch conversation to WebSockets.
+
+    let conversationThatExists = []
+
+    // fetch("http://localhost:3000/api/v1/conversations")
+    // .then(res => res.json())
+    // .then(conversationData => {
+    //   console.log(conversationData)
+    //   conversationThatExists = conversationData.filter(conversation => conversation.user.id === clickedUserObj.id)
+    // })
+    console.log("CHAT CLICK", body);
+
+    this.fetchToWebsocket("conversations", body);
+
+
+    // if (conversationThatExists) {
+    //     this.props.exit();
+    // }
+    // else {
+    //     this.fetchToWebsocket("conversations", body);
+    //     this.props.exit();
+    // }
 
   }
 
@@ -140,6 +188,9 @@ class EntryModal extends Component {
                               <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
                               <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                               </a>
+
+                              <div><button className="view-profile-button">profile</button><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
+
                             </li>
                             </div>
                             </Fragment>
@@ -156,6 +207,7 @@ class EntryModal extends Component {
             }
           </div>
         </div>
+
       </div>
 
 
@@ -175,7 +227,8 @@ const mapStateToProps = state => {
     likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
     getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry,
     isEditingEntry: state.entriesReducer.isEditingEntry,
-    currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
+    currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+    isDMingBool: state.conversationsReducer.isDMingBool
   }
 
 }
@@ -189,7 +242,8 @@ const mapDispatchToProps = dispatch => ({
   getLikingsOnEntry: (entryObj) => dispatch(getLikingsOnEntry(entryObj)),
   viewSingleEntry: entryObj => dispatch(viewSingleEntry(entryObj)),
   isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
-  isEditingEntryToggle: () => dispatch(isEditingEntryToggle())
+  isEditingEntryToggle: () => dispatch(isEditingEntryToggle()),
+  isDMing: (userObj) => dispatch(isDMing(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryModal);

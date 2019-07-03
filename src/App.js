@@ -12,7 +12,7 @@ import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import DMContainer from './containers/DMContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch,stopDMing, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -39,6 +39,8 @@ class App extends Component {
 
   viewMyProfileClick = event => {
     event.preventDefault()
+    this.props.stopDMing()
+    this.props.stopCreatingNewEntry()
     this.props.viewEntriesOnProfile(this.props.currentUserLoggedIn)
     this.props.viewSomeonesProfile(this.props.currentUserLoggedIn)
 
@@ -48,9 +50,11 @@ class App extends Component {
     event.preventDefault()
     this.props.viewHome()
     const falseVal = false
-    this.props.isDMing(false)
+    // this.props.isDMing(false)
+    this.props.stopDMing()
+    this.props.stopCreatingNewEntry()
     if (this.props.isCreatingNewEntryBool) {
-      this.props.isCreatingNewEntry()
+      // this.props.isCreatingNewEntry(falseVal)
       this.setState({
         isViewingChat: !this.state.isViewingChat
       })
@@ -72,9 +76,13 @@ class App extends Component {
 
   renderPage = () => {
     // console.log(this.state.isViewingChat);
-    if (!this.state.isViewingChat) {
+    // if (!this.state.isViewingChat) {
       if (this.props.profileToView.username) {
-        return <ProfileContainer/>
+        if (this.props.isCreatingNewEntryBool) {
+          return <Fragment><EntryForm/></Fragment>
+        } else {
+          return <Fragment><ProfileContainer/></Fragment>
+        }
       } else {
         // return <Fragment> {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}</Fragment>
         if (this.props.isDMingBool) {
@@ -88,13 +96,16 @@ class App extends Component {
         }
 
       }
-    } else {
-      return <ChatContainer/>
-    }
+    // }
+    // else {
+    //   return <ChatContainer/>
+    // }
   }
 
   render(){
     // console.log("APP", this.props);
+    // <a className="chat-link" onClick={this.handleChatClick} href="">Messenger</a>
+
     return (
       <div className="App">
         {this.props.currentUserLoggedIn.username
@@ -108,7 +119,6 @@ class App extends Component {
                 <div>
                   <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
                 </div>
-                <a className="chat-link" onClick={this.handleChatClick} href="">Messenger</a>
                 <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
                 <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
             </div>
@@ -145,7 +155,9 @@ const mapDispatchToProps = dispatch => ({
   isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
   viewSomeonesProfile: (userObj) => dispatch(viewSomeonesProfile(userObj)),
   viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj)),
-  isDMing: userObj => dispatch(isDMing(userObj))
+  isDMing: userObj => dispatch(isDMing(userObj)),
+  stopCreatingNewEntry: () => dispatch(stopCreatingNewEntry()),
+  stopDMing: () => dispatch(stopDMing)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

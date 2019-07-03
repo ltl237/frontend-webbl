@@ -18,9 +18,11 @@ export const entriesReducer = (state = initialState, action) => {
       case 'VIEW_SINGLE_ENTRY':
         return {...state, singleEntryToView: action.payload}
       case 'CREATE_NEW_ENTRY':
-        return {...state, allEntries: [...state.allEntries, action.payload], isCreatingNewEntryBool: action.payload.falseVal}
+        return {...state, allEntries: [...state.allEntries, action.payload], isCreatingNewEntryBool: action.payload.falseVal, entriesOnScreen:[...state.entriesOnScreen, action.payload]}
       case 'IS_CREATING_NEW_ENTRY':
-        return {...state, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
+          return {...state, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
+      case 'STOP_CREATING_NEW_ENTRY':
+          return {...state, isCreatingNewEntryBool: false}
       case 'IS_EDITING_ENTRY':
         return {...state, isEditingEntry: !state.isEditingEntry, isCreatingNewEntryBool: !state.isCreatingNewEntryBool}
       case 'EDIT_ENTRY_FETCH':
@@ -36,7 +38,7 @@ export const entriesReducer = (state = initialState, action) => {
 
         return {...state, singleEntryToView: updatedSingleEntry, allEntries: newEntriesArr}
       case 'VIEW_ENTRIES_ON_PROFILE':
-        
+
         console.log(action.payload);
         // debugger
         return {...state, entriesOnScreen: action.payload}

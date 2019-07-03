@@ -103,6 +103,7 @@ export const userLoginFetch = user => {
 
 export const appendNewConversation = (conversation) => ({type:"APPEND_NEW_CONVERSATION", payload:conversation})
 
+export const stopDMing = () => ({type:'STOP_DMING'})
 export const isDMing = (userObj) => ({type: 'IS_DMING', payload:userObj})
 
 
@@ -260,7 +261,8 @@ export const editEntryFetch = entryObj => {
   }
 }
 
-export const isCreatingNewEntry = (isCreating = false) => ({type: 'IS_CREATING_NEW_ENTRY'})
+export const stopCreatingNewEntry = () => ({type:'STOP_CREATING_NEW_ENTRY'})
+export const isCreatingNewEntry = (isCreatingNewEntryBool) => ({type: 'IS_CREATING_NEW_ENTRY', payload:isCreatingNewEntryBool})
 
 export const createNewEntry = newEntryObj => {
   console.log("createNewEntry", newEntryObj);

@@ -21,37 +21,40 @@ class MessagesArea extends Component {
     // if (objDiv) {
     //   objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight
     // }
+    console.log(sortedMessages);
+    // console.log(me);
+    debugger
     return sortedMessages.map(message => {
       if (this.props.currentUserLoggedIn.id === message.user.id) {
-        return <li> {message.text} </li>
-      //   return <Fragment>
-      //       <div className="single-message-container-div " >
-      //       <div className="single-message-wrapper is-sender">
-      //       <li className="single-message-li is-sender" key={message.id}>
-      //           <span className="single-message-span">{message.text}</span>
-      //         </li><br></br>
-      //         <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
-      //         </div>
-      //       </div>
-      //         </Fragment>
-      // } else {
-      //   return <Fragment>
-      //     <div className="single-message-container-div ">
-      //     <div className="single-message-wrapper is-receiver">
-      //       <li className="single-message-li is-receiver" key={message.id}>
-      //         <span className="single-message-span">{message.text}</span>
-      //       </li><br></br>
-      //       <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
-      //       </div>
-      //     </div>
-      //         </Fragment>
+        console.log(message);
+        return <Fragment>
+            <div className="single-message-container-div " >
+            <div className="single-message-wrapper is-sender">
+            <li className="single-message-li is-sender" key={message.id}>
+                <span className="single-message-span">{message.text}</span>
+              </li><br></br>
+              <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
+              </div>
+            </div>
+              </Fragment>
+      } else {
+        return <Fragment>
+          <div className="single-message-container-div ">
+          <div className="single-message-wrapper is-receiver">
+            <li className="single-message-li is-receiver" key={message.id}>
+              <span className="single-message-span">{message.text}</span>
+            </li><br></br>
+            <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
+            </div>
+          </div>
+              </Fragment>
 
       }
     });
   };
 
   render(){
-    console.log(this.props.conversation);
+    // console.log(this.props.conversation);
     console.log(this.props.conversation.messages);
     return (
       <div className="messagesArea-div" >

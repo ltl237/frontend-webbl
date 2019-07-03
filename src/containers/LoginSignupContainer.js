@@ -23,7 +23,7 @@ class LoginSignupContainer extends Component {
 
   render() {
     // console.log(this.state);
-    console.log(this.state.signupIsClicked);
+    // console.log(this.state.signupIsClicked);
     return (
       <Fragment>
 

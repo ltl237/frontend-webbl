@@ -64,7 +64,7 @@ export const getProfileFetch = () => {
             // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")
           } else {
-            console.log(data);
+            // console.log(data);
             dispatch(loginUser(data.user))
           }
         })
@@ -101,7 +101,7 @@ export const userLoginFetch = user => {
   }
 }
 
-export const appendNewConversation = (conversation) => ({type:"APPEND_NEW_CONVERSATION", payload:conversation}) 
+export const appendNewConversation = (conversation) => ({type:"APPEND_NEW_CONVERSATION", payload:conversation})
 
 export const isDMing = (userObj) => ({type: 'IS_DMING', payload:userObj})
 
@@ -298,7 +298,7 @@ export const fetchAllTheEntries = allEntriesArr => {
     return fetch("http://localhost:3000/api/v1/entries")
             .then(res => res.json())
             .then(entryData => {
-              console.log('FETCH_ALL_ENTRIES', entryData);
+              // console.log('FETCH_ALL_ENTRIES', entryData);
               dispatch({type: 'FETCH_ALL_ENTRIES', payload: entryData})
             })
   }

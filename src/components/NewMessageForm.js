@@ -17,7 +17,7 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
     fetch(`${API_ROOT}/messages`, {
       method: 'POST',
       headers: {

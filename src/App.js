@@ -71,7 +71,7 @@ class App extends Component {
   }
 
   renderPage = () => {
-    console.log(this.state.isViewingChat);
+    // console.log(this.state.isViewingChat);
     if (!this.state.isViewingChat) {
       if (this.props.profileToView.username) {
         return <ProfileContainer/>
@@ -94,7 +94,7 @@ class App extends Component {
   }
 
   render(){
-    console.log("APP", this.props);
+    // console.log("APP", this.props);
     return (
       <div className="App">
         {this.props.currentUserLoggedIn.username

@@ -9,15 +9,10 @@ import MessagesArea from '../components/MessagesArea';
 
 import {getProfileFetch, logoutUser, loginUser, viewSingleEntry} from '../redux/actions';
 
-const findActiveConversation = (conversations, activeConversation) => {
-  return conversations.find(
-    conversation => conversation.id === activeConversation
-  );
-};
 
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
-    // console.log(conversation);
+    console.log(conversation);
     return (
       <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
         {conversation.title}
@@ -56,6 +51,17 @@ class DMContainer extends Component {
         // this.setState({ conversations }));
   };
 
+  findActiveConversation = (conversations, activeConversation) => {
+    console.log("state",this.state.conversations);
+    console.log(activeConversation);
+    console.log(conversations);
+    console.log("FINDACTIVEwithstate",this.state.conversations.find(conversation => conversation.id === activeConversation));
+    console.log("FINDACTIVE",conversations.find(conversation => conversation.id === activeConversation));
+    debugger
+    return this.state.conversations.find(
+      conversation => conversation.id === activeConversation
+    );
+  };
   handleClick = id => {
     this.setState({ activeConversation: id });
   };
@@ -68,22 +74,31 @@ class DMContainer extends Component {
       conversations: [...this.state.conversations, conversation]
     });
   };
-
   handleReceivedMessage = response => {
     const { message } = response;
-    console.log("I HAVE RECEIVED MESSAGE -", message);
-    // debugger
     const conversations = [...this.state.conversations];
     const conversation = conversations.find(
       conversation => conversation.id === message.conversation_id
     );
-
-
     conversation.messages = [...conversation.messages, message];
-    console.log("WITH NEW MSG", conversation.messages);
-    this.setState({ conversations })
-
+    this.setState({ conversations });
   };
+  // handleReceivedMessage = response => {
+  //   const { message } = response;
+  //   console.log("I HAVE RECEIVED MESSAGE -", message);
+  //   // debugger
+  //   const conversations = [...this.state.conversations];
+  //   const conversation = conversations.find(
+  //     conversation => conversation.id === message.conversation_id
+  //   );
+  //
+  //
+  //   conversation.messages = [...conversation.messages, message];
+  //   console.log("WITH NEW MSG", conversations);
+  //   console.log(message);
+  //   this.setState({ conversations: conversations })
+  //
+  // };
 
   render = () => {
     const { conversations, activeConversation } = this.state;
@@ -105,7 +120,7 @@ class DMContainer extends Component {
         <ul>{mapConversations(conversations, this.handleClick)}</ul>
         {activeConversation ? (
           <MessagesArea
-            conversation={findActiveConversation(
+            conversation={this.findActiveConversation(
               conversations,
               activeConversation
             )}

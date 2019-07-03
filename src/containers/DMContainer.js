@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCable, ActionCableConsumer } from 'react-actioncable-provider';
 
 import ConversationsCables from '../components/ConversationsCables'
 import { API_ROOT } from '../constants';
@@ -62,7 +62,7 @@ class DMContainer extends Component {
 
   handleReceivedConversation = response => {
     const { conversation } = response;
-    console.log(conversation);
+    console.log("i have received conversation -",conversation);
     // debugger
     this.setState({
       conversations: [...this.state.conversations, conversation]
@@ -71,22 +71,16 @@ class DMContainer extends Component {
 
   handleReceivedMessage = response => {
     const { message } = response;
-    console.log("edddboi", message);
+    console.log("I HAVE RECEIVED MESSAGE -", message);
     // debugger
     const conversations = [...this.state.conversations];
     const conversation = conversations.find(
       conversation => conversation.id === message.conversation_id
     );
 
-    // if (conversation.messages.length > 0) {
-    //   console.log(conversation)
-    //
-    //   // debugger
-      conversation.messages = [...conversation.messages, message];
-    // } else {
-    //   console.log("no messages in here", conversation);
-    //
-    // }
+
+    conversation.messages = [...conversation.messages, message];
+
     this.setState({ conversations });
   };
 
@@ -119,6 +113,9 @@ class DMContainer extends Component {
       </div>
     );
   };
+
+
+//active onverstion
 
 
   //MY CLASS ///

@@ -65,7 +65,7 @@ class EntryModal extends Component {
     event.preventDefault()
     this.props.isDMing(clickedUserObj)
     let body = {
-            title: "PRIVATE",
+            title: `${this.props.currentUserLoggedIn.id}-${clickedUserObj.id}`,
             sender_id: this.props.currentUserLoggedIn,
             receiver_id: clickedUserObj.id
         };

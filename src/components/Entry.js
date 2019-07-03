@@ -84,6 +84,11 @@ class Entry extends Component {
                   "Authorization": `Bearer ${localStorage.getItem("token")}`},
               body: JSON.stringify(bodyData)
           })
+          .then(res => res.json())
+          .then(conversationData => {
+            console.log(conversationData);
+            // debugger
+          })
     }
 
     handleChatClick = (event, clickedUserObj) => {

@@ -21,13 +21,13 @@ class MessagesArea extends Component {
     // if (objDiv) {
     //   objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight
     // }
-    console.log(sortedMessages);
+    // console.log(sortedMessages);
     // console.log(me);
-    debugger
+    // debugger
     return sortedMessages.map(message => {
       if (this.props.currentUserLoggedIn.id === message.user.id) {
         console.log(message);
-        return <Fragment>
+        return <Fragment key={message.id}>
             <div className="single-message-container-div " >
             <div className="single-message-wrapper is-sender">
             <li className="single-message-li is-sender" key={message.id}>
@@ -38,7 +38,7 @@ class MessagesArea extends Component {
             </div>
               </Fragment>
       } else {
-        return <Fragment>
+        return <Fragment key={message.id}>
           <div className="single-message-container-div ">
           <div className="single-message-wrapper is-receiver">
             <li className="single-message-li is-receiver" key={message.id}>

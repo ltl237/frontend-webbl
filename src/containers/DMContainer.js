@@ -55,12 +55,13 @@ class DMContainer extends Component {
     console.log("state",this.state.conversations);
     console.log(activeConversation);
     console.log(conversations);
-    console.log("FINDACTIVEwithstate",this.state.conversations.find(conversation => conversation.id === activeConversation));
     console.log("FINDACTIVE",conversations.find(conversation => conversation.id === activeConversation));
-    debugger
-    return this.state.conversations.find(
+
+    // debugger
+    const conversationFound = conversations.find(
       conversation => conversation.id === activeConversation
     );
+    return conversationFound
   };
   handleClick = id => {
     this.setState({ activeConversation: id });
@@ -81,7 +82,17 @@ class DMContainer extends Component {
       conversation => conversation.id === message.conversation_id
     );
     conversation.messages = [...conversation.messages, message];
-    this.setState({ conversations });
+    console.log(conversation);
+
+    conversations.forEach((conversation,idx) => {
+      if (conversation.id === message.conversation_id) {
+        const newUpdatedConversation = {...conversation}
+        conversations[idx] = newUpdatedConversation
+      }
+    })
+    // debugger
+    // this.setState({conversations: []})
+    this.setState({ conversations: conversations });
   };
   // handleReceivedMessage = response => {
   //   const { message } = response;

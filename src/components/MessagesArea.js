@@ -16,30 +16,35 @@ class MessagesArea extends Component {
     const sortedMessages = messages.sort(
       (a, b) => new Date(a.created_at) - new Date(b.created_at)
     );
+    // const objDiv = document.querySelector('.messagesArea-div')
+    //
+    // if (objDiv) {
+    //   objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight
+    // }
     return sortedMessages.map(message => {
       if (this.props.currentUserLoggedIn.id === message.user.id) {
-
-        return <Fragment>
-            <div className="single-message-container-div ">
-            <div className="single-message-wrapper is-sender">
-            <li className="single-message-li is-sender" key={message.id}>
-                <span className="single-message-span">{message.text}</span>
-              </li><br></br>
-              <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
-              </div>
-            </div>
-              </Fragment>
-      } else {
-        return <Fragment>
-          <div className="single-message-container-div ">
-          <div className="single-message-wrapper is-receiver">
-            <li className="single-message-li is-receiver" key={message.id}>
-              <span className="single-message-span">{message.text}</span>
-            </li><br></br>
-            <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
-            </div>
-          </div>
-              </Fragment>
+        return <li> {message.text} </li>
+      //   return <Fragment>
+      //       <div className="single-message-container-div " >
+      //       <div className="single-message-wrapper is-sender">
+      //       <li className="single-message-li is-sender" key={message.id}>
+      //           <span className="single-message-span">{message.text}</span>
+      //         </li><br></br>
+      //         <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
+      //         </div>
+      //       </div>
+      //         </Fragment>
+      // } else {
+      //   return <Fragment>
+      //     <div className="single-message-container-div ">
+      //     <div className="single-message-wrapper is-receiver">
+      //       <li className="single-message-li is-receiver" key={message.id}>
+      //         <span className="single-message-span">{message.text}</span>
+      //       </li><br></br>
+      //       <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
+      //       </div>
+      //     </div>
+      //         </Fragment>
 
       }
     });

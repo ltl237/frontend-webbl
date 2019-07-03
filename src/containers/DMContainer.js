@@ -17,7 +17,7 @@ const findActiveConversation = (conversations, activeConversation) => {
 
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
-    console.log(conversation);
+    // console.log(conversation);
     return (
       <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
         {conversation.title}
@@ -49,7 +49,7 @@ class DMContainer extends Component {
     })
       .then(res => res.json())
       .then(conversations => {
-        console.log(conversations)
+        // console.log(conversations)
         this.setState({conversations})
       })
 
@@ -80,13 +80,14 @@ class DMContainer extends Component {
 
 
     conversation.messages = [...conversation.messages, message];
+    console.log("WITH NEW MSG", conversation.messages);
+    this.setState({ conversations })
 
-    this.setState({ conversations });
   };
 
   render = () => {
     const { conversations, activeConversation } = this.state;
-    // console.log(this.state);
+    console.log(this.state);
     return (
       <div className="conversationsList">
         <ActionCable

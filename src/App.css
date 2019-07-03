@@ -391,9 +391,9 @@
 }
 
 .newMessageForm {
-  position: fixed;
+  /* position: fixed;
   right: 0;
-
+  top: 50%; */
 }
 
 .single-message-li {
@@ -424,5 +424,6 @@
 
 .single-message-container-div {
   display: inline-block;
+  padding-bottom: 7px;
   width: 100%;
 }

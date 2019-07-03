@@ -16,11 +16,11 @@ class MessagesArea extends Component {
     const sortedMessages = messages.sort(
       (a, b) => new Date(a.created_at) - new Date(b.created_at)
     );
-    // const objDiv = document.querySelector('.messagesArea-div')
-    //
-    // if (objDiv) {
-    //   objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight
-    // }
+    const objDiv = document.querySelector('.messagesArea-div')
+
+    if (objDiv) {
+      objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight
+    }
     // console.log(sortedMessages);
     // console.log(me);
     // debugger

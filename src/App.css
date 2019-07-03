@@ -380,3 +380,49 @@
 .modal-content {
   /* z-index: -100; */
 }
+
+.messagesArea-div {
+  border-radius: 5px;
+  border: 2px solid lightblue;
+  height: 400px;
+  width: 600px;
+  overflow: scroll;
+  padding: 5px;
+}
+
+.newMessageForm {
+  position: fixed;
+  right: 0;
+
+}
+
+.single-message-li {
+  display: inline-block;
+  /* width: 100%; */
+}
+
+.single-message-span {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 5px;
+
+}
+
+.is-sender {
+  color: blue;
+  float: right;
+}
+
+.is-receiver {
+  color: grey;
+  float: left;
+}
+
+.single-message-wrapper {
+
+}
+
+.single-message-container-div {
+  display: inline-block;
+  width: 100%;
+}

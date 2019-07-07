@@ -8,22 +8,14 @@ class LikeButton extends Component {
     likes: this.props.entry.likings.length
   }
   componentDidMount() {
-    // this.props.getLikingsOnEntry(this.props.entry)
+    this.props.getLikingsOnEntry(this.props.entry)
   }
 
   handleLikeClick = event => {
     event.preventDefault()
     const typesArray = ['REMOVE_LIKING','CREATE_NEW_LIKING']
     const likingActionType = ''
-    // this.props.allLikings.map(liking => {
-    //   if (this.props.entry.id === liking.entry.id && liking.user.id === this.props.currentUserLoggedIn.id) {
-    //     console.log("remove this",liking);
-    //     return <Fragment>{this.props.removeLiking(liking)}</Fragment>
-    //   } else {
-    //     console.log("Add this", liking);
-    //     return <Fragment>{this.props.createNewLiking(liking)}</Fragment>
-    //   }
-    // })
+
     console.log('LIKED');
     // console.log(this.props.likingsOnThisEntry(this.props.entry));
     // if (this.props.entry.likings.length > 0) {
@@ -48,7 +40,7 @@ class LikeButton extends Component {
 
     if (this.props.likingsOnThisEntry.length > 0) {
       return this.props.likingsOnThisEntry.map(liking => {
-        if (liking.user.id === this.props.currentUserLoggedIn.id && liking.entry.user_id === this.props.currentUserLoggedIn.id) {
+        if (liking.user.id === this.props.currentUserLoggedIn.id || liking.entry.user_id === this.props.currentUserLoggedIn.id) {
           console.log("remove this", liking)
           return this.props.removeLiking(liking)
         } else {

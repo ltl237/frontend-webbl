@@ -44,7 +44,11 @@ class DMContainer extends Component {
     })
       .then(res => res.json())
       .then(conversations => {
-        // console.log(conversations)
+        console.log(conversations)
+        const myConversations = conversations.map(conversation => {
+          // console.log(conversation);
+          // debugger
+        })
         this.setState({conversations})
       })
 
@@ -52,10 +56,10 @@ class DMContainer extends Component {
   };
 
   findActiveConversation = (conversations, activeConversation) => {
-    console.log("state",this.state.conversations);
-    console.log(activeConversation);
-    console.log(conversations);
-    console.log("FINDACTIVE",conversations.find(conversation => conversation.id === activeConversation));
+    // console.log("state",this.state.conversations);
+    // console.log(activeConversation);
+    // console.log(conversations);
+    // console.log("FINDACTIVE",conversations.find(conversation => conversation.id === activeConversation));
 
     // debugger
     const conversationFound = conversations.find(
@@ -113,7 +117,7 @@ class DMContainer extends Component {
 
   render = () => {
     const { conversations, activeConversation } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="conversationsList">
         <ActionCable

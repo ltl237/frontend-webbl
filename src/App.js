@@ -84,7 +84,6 @@ class App extends Component {
           return <Fragment><ProfileContainer/></Fragment>
         }
       } else {
-        // return <Fragment> {this.props.isCreatingNewEntryBool ?  <EntryForm /> : <EntriesContainer/>}</Fragment>
         if (this.props.isDMingBool) {
           return <Fragment><DMContainer/></Fragment>
         } else {
@@ -157,7 +156,7 @@ const mapDispatchToProps = dispatch => ({
   viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj)),
   isDMing: userObj => dispatch(isDMing(userObj)),
   stopCreatingNewEntry: () => dispatch(stopCreatingNewEntry()),
-  stopDMing: () => dispatch(stopDMing)
+  stopDMing: () => dispatch(stopDMing())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

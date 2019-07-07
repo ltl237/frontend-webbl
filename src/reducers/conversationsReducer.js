@@ -9,6 +9,7 @@ export const conversationsReducer = (state = initialState, action) => {
     case 'IS_DMING':
       return {...state, isDMingBool: !state.isDMingBool, userToDM: action.payload}
     case 'STOP_DMING':
+    // console.log(state);
       return {...state, isDMingBool: false}
     default:
       return state

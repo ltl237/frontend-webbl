@@ -116,23 +116,8 @@ class EntryModal extends Component {
     this.setState({
       isViewingLikes: !this.state.isViewingLikes
     })
-    
-    // if (userLikingsDivStyle === "none") {
-    //   // document.querySelector(".user-likings-div").style.display = "inline-block"
-    //   userLikingsDivStyle = "inline-block"
-    // } else if (userLikingsDivStyle === "inline-block") {
-    //   userLikingsDivStyle = "none"
-    //   // document.querySelector(".user-likings-div").style.display = "none"
-    // }
 
-    // switch (userLikingsDivStyle) {
-    //   case "none":
-    //     userLikingsDivStyle = "inline-block"
-    //   case "inline-block":
-    //     userLikingsDivStyle = "none"
-    //   default:
-    //     userLikingsDivStyle = "inline-block"
-    // }
+
   }
 
   renderLikings = (singleEntryToView) => {
@@ -145,7 +130,7 @@ class EntryModal extends Component {
       console.log(likingsArray[0].user.username);
       return   <Fragment>
                   <a onClick={this.handleLikingsClick} href="" className="user-likings-link">
-                  Likes
+                  {likingsArray.length} Likes
                   </a>
 
                 </Fragment>
@@ -205,19 +190,18 @@ class EntryModal extends Component {
                   </div>
                   <hr></hr>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
-                    <div className="category-likes">
+                    <div className="category-likes col-md-2">
                       {this.props.singleEntryToView.user_id === this.props.currentUserLoggedIn.id ?
                         <button onClick={this.handleEditClick} type="button" className="btn btn-light edit-entry-button"><i className="glyphicon glyphicon-share-alt"></i> Edit</button>
                         :
                         null
                       }
 
-                      <p>{this.props.singleEntryToView.category}</p>
                       {this.renderLikings(this.props.singleEntryToView)}
                     </div>
                     {this.state.isViewingLikes ?
-                      <div className="viewing-likes-div">
-                        <ul>
+                      <div className="viewing-likes-div col-md-3">
+                        <ul  style={{marginTop:"0px", padding:"1px", textAlign:"center"}}>
                           {this.renderLikingsList()}
                         </ul>
                       </div>
@@ -225,7 +209,7 @@ class EntryModal extends Component {
                       null
                     }
 
-                    <div className="comment-like-wrapper">
+                    <div className="comment-like-wrapper col-md-6">
                       <LikeButton entry={this.props.singleEntryToView}/>
                       <CommentForm />
                     </div>
@@ -234,13 +218,13 @@ class EntryModal extends Component {
 
 
                   <div className="comments-div">
-                    <ul>
+                    <ul className="list-group list-group-flush">
                     {
                       this.props.commentsOnThisEntry.length > 0 ?
                       this.props.commentsOnThisEntry.map(comment =>  {
                         return <Fragment>
                           <div key={comment.id}>
-                            <li>{comment.content}
+                            <li class="list-group-item">{comment.content}
                               <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
                               <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                               </a>

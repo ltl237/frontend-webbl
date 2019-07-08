@@ -64,7 +64,10 @@
 }
 
 .category-likes {
-  /* position: absolute; */
+  position: relative;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .entry-user {
@@ -320,6 +323,10 @@
    margin-bottom: none;
 }
 
+.list-group-item {
+  width: 100%;
+}
+
 .comment-like-wrapper {
   display: flex;
   width: 100%;
@@ -349,6 +356,21 @@
   left: 0;
   /* border: 1px solid grey; */
   /* border-radius: 3px; */
+}
+
+.user-likings-link {
+  display: block;
+}
+
+.viewing-likes-div {
+  height: 6em;
+  width: 35%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 3%;
+  margin-left: -3%;
+  vertical-align: middle;
+  overflow: scroll;
 }
 
 .profile {

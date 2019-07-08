@@ -19,13 +19,13 @@ class CommentForm extends Component {
     event.target.parentElement.firstElementChild.nextElementSibling.value = ""
 
     this.props.createNewComment(commentObj)
-    
+
   }
 
   render() {
     return (
       <Fragment>
-            <textarea id={"comment-textarea-" + this.props.singleEntryToView.id} type="text" name="comment" style={{width:"500px", marginLeft:"39px"}} placeholder="comment here"></textarea>
+            <textarea id={"comment-textarea-" + this.props.singleEntryToView.id} type="text" name="comment" style={{width:"500px"}} placeholder="comment here"></textarea>
             <input id="comment-button" onClick={this.handleClick}  type="button" value="Comment !"></input>
       </Fragment>
     );

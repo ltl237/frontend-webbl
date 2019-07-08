@@ -115,7 +115,7 @@ export const getLikingsOnEntry = (entryObj) => {
               if (likingData.errors) {
                 console.log(likingData.errors);
               } else {
-                console.log(entryObj);
+                // console.log(entryObj);
                 const entryLikingsArray = likingData.filter(liking => liking.entry.id === entryObj.id)
                 // console.log(entryLikingsArray);
                 // debugger
@@ -178,7 +178,7 @@ export const removeLiking = likingObj => {
       if (likingData.errors){
         console.log(likingData.errors);
       } else {
-        // console.log(likingData);
+        console.log("remvoed",likingData);
         dispatch({type:'REMOVE_LIKING', payload:likingObj})
       }
     })

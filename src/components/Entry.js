@@ -65,7 +65,7 @@ class Entry extends Component {
     renderLikings = (singleEntryToView) => {
       // debugger
       const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === singleEntryToView.id)
-      console.log(likingsArray);
+      // console.log(likingsArray);
 
       if (likingsArray.length > 0) {
         return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
@@ -94,8 +94,8 @@ class Entry extends Component {
     handleChatClick = (event, clickedUserObj) => {
       event.preventDefault()
       this.props.isDMing(clickedUserObj)
-      console.log(clickedUserObj);
-      console.log(this.props.currentUserLoggedIn);
+      // console.log(clickedUserObj);
+      // console.log(this.props.currentUserLoggedIn);
       // debugger
       let body = {
               title: `${this.props.currentUserLoggedIn.id}-${clickedUserObj.id}`,
@@ -112,7 +112,7 @@ class Entry extends Component {
       //   console.log(conversationData)
       //   conversationThatExists = conversationData.filter(conversation => conversation.user.id === clickedUserObj.id)
       // })
-      console.log("CHAT CLICK", body);
+      // console.log("CHAT CLICK", body);
       this.fetchToWebsocket("conversations", body);
 
 
@@ -130,8 +130,8 @@ class Entry extends Component {
 
 
   render() {
-    console.log(this.props.entry);
-    console.log(this.props.currentUserLoggedIn);
+    // console.log(this.props.entry);
+    // console.log(this.props.currentUserLoggedIn);
     return (
       <Fragment>
       <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">

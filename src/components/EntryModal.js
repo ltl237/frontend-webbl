@@ -12,7 +12,8 @@ import {userLoginFetch, viewSomeonesProfile, isDMing, getCommentsOnEntry, getAll
 
 class EntryModal extends Component {
   state = {
-    canEditEntry: false
+    canEditEntry: false,
+    isViewingLikes: false
   }
 
   componentDidMount() {
@@ -107,16 +108,62 @@ class EntryModal extends Component {
 
   }
 
+  handleLikingsClick = event => {
+    event.preventDefault()
+    // let userLikingsDivStyle = document.querySelector(".user-likings-div").style.display
+    //document.querySelector(".user-likings-div").style.display
+// "none"
+    this.setState({
+      isViewingLikes: !this.state.isViewingLikes
+    })
+    
+    // if (userLikingsDivStyle === "none") {
+    //   // document.querySelector(".user-likings-div").style.display = "inline-block"
+    //   userLikingsDivStyle = "inline-block"
+    // } else if (userLikingsDivStyle === "inline-block") {
+    //   userLikingsDivStyle = "none"
+    //   // document.querySelector(".user-likings-div").style.display = "none"
+    // }
+
+    // switch (userLikingsDivStyle) {
+    //   case "none":
+    //     userLikingsDivStyle = "inline-block"
+    //   case "inline-block":
+    //     userLikingsDivStyle = "none"
+    //   default:
+    //     userLikingsDivStyle = "inline-block"
+    // }
+  }
+
   renderLikings = (singleEntryToView) => {
     // debugger
     const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === singleEntryToView.id)
     // console.log(likingsArray);
 
     if (likingsArray.length > 0) {
-      return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+      // return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
+      console.log(likingsArray[0].user.username);
+      return   <Fragment>
+                  <a onClick={this.handleLikingsClick} href="" className="user-likings-link">
+                  Likes
+                  </a>
+
+                </Fragment>
+
     }else {
       return <Fragment><p>0 Likes</p></Fragment>
     }
+  }
+
+  renderLikingsList = () => {
+    const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === this.props.singleEntryToView.id)
+    return likingsArray.map(liking => {
+      console.log("RENDERLIKINGLIST", liking);
+      return <Fragment><li className="list-group-item">{liking.user.username}</li></Fragment>
+    })
+    // this.props.likingsOnThisEntry.map(liking => {
+    //   return <Fragment><li>{liking.user}</li></Fragment>
+    // })
   }
 
   handleEditClick = event => {
@@ -168,6 +215,16 @@ class EntryModal extends Component {
                       <p>{this.props.singleEntryToView.category}</p>
                       {this.renderLikings(this.props.singleEntryToView)}
                     </div>
+                    {this.state.isViewingLikes ?
+                      <div className="viewing-likes-div">
+                        <ul>
+                          {this.renderLikingsList()}
+                        </ul>
+                      </div>
+                      :
+                      null
+                    }
+
                     <div className="comment-like-wrapper">
                       <LikeButton entry={this.props.singleEntryToView}/>
                       <CommentForm />

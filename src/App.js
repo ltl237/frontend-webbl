@@ -64,6 +64,7 @@ class App extends Component {
 
   handleNewEntryClick = event => {
     event.preventDefault()
+    this.props.stopDMing()
     this.props.isCreatingNewEntry()
   }
 

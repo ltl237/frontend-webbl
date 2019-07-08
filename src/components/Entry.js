@@ -84,11 +84,11 @@ class Entry extends Component {
                   "Authorization": `Bearer ${localStorage.getItem("token")}`},
               body: JSON.stringify(bodyData)
           })
-          .then(res => res.json())
-          .then(conversationData => {
-            console.log(conversationData);
-            // debugger
-          })
+          // .then(res => res.json())
+          // .then(conversationData => {
+          //   console.log(conversationData);
+          //   // debugger
+          // })
     }
 
     handleChatClick = (event, clickedUserObj) => {
@@ -130,7 +130,8 @@ class Entry extends Component {
 
 
   render() {
-    // console.log(this.props);
+    console.log(this.props.entry);
+    console.log(this.props.currentUserLoggedIn);
     return (
       <Fragment>
       <div onClick={this.handleModalClick} data-toggle="modal" data-target={".bd-example-modal-lg-" + this.props.entry.id} key={this.props.entry.id} className="single-entry">
@@ -159,7 +160,15 @@ class Entry extends Component {
                       </div>
                       <div className="media-body">
                         <h4 className="media-heading"><a onClick={(event) => this.handleUserClick(event, this.props.entry.user)} href="">{this.props.entry.user? this.props.entry.user.username : null}</a></h4>
-                        <div><button className="view-profile-button">profile</button><button className="dm-button" onClick={(event) => this.handleChatClick(event, this.props.entry.user)}>chat</button></div>
+                        <div>
+                          <button className="view-profile-button">profile</button>
+                          {this.props.entry.user_id === this.props.currentUserLoggedIn.id ?
+                            null
+                            :
+                            <button className="dm-button" onClick={(event) => this.handleChatClick(event, this.props.entry.user)}>chat</button>
+
+                          }
+                        </div>
 
                       </div>
                     </div>

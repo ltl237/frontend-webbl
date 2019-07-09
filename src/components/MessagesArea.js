@@ -64,18 +64,20 @@ class MessagesArea extends Component {
     let user1Name = this.props.allUsers.filter(user => user.id.toString() === user1 )[0].username
     let user2Name = this.props.allUsers.filter(user => user.id.toString() === user2 )[0].username
 
-    return <Fragment><h2>{user1Name} - {user2Name}</h2></Fragment>
+    return <Fragment><p className="convo-title-p">{user1Name} - {user2Name}</p></Fragment>
   }
 
   render(){
     // console.log(this.props.conversation);
     console.log(this.props.conversation.messages);
     return (
+      <Fragment>
       <div className="messagesArea-div" >
         {this.renderConversationTitle()}
         <div className='message-container'>{this.orderedMessages(this.props.conversation.messages)}</div>
-        <NewMessageForm conversation_id={this.props.conversation.id} />
       </div>
+      <NewMessageForm conversation_id={this.props.conversation.id} />
+      </Fragment>
     )
   }
 }

@@ -6,6 +6,9 @@ import ConversationsCables from '../components/ConversationsCables'
 import { API_ROOT } from '../constants';
 import NewConversationForm from '../components/NewConversationForm';
 import MessagesArea from '../components/MessagesArea';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import {getProfileFetch, fetchAllUsers,logoutUser, loginUser, viewSingleEntry} from '../redux/actions';
 
@@ -57,7 +60,7 @@ class DMContainer extends Component {
       let user2Name = this.props.allUsers.filter(user => user.id.toString() === user2 )[0].username
 
       return (
-        <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
+        <li className="list-group-item" key={conversation.id} onClick={() => handleClick(conversation.id)}>
           {user1Name} - {user2Name}
         </li>
       );
@@ -108,7 +111,7 @@ class DMContainer extends Component {
     const { conversations, activeConversation } = this.state;
     // console.log(this.state);
     return (
-      <div className="conversationsList">
+      <div className="conversationsList" style={{height:"80em"}}>
         <ActionCable
           channel={{ channel: "ConversationsChannel" }}
           onReceived={this.handleReceivedConversation}
@@ -120,8 +123,9 @@ class DMContainer extends Component {
             handleReceivedMessage={this.handleReceivedMessage}
           />
         ) : null}
-        <h2>DM Conversations</h2>
-        <ul>{this.mapConversations(conversations, this.handleClick)}</ul>
+        <h2 style={{textAlign:"center",color:"white"}}>Webbl Chats</h2>
+
+        <div className="map-conversations" style={{height:"5em",overflow:"scroll",width:"fit-content", margin:"0 auto",marginBottom:"5em"}}>{this.mapConversations(conversations, this.handleClick)}</div>
         {activeConversation ? (
           <MessagesArea
             conversation={this.findActiveConversation(

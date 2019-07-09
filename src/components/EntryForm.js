@@ -55,7 +55,10 @@ class EntryForm extends Component {
     category_input: this.props.singleEntryToView.category
   }
 
-
+  handleCancel = event => {
+    event.preventDefault()
+    this.props.isEditingEntryToggle()
+  }
 
   handleSubmit = event => {
     event.preventDefault()
@@ -104,7 +107,7 @@ class EntryForm extends Component {
   render() {
 
     return (
-      <div>
+      <div className="outer-form">
           <form className="form-style-9" onSubmit={this.handleSubmit}>
             <ul>
               <li>
@@ -131,13 +134,17 @@ class EntryForm extends Component {
                   <option value="Sports">Sports</option>
                 </select>
               </li>
-              <li>
+              <li style={{textAlign:"center"}}>
                 {this.props.isEditingEntry ?
+                  <Fragment>
+                  <input onClick={this.handleCancel} type="submit" value="Cancel Edit"/>
                   <input onClick={this.handleSubmit} type="submit" value="Submit Edit" />
+                  </Fragment>
                   :
                   <input onClick={this.handleSubmit} type="submit" value="Create Entry" />
 
                 }
+
               </li>
             </ul>
           </form>

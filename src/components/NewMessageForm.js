@@ -38,16 +38,18 @@ class NewMessageForm extends React.Component {
 
   render = () => {
     return (
-      <div className="newMessageForm">
+      <div className="newMessageForm form-group">
         <form onSubmit={this.handleSubmit}>
           <label>New Message:</label>
           <br />
-          <input
+          <textarea
+            style={{height:"2.3em",width:"35em",verticalAlign:"middle",display:"inline-block"}}
             type="text"
+            className="form-control"
             value={this.state.text}
             onChange={this.handleChange}
           />
-          <input type="submit" />
+          <button type="submit" className="btn btn-light" value="Send !">Send !</button>
         </form>
       </div>
     );

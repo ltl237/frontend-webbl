@@ -8,8 +8,8 @@
 
 export const userPostFetch = user => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/users", {
-    return fetch("http://7c0c0174.ngrok.io/api/v1/users", {
+    return fetch("http://localhost:3000/api/v1/users", {
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/users", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -40,8 +40,8 @@ export const userPostFetch = user => {
 
 export const fetchAllUsers = users => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/users")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/users")
+    return fetch("http://localhost:3000/api/v1/users")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/users")
             .then(res => res.json())
             .then(userData => {
               dispatch({type:'FETCH_ALL_USERS', payload: userData})
@@ -54,8 +54,8 @@ export const getProfileFetch = () => {
   return dispatch => {
     const token = localStorage.token;
     if (token) {
-      // return fetch("http://localhost:3000/api/v1/profile", {
-      return fetch("http://7c0c0174.ngrok.io/api/v1/profile", {
+      return fetch("http://localhost:3000/api/v1/profile", {
+      // return fetch("http://7c0c0174.ngrok.io/api/v1/profile", {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -85,8 +85,8 @@ export const getProfileFetch = () => {
 
 export const userLoginFetch = user => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/login", {
-    return fetch("http://7c0c0174.ngrok.io/api/v1/login", {
+    return fetch("http://localhost:3000/api/v1/login", {
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -122,8 +122,8 @@ export const isDMing = (userObj) => ({type: 'IS_DMING', payload:userObj})
 export const getLikingsOnEntry = (entryObj) => {
   return dispatch => {
     //http://7c0c0174.ngrok.io
-    // return fetch("http://localhost:3000/api/v1/likings")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/likings")
+    return fetch("http://localhost:3000/api/v1/likings")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/likings")
             .then(res => res.json())
             .then(likingData => {
               if (likingData.errors) {
@@ -143,8 +143,8 @@ export const getLikingsOnEntry = (entryObj) => {
 export const getAllLikings = () => {
   return dispatch => {
     //http://7c0c0174.ngrok.io
-    // return fetch("http://localhost:3000/api/v1/likings")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/likings")
+    return fetch("http://localhost:3000/api/v1/likings")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/likings")
             .then(res => res.json())
             .then(likingData => {
               if (likingData.errors) {
@@ -164,8 +164,8 @@ export const createNewLiking = (userAndEntry) => {
   console.log(newLikingObj);
   // debugger
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/likings", {
-    return fetch("http://7c0c0174.ngrok.io/api/v1/likings", {
+    return fetch("http://localhost:3000/api/v1/likings", {
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/likings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -188,8 +188,8 @@ export const createNewLiking = (userAndEntry) => {
 export const removeLiking = likingObj => {
   console.log("remove this", likingObj);
   return dispatch => {
-    // return fetch(`http://localhost:3000/api/v1/likings/${likingObj.id}`, {
-    return fetch(`http://7c0c0174.ngrok.io/api/v1/likings/${likingObj.id}`, {
+    return fetch(`http://localhost:3000/api/v1/likings/${likingObj.id}`, {
+    // return fetch(`http://7c0c0174.ngrok.io/api/v1/likings/${likingObj.id}`, {
       method: "DELETE"
     })
     .then(likingData => {
@@ -205,8 +205,8 @@ export const removeLiking = likingObj => {
 
 export const createNewComment = (commentObj) => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/comments", {
-    return fetch("http://7c0c0174.ngrok.io/api/v1/comments", {
+    return fetch("http://localhost:3000/api/v1/comments", {
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/comments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -228,8 +228,8 @@ export const createNewComment = (commentObj) => {
 
 export const getCommentsOnEntry = (entryObj) => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/comments")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/comments")
+    return fetch("http://localhost:3000/api/v1/comments")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/comments")
             .then(res => res.json())
             .then(commentData => {
               const commentsOnThisEntry = commentData.filter(comment => comment.entry.id === entryObj.id)
@@ -242,8 +242,8 @@ export const getCommentsOnEntry = (entryObj) => {
 export const viewEntriesOnProfile = userObj => {
   console.log(userObj);
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/entries")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/entries")
+    return fetch("http://localhost:3000/api/v1/entries")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/entries")
             .then(res => res.json())
             .then( entriesData => {
               if (entriesData.errors) {
@@ -262,8 +262,8 @@ export const isEditingEntryToggle = () => ({type: 'IS_EDITING_ENTRY'})
 export const editEntryFetch = entryObj => {
   return dispatch => {
     console.log(entryObj);
-    // return fetch(`http://localhost:3000/api/v1/entries/${entryObj.id}`, {
-    return fetch(`http://7c0c0174.ngrok.io/api/v1/entries/${entryObj.id}`, {
+    return fetch(`http://localhost:3000/api/v1/entries/${entryObj.id}`, {
+    // return fetch(`http://7c0c0174.ngrok.io/api/v1/entries/${entryObj.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -289,8 +289,8 @@ export const isCreatingNewEntry = (isCreatingNewEntryBool) => ({type: 'IS_CREATI
 export const createNewEntry = newEntryObj => {
   console.log("createNewEntry", newEntryObj);
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/entries", {
-    return fetch("http://7c0c0174.ngrok.io/api/v1/entries", {
+    return fetch("http://localhost:3000/api/v1/entries", {
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/entries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -322,8 +322,8 @@ export const fetchAllTheEntries = allEntriesArr => {
   return dispatch => {
     //http://10.39.106.145:3000/
     //http://7c0c0174.ngrok.io
-    // return fetch("http://localhost:3000/api/v1/entries")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/entries")
+    return fetch("http://localhost:3000/api/v1/entries")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/entries")
             .then(res => res.json())
             .then(entryData => {
               // console.log('FETCH_ALL_ENTRIES', entryData);
@@ -339,8 +339,8 @@ export const setCurrentUserLoggedIn = userObj => ({
 
 export const viewSomeonesProfile = userObj => {
   return dispatch => {
-    // return fetch("http://localhost:3000/api/v1/users")
-    return fetch("http://7c0c0174.ngrok.io/api/v1/users")
+    return fetch("http://localhost:3000/api/v1/users")
+    // return fetch("http://7c0c0174.ngrok.io/api/v1/users")
             .then(res => res.json())
             .then(userData => {
               if (userData.errors) {

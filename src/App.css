@@ -1,8 +1,12 @@
 .App {
   /* text-align: center; */
+  font-family: Helvetica Neue;
+  background-color: #4ea4d4;
 }
 
-
+.carousel .slide {
+  background-color: white;
+}
 .navsl {
   margin-top: none;
   padding-top: 1%;
@@ -10,16 +14,18 @@
   padding-right: 4px;
   display: flex;
   justify-content: space-between;
-  background-color: lightblue;
+  background-color: #7ad7f5;
   /* position: fixed; */
   width: 100%;
   border-radius: 2px;
 	border-bottom:  4px solid #25529b;
   border-top:  4px solid #25529b;
   font-size: 25px;
-  font-family: monospace;
+  font-family: Helvetica;
 }
-
+.outer-form {
+  height: 50em;
+}
 .name-container {
   /* border: 1px solid black; */
 }
@@ -30,11 +36,13 @@
   overflow: scroll;
 }
 .entries-container {
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   border-radius: 5px;
   width: 77%;
-  height: 50em;
+  height: 80em;
   margin: 0 auto;
+  background-color: #dcf0f5;
+  box-shadow: inset -1px -11px 4px 8px #4ea4d4;
   overflow: scroll;
 }
 
@@ -161,7 +169,7 @@
 	color: #FFFFFF;
 	padding: 8px 18px;
 	text-decoration: none;
-	font: 12px Arial, Helvetica, sans-serif;
+	font: 12px Helvetica, Montserrat, sans-serif;
 }
 .form-style-9 ul li input[type="button"]:hover,
 .form-style-9 ul li input[type="submit"]:hover {
@@ -236,7 +244,7 @@
 	border-bottom:  4px solid #25529b;
   border-top:  4px solid #25529b;
   font-size: 25px;
-  font-family: monospace;
+  font-family: Helvetica Neue;
 }
 
 .nav-icon-div {
@@ -416,15 +424,28 @@
   border-radius: 5px;
   border: 2px solid lightblue;
   height: 400px;
-  width: 600px;
+  width: 70%;
   overflow: scroll;
   padding: 5px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.convo-title-p {
+  position: sticky;
+  font-size: 3em;
+  top: 0;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 30px;
+
 }
 
 .newMessageForm {
   /* position: fixed;
   right: 0;
   top: 50%; */
+  text-align: center;
 }
 
 .single-message-li {

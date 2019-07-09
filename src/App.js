@@ -12,7 +12,7 @@ import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import DMContainer from './containers/DMContainer'
 import {connect} from 'react-redux';
-import {getProfileFetch,stopDMing, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch,stopDMing,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -53,6 +53,7 @@ class App extends Component {
     // this.props.isDMing(false)
     this.props.stopDMing()
     this.props.stopCreatingNewEntry()
+    // this.props.isEditingEntryToggle()
     if (this.props.isCreatingNewEntryBool) {
       // this.props.isCreatingNewEntry(falseVal)
       this.setState({
@@ -115,9 +116,14 @@ class App extends Component {
           <Fragment>
             <div className="navsl">
                 <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
-                <p>Welcome to Webbl, {this.props.currentUserLoggedIn.username}! <small className="text-muted">(The best social network...)</small></p>
+                <p>Welcome to your Webbl, {this.props.currentUserLoggedIn.username}!</p>
                 <div>
-                  <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"50px"}}  src="./edit.png"/></a>Create A Post</p>
+                  {this.props.isEditingEntry ?
+                    null
+                    :
+                    <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>Create An Entry</p>
+                  }
+
                 </div>
                 <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
                 <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
@@ -142,7 +148,8 @@ const mapStateToProps = state => ({
   isCreatingNewEntryBool: state.entriesReducer.isCreatingNewEntryBool,
   singleEntryToView: state.entriesReducer.singleEntryToView,
   isDMingBool: state.conversationsReducer.isDMingBool,
-  userToDM: state.conversationsReducer.userToDM
+  userToDM: state.conversationsReducer.userToDM,
+  isEditingEntry: state.entriesReducer.isEditingEntry
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -157,7 +164,8 @@ const mapDispatchToProps = dispatch => ({
   viewEntriesOnProfile: userObj => dispatch(viewEntriesOnProfile(userObj)),
   isDMing: userObj => dispatch(isDMing(userObj)),
   stopCreatingNewEntry: () => dispatch(stopCreatingNewEntry()),
-  stopDMing: () => dispatch(stopDMing())
+  stopDMing: () => dispatch(stopDMing()),
+  isEditingEntryToggle: () => dispatch(isEditingEntryToggle())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

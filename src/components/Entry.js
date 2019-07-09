@@ -34,6 +34,7 @@ class Entry extends Component {
 
     handleUserClick = (event, clickedUserObj) => {
       event.preventDefault()
+      event.stopPropagation()
       const userObj = this.props.allUsers.find(user => {
         return clickedUserObj.id === user.id
       })
@@ -161,7 +162,6 @@ class Entry extends Component {
                       <div className="media-body">
                         <h4 className="media-heading"><a onClick={(event) => this.handleUserClick(event, this.props.entry.user)} href="">{this.props.entry.user? this.props.entry.user.username : null}</a></h4>
                         <div>
-                          <button className="view-profile-button">profile</button>
                           {this.props.entry.user_id === this.props.currentUserLoggedIn.id ?
                             null
                             :

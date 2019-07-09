@@ -7,22 +7,12 @@ import { API_ROOT } from '../constants';
 import NewConversationForm from '../components/NewConversationForm';
 import MessagesArea from '../components/MessagesArea';
 
-import {getProfileFetch, logoutUser, loginUser, viewSingleEntry} from '../redux/actions';
+import {getProfileFetch, fetchAllUsers,logoutUser, loginUser, viewSingleEntry} from '../redux/actions';
 
 
-const mapConversations = (conversations, handleClick) => {
-  return conversations.map(conversation => {
-    console.log(conversation);
-    return (
-      <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
-        {conversation.title}
-      </li>
-    );
-  });
-};
+
 
 class DMContainer extends Component {
-
 
 
   state = {
@@ -43,25 +33,39 @@ class DMContainer extends Component {
           "Authorization": `Bearer ${localStorage.getItem("token")}`}
     })
       .then(res => res.json())
-      .then(conversations => {
+      .then((conversations) => {
         console.log(conversations)
-        const myConversations = conversations.map(conversation => {
-          // console.log(conversation);
-          // debugger
+        // debugger
+        const myConversations = conversations.filter(conversation => {
+          let titleArr = conversation.title.split("-")
+          return titleArr.includes(this.props.currentUserLoggedIn.id.toString())
         })
-        this.setState({conversations})
+        console.log(myConversations);
+        this.setState({conversations: myConversations})
       })
 
-        // this.setState({ conversations }));
+  };
+
+  mapConversations = (conversations, handleClick) => {
+    return conversations.map(conversation => {
+      console.log(conversation);
+
+      let user1 = conversation.title.split("-")[0]
+      let user2 = conversation.title.split("-")[1]
+
+      let user1Name = this.props.allUsers.filter(user => user.id.toString() === user1 )[0].username
+      let user2Name = this.props.allUsers.filter(user => user.id.toString() === user2 )[0].username
+
+      return (
+        <li key={conversation.id} onClick={() => handleClick(conversation.id)}>
+          {user1Name} - {user2Name}
+        </li>
+      );
+    });
   };
 
   findActiveConversation = (conversations, activeConversation) => {
-    // console.log("state",this.state.conversations);
-    // console.log(activeConversation);
-    // console.log(conversations);
-    // console.log("FINDACTIVE",conversations.find(conversation => conversation.id === activeConversation));
 
-    // debugger
     const conversationFound = conversations.find(
       conversation => conversation.id === activeConversation
     );
@@ -98,22 +102,7 @@ class DMContainer extends Component {
     // this.setState({conversations: []})
     this.setState({ conversations: conversations });
   };
-  // handleReceivedMessage = response => {
-  //   const { message } = response;
-  //   console.log("I HAVE RECEIVED MESSAGE -", message);
-  //   // debugger
-  //   const conversations = [...this.state.conversations];
-  //   const conversation = conversations.find(
-  //     conversation => conversation.id === message.conversation_id
-  //   );
-  //
-  //
-  //   conversation.messages = [...conversation.messages, message];
-  //   console.log("WITH NEW MSG", conversations);
-  //   console.log(message);
-  //   this.setState({ conversations: conversations })
-  //
-  // };
+
 
   render = () => {
     const { conversations, activeConversation } = this.state;
@@ -132,7 +121,7 @@ class DMContainer extends Component {
           />
         ) : null}
         <h2>DM Conversations</h2>
-        <ul>{mapConversations(conversations, this.handleClick)}</ul>
+        <ul>{this.mapConversations(conversations, this.handleClick)}</ul>
         {activeConversation ? (
           <MessagesArea
             conversation={this.findActiveConversation(
@@ -164,11 +153,13 @@ class DMContainer extends Component {
 
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
-  userToDM: state.conversationsReducer.userToDM
+  userToDM: state.conversationsReducer.userToDM,
+  allUsers: state.usersReducer.allUsers
 })
 const mapDispatchToProps = dispatch => ({
   // userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
   // loginUser: userObj => dispatch(loginUser(userObj))
+  fetchAllUsers: () => dispatch(fetchAllUsers())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DMContainer);

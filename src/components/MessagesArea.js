@@ -2,11 +2,15 @@ import React, {Component,Fragment} from 'react';
 import NewMessageForm from './NewMessageForm';
 import TimeAgo from 'timeago-react'
 import {connect} from 'react-redux';
-import {userLoginFetch, loginUser} from '../redux/actions';
+import {userLoginFetch, loginUser, fetchAllUsers} from '../redux/actions';
 
 // helpers
 
 class MessagesArea extends Component {
+
+  componentDidMount() {
+    this.props.fetchAllUsers()
+  }
 
   state = {
 
@@ -53,12 +57,22 @@ class MessagesArea extends Component {
     });
   };
 
+  renderConversationTitle = () => {
+    let user1 = this.props.conversation.title.split("-")[0]
+    let user2 = this.props.conversation.title.split("-")[1]
+
+    let user1Name = this.props.allUsers.filter(user => user.id.toString() === user1 )[0].username
+    let user2Name = this.props.allUsers.filter(user => user.id.toString() === user2 )[0].username
+
+    return <Fragment><h2>{user1Name} - {user2Name}</h2></Fragment>
+  }
+
   render(){
     // console.log(this.props.conversation);
     console.log(this.props.conversation.messages);
     return (
       <div className="messagesArea-div" >
-        <h2>{this.props.conversation.title}</h2>
+        {this.renderConversationTitle()}
         <div className='message-container'>{this.orderedMessages(this.props.conversation.messages)}</div>
         <NewMessageForm conversation_id={this.props.conversation.id} />
       </div>
@@ -80,11 +94,12 @@ class MessagesArea extends Component {
 
 // export default MessagesArea;
 const mapStateToProps = state => ({
-  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
+  currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+  allUsers: state.usersReducer.allUsers
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  fetchAllUsers: () => dispatch(fetchAllUsers())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesArea);

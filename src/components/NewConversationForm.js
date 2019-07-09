@@ -28,8 +28,8 @@ class NewConversationForm extends React.Component {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Credentials" : true,
+        // "Access-Control-Allow-Origin" : "*",
+        // "Access-Control-Allow-Credentials" : true,
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify(this.state)

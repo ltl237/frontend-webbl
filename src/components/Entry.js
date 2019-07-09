@@ -107,26 +107,8 @@ class Entry extends Component {
       // If the conversation already exists, execute exit function or do nothing. Otherwise, fetch conversation to WebSockets.
 
       let conversationThatExists = []
-      // fetch("http://localhost:3000/api/v1/conversations")
-      // .then(res => res.json())
-      // .then(conversationData => {
-      //   console.log(conversationData)
-      //   conversationThatExists = conversationData.filter(conversation => conversation.user.id === clickedUserObj.id)
-      // })
-      // console.log("CHAT CLICK", body);
+      
       this.fetchToWebsocket("conversations", body);
-
-
-      // if (conversationThatExists) {
-      //     // this.props.exit();
-      //     App.cable.disconnect()
-      // }
-      // else {
-      //     this.fetchToWebsocket("conversations", body);
-      //     // this.props.exit();
-      //     App.cable.disconnect()
-      // }
-
     }
 
 

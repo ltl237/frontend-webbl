@@ -1,6 +1,7 @@
 const initialState = {
   currentUserLoggedIn: {},
-  profileToView: {}
+  profileToView: {},
+  allUsers: []
 }
 
 export const usersReducer = (state = initialState, action) => {

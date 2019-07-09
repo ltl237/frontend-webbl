@@ -26,7 +26,7 @@ class CommentForm extends Component {
     return (
       <Fragment>
             <textarea id={"comment-textarea-" + this.props.singleEntryToView.id} type="text" name="comment" style={{width:"500px"}} placeholder="comment here"></textarea>
-            <input id="comment-button" onClick={this.handleClick}  type="button" value="Comment !"></input>
+            <input id="comment-button" onClick={this.handleClick} type="button" value="Comment !"></input>
       </Fragment>
     );
   }

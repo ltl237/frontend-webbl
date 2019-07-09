@@ -32,7 +32,7 @@ class EntryModal extends Component {
     // this.props.getCommentsOnEntry(this.props.singleEntryToView)
     // this.props.getAllLikings()
     // console.log("before",this.props.likingsOnThisEntry);
-    this.props.getLikingsOnEntry(this.props.singleEntryToView)
+    // this.props.getLikingsOnEntry(this.props.singleEntryToView)
     // console.log("After",this.props.likingsOnThisEntry);
 
   }

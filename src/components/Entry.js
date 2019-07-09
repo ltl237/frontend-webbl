@@ -199,7 +199,6 @@ const mapStateToProps = state => ({
   singleEntryToView: state.entriesReducer.singleEntryToView,
   allLikings: state.likingsReducer.allLikings,
   getCommentsOnEntry: state.commentsReducer.getCommentsOnEntry,
-  getLikingsOnEntry: state.likingsReducer.getLikingsOnEntry,
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn
 })
 

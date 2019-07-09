@@ -35,7 +35,7 @@ class MessagesArea extends Component {
             <div className="single-message-container-div " >
             <div className="single-message-wrapper is-sender">
             <li className="single-message-li is-sender" key={message.id}>
-                <span className="single-message-span">{message.text}</span>
+                <span className="single-message-span sender-span"><strong>{message.text}</strong></span>
               </li><br></br>
               <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
               </div>
@@ -46,7 +46,7 @@ class MessagesArea extends Component {
           <div className="single-message-container-div ">
           <div className="single-message-wrapper is-receiver">
             <li className="single-message-li is-receiver" key={message.id}>
-              <span className="single-message-span">{message.text}</span>
+              <span className="single-message-span receiver-span"><strong>{message.text}</strong></span>
             </li><br></br>
             <div className="user-timeago-message">{message.user.username} <small>(<TimeAgo datetime={message.created_at}/>)</small></div>
             </div>

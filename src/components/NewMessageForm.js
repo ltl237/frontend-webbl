@@ -40,7 +40,6 @@ class NewMessageForm extends React.Component {
     return (
       <div className="newMessageForm form-group">
         <form onSubmit={this.handleSubmit}>
-          <label>New Message:</label>
           <br />
           <textarea
             style={{height:"2.3em",width:"35em",verticalAlign:"middle",display:"inline-block"}}

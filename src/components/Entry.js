@@ -107,7 +107,7 @@ class Entry extends Component {
       // If the conversation already exists, execute exit function or do nothing. Otherwise, fetch conversation to WebSockets.
 
       let conversationThatExists = []
-      
+
       this.fetchToWebsocket("conversations", body);
     }
 
@@ -138,7 +138,7 @@ class Entry extends Component {
                     <div className="media">
                       <div className="media-left">
                         <a href="#">
-                          <img src={Faker.image.avatar()} width="40" height="40" alt="..."/>
+                          <img src='./Blank-avatar.png' width="40" height="40" alt="..."/>
                         </a>
                       </div>
                       <div className="media-body">

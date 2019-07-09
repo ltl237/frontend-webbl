@@ -175,7 +175,7 @@ class EntryModal extends Component {
               <Fragment>
                 <section className="entry-header">
                   <div className="avatar-username">
-                    <img style={{position: "bottom"}} src={Faker.image.avatar()} width="auto" height="auto" alt="..."/>
+                    <img style={{position: "bottom"}} src='./Blank-avatar.png' width="200" height="200" alt="..."/>
                   </div>
                   <div className="title">
                     <strong><p style={{fontSize:"150%", marginLeft:"10%", marginTop:"2%", float:"right", width:"100%"}}>{this.props.singleEntryToView.title}</p></strong>
@@ -188,7 +188,8 @@ class EntryModal extends Component {
                   <div>
                     <p className="entry-content">{this.props.singleEntryToView.content}</p>
                   </div>
-                  <hr></hr>
+                  <hr style={{border:"1"}}></hr>
+                  <br></br>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
                     <div className="category-likes col-md-2">
                       {this.props.singleEntryToView.user_id === this.props.currentUserLoggedIn.id ?

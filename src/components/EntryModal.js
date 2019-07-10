@@ -8,7 +8,7 @@ import EditEntryForm from './EditEntryForm'
 import { API_ROOT, HEADERS } from '../constants';
 
 import {connect} from 'react-redux';
-import {userLoginFetch, viewSomeonesProfile, isDMing, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
+import {userLoginFetch, viewEntriesOnProfile, viewSomeonesProfile, isDMing, getCommentsOnEntry, getAllLikings, getLikingsOnEntry, viewSingleEntry, isCreatingNewEntry, isEditingEntryToggle} from '../redux/actions';
 
 class EntryModal extends Component {
   state = {
@@ -52,12 +52,18 @@ class EntryModal extends Component {
   handleUserClick = (event, clickedUserObj) => {
     event.preventDefault()
 
-
     const userObj = this.props.allUsers.find(user => {
       return clickedUserObj.id === user.id
     })
+    this.props.viewEntriesOnProfile(userObj)
     this.props.viewSomeonesProfile(userObj)
-    document.querySelector(".modal-backdrop").remove()
+    if (document.querySelector(".modal-backdrop")) {
+      document.querySelector(".modal-backdrop").remove()
+    }
+    if (document.querySelector("body").classList.length > 0) {
+      document.querySelector("body").classList.toggle("modal-open")
+    }
+
 
   }
 
@@ -80,7 +86,7 @@ class EntryModal extends Component {
     //   console.log(conversationData)
     //   conversationThatExists = conversationData.filter(conversation => conversation.user.id === clickedUserObj.id)
     // })
-    console.log("CHAT CLICK", body);
+    // console.log("CHAT CLICK", body);
 
     this.fetchToWebsocket("conversations", body);
 
@@ -127,7 +133,7 @@ class EntryModal extends Component {
 
     if (likingsArray.length > 0) {
       // return <Fragment><p>{likingsArray.length} Likes</p></Fragment>
-      console.log(likingsArray[0].user.username);
+      // console.log(likingsArray[0].user.username);
       return   <Fragment>
                   <a onClick={this.handleLikingsClick} href="" className="user-likings-link">
                   {likingsArray.length} Likes
@@ -143,7 +149,7 @@ class EntryModal extends Component {
   renderLikingsList = () => {
     const likingsArray = this.props.likingsOnThisEntry.filter(liking => liking.entry.id === this.props.singleEntryToView.id)
     return likingsArray.map(liking => {
-      console.log("RENDERLIKINGLIST", liking);
+      // console.log("RENDERLIKINGLIST", liking);
       return <Fragment><li className="list-group-item">{liking.user.username}</li></Fragment>
     })
     // this.props.likingsOnThisEntry.map(liking => {
@@ -167,6 +173,14 @@ class EntryModal extends Component {
       commentsArray.push(this.props.commentsOnThisEntry[i]);
     }
     // return commentsArray;
+    // {this.props.entry.user_id === this.props.currentUserLoggedIn.id ?
+    //   null
+    //   :
+    //   <button className="dm-button" onClick={(event) => this.handleChatClick(event, this.props.entry.user)}>chat</button>
+    //
+    // }
+    console.log(commentsArray[0]);
+    console.log(this.props.currentUserLoggedIn.id);
 
     return <Fragment>
     {
@@ -178,9 +192,7 @@ class EntryModal extends Component {
               <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
               <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
               </a>
-
-              <div><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
-
+            
             </li>
             </div>
             </Fragment>
@@ -296,7 +308,8 @@ const mapDispatchToProps = dispatch => ({
   viewSingleEntry: entryObj => dispatch(viewSingleEntry(entryObj)),
   isCreatingNewEntry: () => dispatch(isCreatingNewEntry()),
   isEditingEntryToggle: () => dispatch(isEditingEntryToggle()),
-  isDMing: (userObj) => dispatch(isDMing(userObj))
+  isDMing: (userObj) => dispatch(isDMing(userObj)),
+  viewEntriesOnProfile: (userObj) => dispatch(viewEntriesOnProfile(userObj))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryModal);

@@ -19,7 +19,7 @@ class CommentForm extends Component {
     event.target.parentElement.firstElementChild.nextElementSibling.value = ""
 
     this.props.createNewComment(commentObj)
-
+    console.log(commentObj);
   }
 
   render() {

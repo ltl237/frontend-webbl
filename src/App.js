@@ -125,7 +125,7 @@ class App extends Component {
                   }
 
                 </div>
-                <a className="my-profile" onClick={this.viewMyProfileClick} href="">my Profile</a>
+                <p><a className="my-profile" onClick={this.viewMyProfileClick} href=""><img className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>Profile</p>
                 <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
             </div>
           </Fragment>

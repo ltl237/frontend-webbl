@@ -28,6 +28,7 @@
 }
 .name-container {
   /* border: 1px solid black; */
+
 }
 
 .comments-container {
@@ -47,10 +48,13 @@
 }
 
 .profile {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  box-shadow: inset -1px -11px 4px 8px #4ea4d4;
+  background-color: #dcf0f5;
+  border-radius: 5px;
   height: 50em;
   overflow: scroll;
-  width: 75%;
+  width: 85%;
   margin: 0 auto;
 }
 

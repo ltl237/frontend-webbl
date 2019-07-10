@@ -32,6 +32,8 @@ class NewMessageForm extends React.Component {
     .then(messagesData => {
       console.log(messagesData);
     })
+    let mDiv = document.querySelector('.messagesArea-div')
+    mDiv.scrollTop = mDiv.scrollHeight + 15
     this.setState({ text: '' });
     // .then(res => res.json())
   };

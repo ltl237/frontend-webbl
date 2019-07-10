@@ -57,7 +57,7 @@ class ProfileContainer extends Component {
       <div className="profile">
         <div className="container">
           <div className="row">
-            <div className="col-8 name-container">
+            <div className="col-md-8 name-container">
               <span><h2 style={{float:"left"}}>{this.props.profileToView.username} </h2><p> ({this.props.profileToView.first_name} {this.props.profileToView.last_name})</p></span>
               <span><p>{this.props.profileToView.age} years old</p></span><br></br>
               <span><p className="bio">{this.props.profileToView.bio}</p></span>
@@ -66,7 +66,7 @@ class ProfileContainer extends Component {
 
             </div>
 
-            <div className="col-4 comments-container">
+            <div className="col-md-4 comments-container">
 
 
             {this.renderMyComments()}

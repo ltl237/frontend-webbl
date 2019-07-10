@@ -183,12 +183,11 @@ class EntryModal extends Component {
                     <br/><p className="entry-user" style={{fontSize:'10px', float:"left", marginLeft: "5%"}}>Created: <TimeAgo datetime={this.props.singleEntryToView.created_at}/></p></h4>
                   </div>
                 </section>
-                <hr></hr>
+                <hr style={{borderTop:"1px solid #428bca"}}></hr>
                 <section className="entry-footer">
                   <div>
-                    <p className="entry-content">{this.props.singleEntryToView.content}</p>
+                    <p className="entry-content" style={{borderBottom:"1px solid #428bca", paddingBottom:"8%"}}>{this.props.singleEntryToView.content}</p>
                   </div>
-                  <hr style={{border:"1"}}></hr>
                   <br></br>
                   <div className="entry-footer-option container" style={{"display":"flex", "width":"auto", "justifyContent":"space-between"}}>
                     <div className="category-likes col-md-2">
@@ -215,10 +214,9 @@ class EntryModal extends Component {
                       <CommentForm />
                     </div>
                   </div>
-                  <hr></hr>
 
 
-                  <div className="comments-div">
+                  <div className="comments-div" style={{paddingTop:"15px"}}>
                     <ul className="list-group list-group-flush">
                     {
                       this.props.commentsOnThisEntry.length > 0 ?
@@ -230,7 +228,7 @@ class EntryModal extends Component {
                               <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                               </a>
 
-                              <div><button className="view-profile-button">profile</button><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
+                              <div><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
 
                             </li>
                             </div>

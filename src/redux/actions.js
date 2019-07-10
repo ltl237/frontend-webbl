@@ -113,6 +113,9 @@ export const userLoginFetch = user => {
   }
 }
 
+export const updateClosestUsers = (closestUsers) => ({type:'UPDATE_CLOSEST_USERS', payload: closestUsers})
+
+
 export const appendNewConversation = (conversation) => ({type:"APPEND_NEW_CONVERSATION", payload:conversation})
 
 export const stopDMing = () => ({type:'STOP_DMING'})

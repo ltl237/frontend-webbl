@@ -30,7 +30,7 @@ class MessagesArea extends Component {
     // debugger
     return sortedMessages.map(message => {
       if (this.props.currentUserLoggedIn.id === message.user.id) {
-        console.log(message);
+        // console.log(message);
         return <Fragment key={message.id}>
             <div className="single-message-container-div " >
             <div className="single-message-wrapper is-sender">
@@ -69,7 +69,7 @@ class MessagesArea extends Component {
 
   render(){
     // console.log(this.props.conversation);
-    console.log(this.props.conversation.messages);
+    // console.log(this.props.conversation.messages);
     return (
       <Fragment>
       <div className="messagesArea-div" >

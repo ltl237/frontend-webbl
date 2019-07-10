@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { ActionCable, ActionCableConsumer } from 'react-actioncable-provider';
-
+import PresenceCable from '../components/PresenceCable'
 import ConversationsCables from '../components/ConversationsCables'
 import { API_ROOT } from '../constants';
 import NewConversationForm from '../components/NewConversationForm';
@@ -37,13 +37,13 @@ class DMContainer extends Component {
     })
       .then(res => res.json())
       .then((conversations) => {
-        console.log(conversations)
+        // console.log(conversations)
         // debugger
         const myConversations = conversations.filter(conversation => {
           let titleArr = conversation.title.split("-")
           return titleArr.includes(this.props.currentUserLoggedIn.id.toString())
         })
-        console.log(myConversations);
+        // console.log(myConversations);
         this.setState({conversations: myConversations})
       })
 
@@ -51,7 +51,7 @@ class DMContainer extends Component {
 
   mapConversations = (conversations, handleClick) => {
     return conversations.map(conversation => {
-      console.log(conversation);
+      // console.log(conversation);
 
       let user1 = conversation.title.split("-")[0]
       let user2 = conversation.title.split("-")[1]
@@ -80,7 +80,7 @@ class DMContainer extends Component {
 
   handleReceivedConversation = response => {
     const { conversation } = response;
-    console.log("i have received conversation -",conversation);
+    // console.log("i have received conversation -",conversation);
     // debugger
     this.setState({
       conversations: [...this.state.conversations, conversation]
@@ -93,7 +93,7 @@ class DMContainer extends Component {
       conversation => conversation.id === message.conversation_id
     );
     conversation.messages = [...conversation.messages, message];
-    console.log(conversation);
+    // console.log(conversation);
 
     conversations.forEach((conversation,idx) => {
       if (conversation.id === message.conversation_id) {
@@ -112,6 +112,7 @@ class DMContainer extends Component {
     // console.log(this.state);
     return (
       <div className="conversationsList" style={{height:"80em"}}>
+        <PresenceCable/>
         <ActionCable
           channel={{ channel: "ConversationsChannel" }}
           onReceived={this.handleReceivedConversation}

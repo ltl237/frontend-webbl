@@ -1,7 +1,8 @@
 const initialState = {
   currentUserLoggedIn: {},
   profileToView: {},
-  allUsers: []
+  allUsers: [],
+  closestUsers: []
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -18,6 +19,8 @@ export const usersReducer = (state = initialState, action) => {
         return {...state, profileToView: action.payload}
       case 'FETCH_ALL_USERS':
         return {...state, allUsers: action.payload}
+      case 'UPDATE_CLOSEST_USERS':
+        return {...state, closestUsers: action.payload}
       default:
         return state;
     }

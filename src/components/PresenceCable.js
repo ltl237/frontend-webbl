@@ -1,0 +1,65 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { ActionCable } from 'react-actioncable-provider';
+
+// ACTIONS
+import { updateClosestUsers } from '../redux/actions'
+
+
+class PresenceCable extends Component {
+  // The server broadcasts when a user (dis)connects. If the user is part of the closest users array, it changes status accordingly.
+  handleReceivedActiveUser = (response) => {
+    const { type } = response
+    console.log("ACTIVEUSER", response);
+    switch(type) {
+      case "DC_USER":
+        let closestUsers = [...this.props.closestUsers];
+        let closestUser = closestUsers.find(
+          closestUser => closestUser.userId === response.user
+        );
+        if (closestUser) {
+          closestUser.active_user = false
+          this.props.updateClosestUsers(closestUsers)
+        }
+      case "CO_USER":
+        let closestUsers2 = [...this.props.closestUsers];
+        let closestUser2 = closestUsers2.find(
+          closestUser => closestUser.userId === response.user
+        );
+        if (closestUser2) {
+          closestUser2.active_user = true
+          this.props.updateClosestUsers(closestUsers2)
+        }
+      default:
+        return null;
+    }
+
+  };
+
+  render() {
+    return (
+            <ActionCable
+                channel={{
+                  channel: 'PresenceChannel'
+                }}
+                onReceived={(response) => this.handleReceivedActiveUser(response)}
+            />
+    );
+  }
+};
+
+//REDUX PROPS
+const mapStateToProps = state => {
+  return {
+    closestUsers: state.usersReducer.closestUsers
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateClosestUsers: (closestUsers) => dispatch(updateClosestUsers(closestUsers)),
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PresenceCable);

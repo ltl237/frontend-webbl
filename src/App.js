@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import LoginSignupContainer from "./containers/LoginSignupContainer"
+import PresenceCable from './components/PresenceCable'
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import Signup from './components/Signup'
 import Login from './components/Login'
@@ -109,6 +110,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        
         {this.props.currentUserLoggedIn.username
         ?
 

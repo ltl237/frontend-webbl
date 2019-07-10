@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Signup from '../components/Signup'
 import Login from '../components/Login'
 import Entry from '../components/Entry'
+import TimeAgo from 'timeago-react'
 import {connect} from 'react-redux';
 import {getProfileFetch, logoutUser, loginUser, getCommentsOnEntry} from '../redux/actions';
 
@@ -31,16 +32,23 @@ class ProfileContainer extends Component {
 
   renderMyComments = () => {
     //
+    let commentArray = []
+    console.log("before", commentArray);
+    for (var i = this.props.profileToView.comments.length - 1; i >= 0; i--) {
+      commentArray.push(this.props.profileToView.comments[i]);
+    }
+    console.log(commentArray);
+
     return <Fragment>
-            {this.props.profileToView.username}'s comments:
+            {this.props.profileToView.username}'s Webbl comments:
             <table className="table table-striped">
               <tbody>
-              {this.props.profileToView.comments.map(comment => {
+              {commentArray.map(comment => {
                 // {this.props.getCommentsOnEntry(entry)}
                 return <Fragment>
                   <tr>
-                  <td><strong>{comment.entry.title} </strong><br></br>
-                  -{comment.content}
+                  <td><strong style={{color:"#24529b"}} >Entry: </strong><strong>{comment.entry.title} </strong><br></br>
+                  -{comment.content} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                   </td>
                   </tr>
                 </Fragment>
@@ -51,6 +59,8 @@ class ProfileContainer extends Component {
     </Fragment>
   }
 
+
+
   render() {
     // console.log(this.props.profileToView);
     return (
@@ -58,21 +68,20 @@ class ProfileContainer extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 name-container">
-              <span><h2 style={{float:"left"}}>{this.props.profileToView.username} </h2><p> ({this.props.profileToView.first_name} {this.props.profileToView.last_name})</p></span>
-              <span><p>{this.props.profileToView.age} years old</p></span><br></br>
-              <span><p className="bio">{this.props.profileToView.bio}</p></span>
+              <div className="user-details" style={{display:"inline-block"}}>
+                <span><h1 style={{color:"#24529b"}}>{this.props.profileToView.username}'s Webbl Entries </h1></span>
+                <p>AKA {this.props.profileToView.first_name} {this.props.profileToView.last_name} ({this.props.profileToView.age})</p>
 
-              {this.renderMyEntries()}
-
+              </div>
+              <div className="my-entries" style={{marginTop:"10%"}}>
+                {this.renderMyEntries()}
+              </div>
             </div>
-
+            <hr style={{color:"#24529b"}} width="1" size="500"></hr>
             <div className="col-md-4 comments-container">
 
 
-            {this.renderMyComments()}
-
-
-
+              {this.renderMyComments()}
 
             </div>
           </div>

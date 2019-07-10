@@ -123,7 +123,7 @@ class EntryForm extends Component {
               {this.props.isEditingEntry ?
                   <textarea name="content" onChange={this.handleContentChange} className="field-style" value={this.state.content_input}></textarea>
                   :
-                  <textarea name="content" className="field-style" placeholder="What would you like to write about ?"></textarea>
+                  <textarea style={{height:"300px"}} name="content" className="field-style" placeholder="What would you like to write about ?"></textarea>
                 }
               </li>
               <li>
@@ -141,7 +141,7 @@ class EntryForm extends Component {
                   <input onClick={this.handleSubmit} type="submit" value="Submit Edit" />
                   </Fragment>
                   :
-                  <input onClick={this.handleSubmit} type="submit" value="Create Entry" />
+                  <input style={{marginTop:"8%"}} onClick={this.handleSubmit} type="submit" value="Create Entry" />
 
                 }
 

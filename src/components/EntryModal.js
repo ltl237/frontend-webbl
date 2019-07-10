@@ -161,6 +161,37 @@ class EntryModal extends Component {
     this.props.isEditingEntryToggle()
   }
 
+  renderComments = () => {
+    var commentsArray = [];
+    for (var i = this.props.commentsOnThisEntry.length - 1; i >= 0; i--) {
+      commentsArray.push(this.props.commentsOnThisEntry[i]);
+    }
+    // return commentsArray;
+
+    return <Fragment>
+    {
+      commentsArray.length > 0 ?
+      commentsArray.map(comment =>  {
+        return <Fragment>
+          <div key={comment.id}>
+            <li class="list-group-item">{comment.content}
+              <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
+              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
+              </a>
+
+              <div><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
+
+            </li>
+            </div>
+            </Fragment>
+      })
+      :
+      null
+    }
+    </Fragment>
+
+  }
+
   render() {
     // console.log(this.props);
 
@@ -219,23 +250,7 @@ class EntryModal extends Component {
                   <div className="comments-div" style={{paddingTop:"15px"}}>
                     <ul className="list-group list-group-flush">
                     {
-                      this.props.commentsOnThisEntry.length > 0 ?
-                      this.props.commentsOnThisEntry.map(comment =>  {
-                        return <Fragment>
-                          <div key={comment.id}>
-                            <li class="list-group-item">{comment.content}
-                              <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
-                              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
-                              </a>
-
-                              <div><button className="dm-button" onClick={(event) => this.handleChatClick(event, comment.user)}>chat</button></div>
-
-                            </li>
-                            </div>
-                            </Fragment>
-                      })
-                      :
-                      null
+                      this.renderComments()
                     }
                     </ul>
                   </div>

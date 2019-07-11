@@ -116,17 +116,29 @@ class App extends Component {
         <Fragment>
           <Fragment>
             <div className="navsl">
-                <EntrySearch/>
-                <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
-                <p>Welcome to your Webbl, {this.props.currentUserLoggedIn.username}!</p>
-                  {this.props.isEditingEntry ?
-                    null
-                    :
-                    <a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>
-                  }
 
-                <a className="my-profile" onClick={this.viewMyProfileClick} href=""><img className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>
-                <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
+                <p><a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./w.png"/></a>ebbl</p>
+                <EntrySearch/>
+                <div className="btn-group" role="group">
+                    {this.props.isEditingEntry ?
+                      null
+                      :
+                      <Fragment>
+                      <div className="new-entry-div icon-wrapper">
+                      <a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>
+                      <p className="new-p">New Entry</p>
+                      </div>
+                      </Fragment>
+                    }
+                  <div className="my-profile-div icon-wrapper">
+                  <a className="my-profile" onClick={this.viewMyProfileClick} href=""><img title="My Webbl" className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>
+                  <p className="new-p-profile">Profile</p>
+                  </div>
+                  <div className="logout-div icon-wrapper">
+                  <a onClick={this.handleClickLogout} href=""><img title="Logout" className="nav-icon" style={{height:"40px"}} src="./logout.png" /></a>
+                  <p className="logout-p">Logout</p>
+                  </div>
+                </div>
             </div>
           </Fragment>
           {this.renderPage()}

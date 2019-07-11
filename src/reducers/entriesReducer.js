@@ -14,7 +14,8 @@ export const entriesReducer = (state = initialState, action) => {
 
     switch (action.type) {
       case 'FETCH_ALL_ENTRIES':
-        return {...state, allEntries: action.payload, entriesOnScreen:action.payload}
+        let entriesByDate = action.payload.sort((a,b) => (a.name > b.name) ? 1 : -1)
+        return {...state, allEntries: entriesByDate, entriesOnScreen:entriesByDate}
       case 'VIEW_SINGLE_ENTRY':
         return {...state, singleEntryToView: action.payload}
       case 'CREATE_NEW_ENTRY':
@@ -38,9 +39,7 @@ export const entriesReducer = (state = initialState, action) => {
 
         return {...state, singleEntryToView: updatedSingleEntry, allEntries: newEntriesArr}
       case 'VIEW_ENTRIES_ON_PROFILE':
-
-        console.log(action.payload);
-        // debugger
+        // let entriesByDate = action.payload.sort((a,b) => (a.name > b.name) ? 1 : -1)
         return {...state, entriesOnScreen: action.payload}
       case 'ARRANGE_ENTRIES':
         return {...state, entriesOnScreen: action.payload}

@@ -250,8 +250,9 @@ export const viewEntriesOnProfile = userObj => {
               if (entriesData.errors) {
                 console.log(entriesData.errors);
               } else {
-                const entriesArray = entriesData.filter(entry => entry.user.id === userObj.id)
+                const entriesArray = entriesData.filter(entry => entry.user.id === userObj.id).sort((a,b) => (a.name > b.name) ? 1 : -1)
                 console.log(entriesArray);
+                // let entriesByDate = action.payload.sort((a,b) => (a.name > b.name) ? 1 : -1)
                 dispatch({type: 'VIEW_ENTRIES_ON_PROFILE', payload: entriesArray})
               }
             })

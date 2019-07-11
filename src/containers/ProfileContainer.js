@@ -67,23 +67,25 @@ class ProfileContainer extends Component {
       <div className="profile">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 name-container">
-              <div className="user-details" style={{display:"inline-block"}}>
-                <span><h1 style={{color:"#24529b"}}>{this.props.profileToView.username}'s Webbl Entries </h1></span>
-                <p>AKA {this.props.profileToView.first_name} {this.props.profileToView.last_name} ({this.props.profileToView.age})</p>
+            <div className="col-md-12">
+              <div className="col-md-8 name-container">
+                <div className="user-details" style={{display:"inline-block"}}>
+                  <span><h1 style={{color:"#24529b"}}>{this.props.profileToView.username}'s Webbl Entries </h1></span>
+                  <p>AKA {this.props.profileToView.first_name} {this.props.profileToView.last_name} ({this.props.profileToView.age})</p>
+
+                </div>
+                <div className="my-entries" style={{marginTop:"10%"}}>
+                  {this.renderMyEntries()}
+                </div>
+              </div>
+              <div className="col-md-4 comments-container">
+
+                {this.renderMyComments()}
 
               </div>
-              <div className="my-entries" style={{marginTop:"10%"}}>
-                {this.renderMyEntries()}
-              </div>
             </div>
-            <hr class="vertical-line" style={{height:"50em"}}></hr>
-            <div className="col-md-4 comments-container">
 
 
-              {this.renderMyComments()}
-
-            </div>
           </div>
         </div>
 

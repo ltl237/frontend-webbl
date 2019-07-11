@@ -17,7 +17,7 @@ class EntriesContainer extends Component {
 
     if (searchText !== "") {
       return <Fragment>
-        {this.props.entriesOnScreen.reverse().map(entry => {
+        {this.props.entriesOnScreen.map(entry => {
             return <Entry key={entry.id} entry={entry}/>
           })
         }
@@ -26,7 +26,7 @@ class EntriesContainer extends Component {
     if (searchText === null) {
 
       return <Fragment>
-      {this.props.allEntries.reverse().map(entry => {
+      {this.props.allEntries.map(entry => {
         return <Entry key={entry.id} entry={entry} />
       })}
       </Fragment>

@@ -35,7 +35,8 @@
   border: 1px solid grey;
   border-radius: 5px;
   overflow: scroll;
-  height: 50em;
+  height: 60em;
+  margin-top: 5%;
 }
 .entries-container {
   /* border: 1px solid grey; */
@@ -46,6 +47,69 @@
   background-color: #dcf0f5;
   box-shadow: inset -1px -11px 4px 8px #4ea4d4;
   overflow: scroll;
+}
+
+.icon-wrapper {
+  text-align: center;
+}
+
+.new-p {
+  opacity: 0;
+  font-size: 13px;
+  transition: all .2s ease-in-out;
+}
+
+.new-entry-div:hover .new-p {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.new-p-profile {
+  opacity: 0;
+  font-size: 13px;
+  transition: all .2s ease-in-out;
+}
+
+.my-profile-div:hover .new-p-profile {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.logout-p {
+  opacity: 0;
+  font-size: 13px;
+  transition: all .2s ease-in-out;
+}
+
+.logout-div:hover .logout-p {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+
+.icon-wrapper {
+  display: inline-block;
+}
+.entry-search-container {
+  /* position: absolute;
+  top: 10%;
+  border: 1px solid black; */
+  display: inherit;
+  transition: all .2s ease-in-out;
+}
+
+.entry-search-container:hover {
+  transform: scale(1.1);
+}
+
+.entry-search-input {
+  vertical-align: middle;
+}
+
+.search-select {
+  font-size: .7em;
+  height: 50%;
+  width: auto;
 }
 
 .vertical-line {
@@ -250,7 +314,7 @@
   padding-right: 4px;
   display: flex;
   justify-content: space-between;
-  background-color: lightblue;
+  background-color: #dceff5;
   /* position: fixed; */
   width: 100%;
   border-radius: 2px;

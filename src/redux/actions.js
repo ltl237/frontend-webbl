@@ -238,6 +238,7 @@ export const getCommentsOnEntry = (entryObj) => {
   }
 }
 
+export const arrangeEntries = entriesArray => ({type: 'ARRANGE_ENTRIES', payload:entriesArray})
 
 export const viewEntriesOnProfile = userObj => {
   console.log(userObj);
@@ -350,6 +351,7 @@ export const viewSomeonesProfile = userObj => {
                 const user = userData.filter(user => user.id === userObj.id)
                 console.log(user);
                 dispatch({type:'VIEW_SOME_USER_PROFILE', payload: user[0]})
+                // dispatch({})
               }
             })
   }

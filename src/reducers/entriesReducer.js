@@ -42,6 +42,8 @@ export const entriesReducer = (state = initialState, action) => {
         console.log(action.payload);
         // debugger
         return {...state, entriesOnScreen: action.payload}
+      case 'ARRANGE_ENTRIES':
+        return {...state, entriesOnScreen: action.payload}
       default:
         return state;
     }

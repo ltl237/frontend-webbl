@@ -11,16 +11,36 @@ import {getProfileFetch, logoutUser, loginUser, viewSingleEntry} from '../redux/
 
 class EntriesContainer extends Component {
 
+  renderEntries = () => {
+    // debugger
+    let searchText = document.querySelector('.entry-search-input')
+
+    if (searchText !== "") {
+      return <Fragment>
+        {this.props.entriesOnScreen.reverse().map(entry => {
+            return <Entry key={entry.id} entry={entry}/>
+          })
+        }
+      </Fragment>
+    }
+    if (searchText === null) {
+
+      return <Fragment>
+      {this.props.allEntries.reverse().map(entry => {
+        return <Entry key={entry.id} entry={entry} />
+      })}
+      </Fragment>
+    }
+
+
+  }
 
   render() {
 
     return (
       <Fragment>
           <div className="entries-container">
-            {this.props.allEntries.reverse().map(entry => {
-                return <Entry key={entry.id} entry={entry}/>
-              })
-            }
+            {this.renderEntries()}
           </div>
       </Fragment>
     );
@@ -31,6 +51,7 @@ class EntriesContainer extends Component {
 
 const mapStateToProps = state => ({
   currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
+  entriesOnScreen: state.entriesReducer.entriesOnScreen,
   allEntries: state.entriesReducer.allEntries
 })
 

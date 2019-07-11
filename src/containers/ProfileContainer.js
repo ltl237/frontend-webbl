@@ -40,7 +40,7 @@ class ProfileContainer extends Component {
     console.log(commentArray);
 
     return <Fragment>
-            {this.props.profileToView.username}'s Webbl comments:
+            <h2 >{this.props.profileToView.username}'s Webbl comments:</h2>
             <table className="table table-striped">
               <tbody>
               {commentArray.map(comment => {
@@ -77,7 +77,7 @@ class ProfileContainer extends Component {
                 {this.renderMyEntries()}
               </div>
             </div>
-            <hr style={{color:"#24529b"}} width="1" size="500"></hr>
+            <hr class="vertical-line" style={{height:"50em"}}></hr>
             <div className="col-md-4 comments-container">
 
 

@@ -35,16 +35,25 @@
   border: 1px solid grey;
   border-radius: 5px;
   overflow: scroll;
+  height: 50em;
 }
 .entries-container {
   /* border: 1px solid grey; */
   border-radius: 5px;
   width: 77%;
-  height: 80em;
+  height: 70em;
   margin: 0 auto;
   background-color: #dcf0f5;
   box-shadow: inset -1px -11px 4px 8px #4ea4d4;
   overflow: scroll;
+}
+
+.vertical-line {
+  width: 0px; /* Use only border style */
+  height: 100%;
+  float: left;
+  border: 1px inset; /* This is default border style for <hr> tag */
+  display: inline-block;
 }
 
 .profile {
@@ -52,7 +61,7 @@
   box-shadow: inset -1px -11px 4px 8px #4ea4d4;
   background-color: #dcf0f5;
   border-radius: 5px;
-  height: 80em;
+  height: 70em;
   overflow: scroll;
   width: 85%;
   margin: 0 auto;

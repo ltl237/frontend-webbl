@@ -11,6 +11,7 @@ import ChatContainer from './containers/ChatContainer'
 import EntriesContainer from './containers/EntriesContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import DMContainer from './containers/DMContainer'
+import EntrySearch from './components/EntrySearch'
 import {connect} from 'react-redux';
 import {getProfileFetch,stopDMing,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
@@ -115,17 +116,16 @@ class App extends Component {
         <Fragment>
           <Fragment>
             <div className="navsl">
+                <EntrySearch/>
                 <a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./infinity.svg"/></a>
                 <p>Welcome to your Webbl, {this.props.currentUserLoggedIn.username}!</p>
-                <div>
                   {this.props.isEditingEntry ?
                     null
                     :
-                    <p><a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>Create An Entry</p>
+                    <a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>
                   }
 
-                </div>
-                <p><a className="my-profile" onClick={this.viewMyProfileClick} href=""><img className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>Profile</p>
+                <a className="my-profile" onClick={this.viewMyProfileClick} href=""><img className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>
                 <button className="logout-button button" onClick={this.handleClickLogout}>Log Out</button>
             </div>
           </Fragment>

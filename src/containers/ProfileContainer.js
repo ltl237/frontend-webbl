@@ -40,14 +40,14 @@ class ProfileContainer extends Component {
     console.log(commentArray);
 
     return <Fragment>
-            <h2 >{this.props.profileToView.username}'s Webbl comments:</h2>
+            <h2 style={{color:"#6468e2"}}>{this.props.profileToView.username}'s Webbl comments:</h2>
             <table className="table table-striped">
               <tbody>
               {commentArray.map(comment => {
                 // {this.props.getCommentsOnEntry(entry)}
                 return <Fragment>
                   <tr>
-                  <td><strong style={{color:"#24529b"}} >Entry: </strong><strong>{comment.entry.title} </strong><br></br>
+                  <td><strong style={{color:"#6468e2"}} >Entry: </strong><strong>{comment.entry.title} </strong><br></br>
                   -{comment.content} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
                   </td>
                   </tr>
@@ -70,7 +70,7 @@ class ProfileContainer extends Component {
             <div className="col-md-12">
               <div className="col-md-8 name-container">
                 <div className="user-details" style={{display:"inline-block"}}>
-                  <span><h1 style={{color:"#24529b"}}>{this.props.profileToView.username}'s Webbl Entries </h1></span>
+                  <span><h1 style={{color:"#6468e2"}}>{this.props.profileToView.username}'s Webbl Entries </h1></span>
                   <p>AKA {this.props.profileToView.first_name} {this.props.profileToView.last_name} ({this.props.profileToView.age})</p>
 
                 </div>

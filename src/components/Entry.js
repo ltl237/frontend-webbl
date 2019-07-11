@@ -142,7 +142,7 @@ class Entry extends Component {
                         </a>
                       </div>
                       <div className="media-body">
-                        <h4 style={{color:"#24529b"}} className="media-heading">{this.props.entry.user? this.props.entry.user.username : null}</h4>
+                        <h4 style={{color:"#6468e2"}} className="media-heading">{this.props.entry.user? this.props.entry.user.username : null}</h4>
                         <div>
                           {this.props.entry.user_id === this.props.currentUserLoggedIn.id ?
                             null

@@ -189,10 +189,16 @@ class EntryModal extends Component {
         return <Fragment>
           <div key={comment.id}>
             <li class="list-group-item">{comment.content}
+              {this.props.profileToView ?
+              null
+              :
               <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
-              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
               </a>
-            
+
+              }
+
+              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
+
             </li>
             </div>
             </Fragment>
@@ -293,7 +299,8 @@ const mapStateToProps = state => {
     likingsOnThisEntry: state.likingsReducer.likingsOnThisEntry,
     isEditingEntry: state.entriesReducer.isEditingEntry,
     currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
-    isDMingBool: state.conversationsReducer.isDMingBool
+    isDMingBool: state.conversationsReducer.isDMingBool,
+    profileToView: state.usersReducer.profileToView
   }
 
 }

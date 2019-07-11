@@ -61,7 +61,7 @@ class DMContainer extends Component {
 
       return (
         <li className="list-group-item" key={conversation.id} onClick={() => handleClick(conversation.id)}>
-          {user1Name} - {user2Name}
+          <strong>{user1Name} - {user2Name}</strong>
         </li>
       );
     });

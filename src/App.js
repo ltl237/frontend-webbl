@@ -13,7 +13,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import DMContainer from './containers/DMContainer'
 import EntrySearch from './components/EntrySearch'
 import {connect} from 'react-redux';
-import {getProfileFetch,stopDMing,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch,stopDMing,arrangeEntries,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -54,6 +54,7 @@ class App extends Component {
     // this.props.isDMing(false)
     this.props.stopDMing()
     this.props.stopCreatingNewEntry()
+    this.props.arrangeEntries(this.props.allEntries)
     // this.props.isEditingEntryToggle()
     if (this.props.isCreatingNewEntryBool) {
       // this.props.isCreatingNewEntry(falseVal)
@@ -117,7 +118,7 @@ class App extends Component {
           <Fragment>
             <div className="navsl">
 
-                <p><a className="logo" href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./w.png"/></a>ebbl</p>
+                <strong className="logo"><a  href="" onClick={this.viewHomePageClick} ><img style={{height:"50px"}} src="./w.png"/></a>ebbl</strong>
                 <EntrySearch/>
                 <div className="btn-group" role="group">
                     {this.props.isEditingEntry ?
@@ -125,17 +126,17 @@ class App extends Component {
                       :
                       <Fragment>
                       <div className="new-entry-div icon-wrapper">
-                      <a onClick={this.handleNewEntryClick} href=""><img className="nav-icon"  style={{height:"40px"}}  src="./edit.png"/></a>
+                      <a onClick={this.handleNewEntryClick} href=""><img className="nav-icon entry-image"  style={{height:"40px"}}  src="./edit.png"/></a>
                       <p className="new-p">New Entry</p>
                       </div>
                       </Fragment>
                     }
                   <div className="my-profile-div icon-wrapper">
-                  <a className="my-profile" onClick={this.viewMyProfileClick} href=""><img title="My Webbl" className="nav-icon" style={{height:"40px"}} src="./Blank-avatar.png"/></a>
+                  <a className="my-profile" onClick={this.viewMyProfileClick} href=""><img title="My Webbl" className="nav-icon profile-image" style={{height:"40px"}} src="./Blank-avatar.png"/></a>
                   <p className="new-p-profile">Profile</p>
                   </div>
                   <div className="logout-div icon-wrapper">
-                  <a onClick={this.handleClickLogout} href=""><img title="Logout" className="nav-icon" style={{height:"40px"}} src="./logout.png" /></a>
+                  <a onClick={this.handleClickLogout} href=""><img title="Logout" className="nav-icon logout-image" style={{height:"40px"}} src="./logout.png" /></a>
                   <p className="logout-p">Logout</p>
                   </div>
                 </div>
@@ -161,7 +162,8 @@ const mapStateToProps = state => ({
   singleEntryToView: state.entriesReducer.singleEntryToView,
   isDMingBool: state.conversationsReducer.isDMingBool,
   userToDM: state.conversationsReducer.userToDM,
-  isEditingEntry: state.entriesReducer.isEditingEntry
+  isEditingEntry: state.entriesReducer.isEditingEntry,
+  allEntries: state.entriesReducer.allEntries
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -177,7 +179,8 @@ const mapDispatchToProps = dispatch => ({
   isDMing: userObj => dispatch(isDMing(userObj)),
   stopCreatingNewEntry: () => dispatch(stopCreatingNewEntry()),
   stopDMing: () => dispatch(stopDMing()),
-  isEditingEntryToggle: () => dispatch(isEditingEntryToggle())
+  isEditingEntryToggle: () => dispatch(isEditingEntryToggle()),
+  arrangeEntries: (entriesArray) => dispatch(arrangeEntries(entriesArray))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -6,47 +6,11 @@ import {userLoginFetch, viewSingleEntry, viewSomeonesProfile, isCreatingNewEntry
 
 class EntryForm extends Component {
 
-  // process_message = (received_msg) => {
-  //
-  //   let parsedEntry = JSON.parse(received_msg)
-  //   if (parsedEntry["identifier"]!="_ping") {
-  //     console.log("Entry is received..." +  received_msg);
-  //     if (parsedEntry["entry"]) {
-  //       let entry=parsedEntry["entry"]
-  //       if (entry['action']=='new_ticket') {
-  //         console.log('add entry to store' + entry["ticket"])
-  //         this.props.dispatch(addEntryToStore(entry["ticket"]))
-  //       }
-  //       if (entry['action']=='updated_ticket') {
-  //         console.log('updating entry in store' + entry["ticket"])
-  //         this.props.dispatch(updateEntryInStore(entry["ticket"]))
-  //       }
-  //     }
-  //   }
-  //
-  // }
+
 
   componentDidMount() {
     console.log('component did mount')
-    // let ws= new WebSocket("ws:localhost:3000/cable" )
-    // ws.onopen = function() {
-    //     let identifier = JSON.stringify({channel:'EntriesChannel'})
-    //     let msg = JSON.stringify({command:'subscribe', identifier:identifier})
-    //     ws.send(msg);
-    //  };
-    //
-    //  ws.onmessage = (evt) => {
-    //     var received_msg = evt.data;
-    //     this.process_message(received_msg)
-    //  }
-    //
-    //  ws.onclose = function()
-    //  {
-    //     // websocket is closed.
-    //     console.log("Connection is closed...");
-    //  };
-    //
-    //  this.setState({ws: ws})
+
   }
 
   state = {
@@ -63,7 +27,7 @@ class EntryForm extends Component {
   handleSubmit = event => {
     event.preventDefault()
     let entryObj = {
-      title: document.querySelector(`input[name]`).value,
+      title: document.querySelector(`.entry-title-input`).value,
       content: document.querySelector(`textarea[name]`).value,
       category: document.querySelector("select").value,
       user_id: this.props.currentUserLoggedIn.id,
@@ -76,7 +40,7 @@ class EntryForm extends Component {
         this.props.isEditingEntryToggle()
         return this.props.editEntryFetch(entryObj)
       case false:
-
+        console.log(entryObj);
         return this.props.createNewEntry(entryObj, falseVal)
       default:
         return
@@ -112,9 +76,9 @@ class EntryForm extends Component {
             <ul>
               <li>
                 {this.props.isEditingEntry ?
-                  <input type="text" onChange={this.handleTitleChange} name="title" className="field-style field-split align-left" value={this.state.title_input}/>
+                  <input type="text" onChange={this.handleTitleChange} name="title" className="field-style field-split align-left entry-title-input" value={this.state.title_input}/>
                   :
-                  <input type="text" name="title" className="field-style field-split align-left" placeholder="Entry Title"/>
+                  <input type="text" name="title" className="field-style field-split align-left entry-title-input" placeholder="Entry Title"/>
                 }
 
 

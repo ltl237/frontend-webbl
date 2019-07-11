@@ -339,6 +339,8 @@ export const setCurrentUserLoggedIn = userObj => ({
   payload: userObj
 })
 
+export const offViewingProfileBool = () => ({type:"OFF_VIEWING_PROFILE_BOOL"})
+
 export const viewSomeonesProfile = userObj => {
   return dispatch => {
     return fetch("http://localhost:3000/api/v1/users")

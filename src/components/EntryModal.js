@@ -181,23 +181,27 @@ class EntryModal extends Component {
     // }
     console.log(commentsArray[0]);
     console.log(this.props.currentUserLoggedIn.id);
-
+    console.log("IS VIEWING?", this.props.isViewingProfile);
     return <Fragment>
     {
       commentsArray.length > 0 ?
       commentsArray.map(comment =>  {
         return <Fragment>
           <div key={comment.id}>
-            <li class="list-group-item">{comment.content}
-              {this.props.profileToView ?
-              null
+            <li class="list-group-item">
+              {comment.content}
+              {this.props.isViewingProfile ?
+                <Fragment>
+                <br></br><p style={{color:"rgb(100, 104, 226)", lineHeight:"initial", display:"inline-block"}}>{this.renderUsername(comment)}</p> <small>(<TimeAgo datetime={comment.created_at}/>)</small>
+                </Fragment>
               :
-              <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
-              </a>
-
+                <Fragment>
+                  <a onClick={(event) => this.handleUserClick(event,comment.user)} href="">
+                  <br></br><p style={{color:"rgb(100, 104, 226)", lineHeight:"initial", display:"inline-block"}}>{this.renderUsername(comment)}</p> <small>(<TimeAgo datetime={comment.created_at}/>)</small>
+                  </a>
+                </Fragment>
               }
 
-              <br></br>{this.renderUsername(comment)} <small>(<TimeAgo datetime={comment.created_at}/>)</small>
 
             </li>
             </div>
@@ -209,6 +213,8 @@ class EntryModal extends Component {
     </Fragment>
 
   }
+
+  renderAuthor = () => {}
 
   render() {
     // console.log(this.props);
@@ -228,7 +234,25 @@ class EntryModal extends Component {
                   </div>
                   <div className="title">
                     <strong><p style={{fontSize:"150%", marginLeft:"10%", marginTop:"2%", float:"right", width:"100%"}}>{this.props.singleEntryToView.title}</p></strong>
-                    <h4 className="media-heading" style={{float:"left", marginLeft:"2%", marginTop:"5%"}}>Author: {this.props.singleEntryToView.user ? <a onClick={(event) => this.handleUserClick(event,this.props.singleEntryToView.user)} href=""> {this.props.singleEntryToView.user.username} </a> : null}
+
+                    <h4 className="media-heading" style={{float:"left", marginLeft:"2%", marginTop:"5%"}}>
+                    Author:
+                    {this.props.singleEntryToView.user ?
+
+                      <Fragment>
+                      {this.props.isViewingProfile ?
+                        <p style={{color:"rgb(100, 104, 226)"}}>{this.props.singleEntryToView.user.username}  </p>
+                        :
+                      <a onClick={(event) => this.handleUserClick(event,this.props.singleEntryToView.user)} href="">
+                       <p>{this.props.singleEntryToView.user.username}</p>
+                       </a>
+                       }
+                       </Fragment>
+                       :
+                       null
+                    }
+
+
                     <br/><p className="entry-user" style={{fontSize:'10px', float:"left", marginLeft: "5%"}}>Created: <TimeAgo datetime={this.props.singleEntryToView.created_at}/></p></h4>
                   </div>
                 </section>
@@ -300,7 +324,8 @@ const mapStateToProps = state => {
     isEditingEntry: state.entriesReducer.isEditingEntry,
     currentUserLoggedIn: state.usersReducer.currentUserLoggedIn,
     isDMingBool: state.conversationsReducer.isDMingBool,
-    profileToView: state.usersReducer.profileToView
+    profileToView: state.usersReducer.profileToView,
+    isViewingProfile: state.usersReducer.isViewingProfile
   }
 
 }

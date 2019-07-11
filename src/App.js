@@ -13,7 +13,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import DMContainer from './containers/DMContainer'
 import EntrySearch from './components/EntrySearch'
 import {connect} from 'react-redux';
-import {getProfileFetch,stopDMing,arrangeEntries,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
+import {getProfileFetch,stopDMing,arrangeEntries,offViewingProfileBool,isEditingEntryToggle, stopCreatingNewEntry, logoutUser, isDMing, viewSomeonesProfile,viewEntriesOnProfile, setCurrentUserLoggedIn, viewOwnProfile, viewHome, fetchAllTheEntries, fetchAllUsers, isCreatingNewEntry, createNewEntry} from './redux/actions';
 
 class App extends Component {
 
@@ -55,6 +55,7 @@ class App extends Component {
     this.props.stopDMing()
     this.props.stopCreatingNewEntry()
     this.props.arrangeEntries(this.props.allEntries)
+    this.props.offViewingProfileBool()
     // this.props.isEditingEntryToggle()
     if (this.props.isCreatingNewEntryBool) {
       // this.props.isCreatingNewEntry(falseVal)
@@ -180,7 +181,8 @@ const mapDispatchToProps = dispatch => ({
   stopCreatingNewEntry: () => dispatch(stopCreatingNewEntry()),
   stopDMing: () => dispatch(stopDMing()),
   isEditingEntryToggle: () => dispatch(isEditingEntryToggle()),
-  arrangeEntries: (entriesArray) => dispatch(arrangeEntries(entriesArray))
+  arrangeEntries: (entriesArray) => dispatch(arrangeEntries(entriesArray)),
+  offViewingProfileBool: () => dispatch(offViewingProfileBool())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

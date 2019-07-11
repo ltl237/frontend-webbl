@@ -20,7 +20,11 @@ export const entriesReducer = (state = initialState, action) => {
       case 'VIEW_SINGLE_ENTRY':
         return {...state, singleEntryToView: action.payload, isViewingProfile: false}
       case 'CREATE_NEW_ENTRY':
-        return {...state, allEntries: [...state.allEntries, action.payload], isCreatingNewEntryBool: action.payload.falseVal, isViewingProfile: false, entriesOnScreen:[...state.entriesOnScreen, action.payload]}
+        console.log(action.payload);
+        // debugger
+        let sortedEntriesAfter = [...state.allEntries, action.payload].sort((a,b) => (a.created_at > b.created_at) ? -1 : 1)
+        console.log(sortedEntriesAfter);
+        return {...state, allEntries: sortedEntriesAfter, isCreatingNewEntryBool: action.payload.falseVal, isViewingProfile: false, entriesOnScreen:[...state.entriesOnScreen, action.payload].sort((a,b) => (a.created_at > b.created_at) ? -1 : 1)}
       case 'IS_CREATING_NEW_ENTRY':
           return {...state, isCreatingNewEntryBool: !state.isCreatingNewEntryBool, isViewingProfile: false}
       case 'STOP_CREATING_NEW_ENTRY':
